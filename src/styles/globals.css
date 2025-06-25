@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../../public/fonts/JetBrainsMono-VariableFont_wght.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@theme {
+  /* Colors with numbers consist of 2, "color-1" which is brighter and "color-2" which is darker */
+  --color-light-1: #F9F9EA;
+  --color-light-2: #E8E8D5;
+  --color-dark-1: #413D2D;
+  --color-dark-2: #2E2C23;
+  --color-yellow-1: #98CE14;
+  --color-yellow-2: #648610;
+  --color-blue-1: #7BB0F2;
+  --color-blue-2: #1A599E;
+  --color-red-1: #E32525;
+  --color-red-2: #8E1B1B;
+  --color-green-1: #21CA3F;
+  --color-green-2: #17852B;
+  --color-gray: #C1C1C1;
+  --color-white: #FFFFFF
+}
+
+body{
+  font-family: 'JetBrains Mono';
+}
