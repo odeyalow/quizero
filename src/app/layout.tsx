@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import '../styles/globals.css';
-import MainLayout from "@/components/mainLayout";
+import MainLayout from "@/components/layouts/mainLayout";
 
 export const metadata: Metadata = {
   title: "Quizero",

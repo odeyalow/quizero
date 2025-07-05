@@ -13,6 +13,7 @@
   --color-light-2: #E8E8D5;
   --color-dark-1: #413D2D;
   --color-dark-2: #2E2C23;
+  --color-gray: #C1C1C1;
   --color-yellow-1: #98CE14;
   --color-yellow-2: #648610;
   --color-blue-1: #7BB0F2;
@@ -21,11 +22,28 @@
   --color-red-2: #8E1B1B;
   --color-green-1: #21CA3F;
   --color-green-2: #17852B;
-  --color-gray: #C1C1C1;
-  --color-white: #FFFFFF
 }
 
-body{
+html {
+  font-size: 10px;
+}
+
+body {
   font-family: 'JetBrains Mono';
   background-color: #F9F9EA;
+  padding: 0 25px;
+  max-width: 1150px;
+  height: 100svh;
+  margin: 4.5rem auto 0;
+  color: #413D2D;
+  line-height: 1;
+  overflow-x: hidden;
+
+  @media (max-width: 640px) {
+    margin-top: 2rem;
+  }
+}
+
+input:focus, button:focus {
+  outline: none;
 }
