@@ -6,12 +6,13 @@ import Link from "next/link";
 interface NavLinkProps {
     children: React.ReactNode;
     href: string;
+    textColor?: string;
 }
 
-const NavLink:React.FC<NavLinkProps> = ({ children, href }) => {
+const NavLink:React.FC<NavLinkProps> = ({ children, href, textColor }) => {
     const pathname = usePathname();
 
-    const linkStyles = pathname === href ? 'text-yellow-1' : 'max-lg:text-light-2';
+    const linkStyles = pathname === href ? 'text-yellow-1' : `${textColor} max-lg:text-light-2`;
 
     return (
         <Link className={`text-[2rem] hover:text-yellow-1 ${linkStyles}`} href={href}>{children}</Link>

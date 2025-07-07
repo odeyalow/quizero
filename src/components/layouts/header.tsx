@@ -42,7 +42,7 @@ const Header = () => {
                     <NavLink href="create-quiz"> Создать</NavLink>
                     <NavLink href="discover">Исследовать</NavLink>
                 </div>
-                <div className="flex gap-[1.5rem]">
+                <div className="flex max-lg:gap-[1.5rem]">
                     <Button type="dark">Войти</Button>
                     <MenuOpenButton onClick={handleMenu}/>
                 </div>
