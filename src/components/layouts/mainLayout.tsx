@@ -3,13 +3,11 @@ import Footer from "./footer";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="mt-[4.5rem] relative h-max">
-            <div className="mx-auto max-w-[1200px] px-[2.5rem]">
-                <Header />
-                {children}
-            </div>
+        <main className="mt-[2rem] sm:mt-[4.5rem] relative h-max">
+            <Header />
+            {children}
             <Footer />
-        </div>
+        </main>
     );
 }
  

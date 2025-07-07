@@ -22,17 +22,17 @@ const Button:React.FC<ButtonProps> = ({ type, onClick, children, styles }) => {
             <button
             onClick={onClick}
             className={`
-                translate-y-[-7%] cursor-pointer
+                translate-y-[-7%] cursor-pointer relative z-2
                 w-full py-[.8rem] px-[1.5rem]
                 border-[3.5px] rounded-[10px] ${buttonStyles[type].border}
-                ${buttonStyles[type].text} text-[1.6rem] font-[600] leading-[21px]
+                ${buttonStyles[type].text} text-[1.6rem] font-semibold leading-[21px]
                 ${buttonStyles[type].bg}
-                active:translate-y-0
+                active:translate-y-0 hover:translate-y-[-12%]
                 ${styles}
             `}>
                 {children}
             </button>
-            <div className={`absolute bottom-0 z-[-1] rounded-b-[10px] w-full h-[25px] ${buttonStyles[type].decorBg}`}></div>
+            <div className={`absolute bottom-0 z-[0] rounded-b-[10px] w-full h-[25px] ${buttonStyles[type].decorBg}`}></div>
         </div>
     );
 }

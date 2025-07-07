@@ -15,7 +15,7 @@ const NavLink:React.FC<NavLinkProps> = ({ children, href, textColor }) => {
     const linkStyles = pathname === href ? 'text-yellow-1' : `${textColor} max-lg:text-light-2`;
 
     return (
-        <Link className={`text-[2rem] hover:text-yellow-1 ${linkStyles}`} href={href}>{children}</Link>
+        <Link className={`text-[2rem] font-regular hover:text-yellow-1 ${linkStyles}`} href={href}>{children}</Link>
     );
 }
  

@@ -3,7 +3,7 @@
 @font-face {
   font-family: 'JetBrains Mono';
   src: url('../../public/fonts/JetBrainsMono-VariableFont_wght.ttf');
-  font-weight: 400;
+  font-weight: 100 800;
   font-style: normal;
 }
 
@@ -38,10 +38,14 @@ body {
   line-height: 1;
   position: relative;
   overflow-x: hidden;
-
-  @media (max-width: 640px) {
-    margin-top: 2rem;
+  @media (max-width: 250px) {
+    position: static;
+    min-width: 250px;
   }
+}
+
+p {
+  line-height: 2.6rem;
 }
 
 input:focus, button:focus {
