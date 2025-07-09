@@ -15,7 +15,7 @@ export default function Home() {
           Квизы это не только развлечение, но и отличный способ расширить кругозор, вспомнить интересные факты и просто хорошо провести время.
         </p>
         <div className="flex gap-[2rem] max-[400px]:flex-col">
-          <Link href='/discover'>
+          <Link href='/categories'>
             <Button type="yellow">Попробовать</Button>
           </Link>
           <Button type="gray">Узнать больше</Button>
@@ -24,13 +24,13 @@ export default function Home() {
           <h3 style={{fontSize: 'clamp(1rem, 6vw, 3rem)'}}
             className="text-[3rem] font-extrabold text-left mb-[4rem] max-[500px]:text-center">🧠Готов напрячь мозги?</h3>
           <div className="flex flex-col gap-[2rem]">
-            <Link href='/discover'>
+            <Link href='/categories'>
               <Button type="gray">Конечно!</Button>
             </Link>
-            <Link href='/discover'>
+            <Link href='/categories'>
               <Button type="gray">Я уже готов:)</Button>
             </Link>
-            <Link href='/discover'>
+            <Link href='/categories'>
               <Button type="gray">Обижаете))</Button>
             </Link>
           </div>
@@ -45,7 +45,7 @@ export default function Home() {
             className="mb-[4rem] text-light-1">
             Кино, музыка, наука, логика, технологии и многое другое — у нас найдётся квиз для каждого. Начни с любимой категории или попробуй что-то новое!
           </p>
-          <Link className="max-md:mx-auto" href='/discover'>
+          <Link className="max-md:mx-auto" href='/categories'>
               <Button type="yellow">Перейти к темам</Button>
           </Link>
         </div>

@@ -51,3 +51,7 @@ p {
 input:focus, button:focus {
   outline: none;
 }
+
+*{
+  transition: ease .2s;
+}

@@ -25,8 +25,14 @@ const SectionWithHeader:React.FC<SectionWithButtonProps> = ({ bigTitle, smallTit
                     onClick={router.back}>
                     <Arrow />
                 </IconButton>
-                <h1 style={{fontSize: 'clamp(2.5rem, 8vw, 4rem)'}}
-                    className="font-extrabold text-left">{smallTitle || bigTitle}</h1>
+                {
+                    bigTitle && <h1 style={{fontSize: 'clamp(2.5rem, 8vw, 4rem)'}}
+                    className="font-extrabold text-left">{bigTitle}</h1>
+                }
+                {
+                    smallTitle && <h1 style={{fontSize: 'clamp(1.5rem, 5vw, 2.8rem)'}}
+                    className="font-extrabold text-left">{smallTitle}</h1>
+                }
             </header>
             {children}
         </Section>
