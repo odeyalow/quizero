@@ -50,13 +50,13 @@ export default function Home() {
           </Link>
         </div>
         <div className="lg:mt-[-3rem] mt-[5rem] max-md:scale-[75%] max-md:hidden">
-          <div className="border-[5px] border-yellow-2 p-[3rem] bg-white rounded-[2rem] absolute ml-[10rem] hover:translate-y-[-25%]  hover:translate-x-[10%]">
+          <div className="border-[5px] border-yellow-2 p-[3rem] bg-white rounded-[2rem] absolute ml-[10rem] hover:translate-y-[-25%]  hover:translate-x-[10%] hover:scale-110">
             <h4 className="font-extrabold text-[3rem]">🦁Какое животное на фото?</h4>
           </div>
-          <div className="border-[5px] border-yellow-2 p-[3rem] bg-white rounded-[2rem] absolute mt-[8rem] hover:translate-y-[-25%] hover:translate-x-[-10%]">
+          <div className="border-[5px] border-yellow-2 p-[3rem] bg-white rounded-[2rem] absolute mt-[8rem] hover:translate-y-[-25%] hover:translate-x-[-10%] hover:scale-110">
             <h4 className="font-extrabold text-[3rem]">🎬Угадай популярного актера!</h4>
           </div>
-          <div className="border-[5px] border-yellow-2 p-[3rem] bg-white rounded-[2rem] absolute mt-[16rem] ml-[20rem] hover:translate-y-[-25%] hover:translate-x-[10%]">
+          <div className="border-[5px] border-yellow-2 p-[3rem] bg-white rounded-[2rem] absolute mt-[16rem] ml-[20rem] hover:translate-y-[-25%] hover:translate-x-[10%] hover:scale-110">
             <h4 className="font-extrabold text-[3rem]">💬Насколько ты умён?</h4>
           </div>
         </div>   
