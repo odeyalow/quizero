@@ -12,7 +12,7 @@ interface NavLinkProps {
 const NavLink:React.FC<NavLinkProps> = ({ children, href, textColor }) => {
     const pathname = usePathname();
 
-    const linkStyles = pathname.replace('/', '') === href ? 'text-yellow-1' : `${textColor} max-lg:text-light-2`;
+    const linkStyles = pathname === href ? 'text-yellow-1' : `${textColor} max-lg:text-light-2`;
 
     return (
         <Link className={`text-[2rem] font-regular hover:text-yellow-1 ${linkStyles}`} href={href}>{children}</Link>
