@@ -1,3 +1,7 @@
+'use client'
+
+import { useRouter } from "next/navigation";
+
 import Section from "./section";
 import IconButton from "../ui/iconButton";
 
@@ -6,14 +10,19 @@ import Arrow from "@/assets/arrow";
 interface SectionWithButtonProps {
     bigTitle?: string;
     smallTitle?: string;
+    styles?: string;
     children: React.ReactNode;
 }
 
-const SectionWithHeader:React.FC<SectionWithButtonProps> = ({ bigTitle, smallTitle, children }) => {
+const SectionWithHeader:React.FC<SectionWithButtonProps> = ({ bigTitle, smallTitle, styles, children }) => {
+    const router = useRouter();
+    
     return (
-        <Section>
+        <Section styles={styles}>
             <header className="flex gap-[2rem] mb-[5rem] items-center max-sm:justify-center">
-                <IconButton type="gray">
+                <IconButton
+                    type="gray"
+                    onClick={router.back}>
                     <Arrow />
                 </IconButton>
                 <h1 style={{fontSize: 'clamp(2.5rem, 8vw, 4rem)'}}
