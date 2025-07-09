@@ -1,4 +1,4 @@
-type ButtonType = 'yellow' | 'dark' | 'gray' | 'green' | 'red' | 'blue';
+import ButtonType from "@/types/buttonType";
 
 interface ButtonProps {
     type: ButtonType;
