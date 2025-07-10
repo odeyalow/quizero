@@ -1,0 +1,1 @@
+//Remove categories and quizzes grid and add only one grid for all with data prop

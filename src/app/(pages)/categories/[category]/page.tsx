@@ -10,8 +10,11 @@ export default function Categories() {
     const categoryName = params.get('categoryName')
 
     return (
-        <SectionWithHeader smallTitle={`Все квизы в категории "${categoryName}"`}>
-            <QuizzesGrid />
-        </SectionWithHeader>
+        <>
+            <SectionWithHeader smallTitle={`Все квизы в категории "${categoryName}"`}>
+                <QuizzesGrid />
+            </SectionWithHeader>
+            
+        </>
     )
 }
