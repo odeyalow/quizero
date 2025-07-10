@@ -83,10 +83,6 @@ export default function Home() {
           </div>
         </div> 
       </Section>
-
-      <BaseModal title="Модалка" styles="max-w-[500px]">
-        <div></div>
-      </BaseModal>
     </div>
   );
 }
