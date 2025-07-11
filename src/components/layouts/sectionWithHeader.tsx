@@ -18,7 +18,7 @@ const SectionWithHeader:React.FC<SectionWithButtonProps> = ({ bigTitle, smallTit
     const router = useRouter();
     
     return (
-        <Section styles={styles}>
+        <Section styles={`mb-[10rem] ${styles}`}>
             <header className="flex gap-[2rem] mb-[5rem] items-center max-sm:justify-center">
                 <IconButton
                     type="gray"
