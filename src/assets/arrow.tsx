@@ -1,7 +1,7 @@
-const Arrow = () => {
+const Arrow = ({ styles }: { styles?: string}) => {
     return (
         <svg
-        className="w-[30px] h-[30px]"
+        className={`w-[30px] h-[30px] ${styles}`}
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

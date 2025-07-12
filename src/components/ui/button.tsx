@@ -3,11 +3,12 @@ import ButtonType from "@/types/buttonType";
 interface ButtonProps {
     type: ButtonType;
     onClick?: () => void;
+    active?: boolean
     children: React.ReactNode;
     styles?: string;
 }
 
-const Button:React.FC<ButtonProps> = ({ type, onClick, children, styles }) => {
+const Button:React.FC<ButtonProps> = ({ type, onClick, active, children, styles }) => {
     const buttonStyles = {
         yellow: { bg: 'bg-yellow-1', text: 'text-yellow-2', border: 'border-yellow-2', decorBg: 'bg-yellow-2' },
         dark: { bg: 'bg-dark-1', text: 'text-yellow-1', border: 'border-dark-2', decorBg: 'bg-dark-2' },
@@ -17,18 +18,19 @@ const Button:React.FC<ButtonProps> = ({ type, onClick, children, styles }) => {
         blue: { bg: 'bg-blue-1', text: 'text-blue-2', border: 'border-blue-2', decorBg: 'bg-blue-2' },
     }
     
+    const activeStyles = !active && 'translate-y-[-3px] hover:translate-y-[-5px] active:translate-y-0'
+    
     return (
         <div className="relative">
             <button
             onClick={onClick}
             className={`
-                translate-y-[-3px] cursor-pointer relative z-2
+                cursor-pointer relative z-2
                 w-full py-[.8rem] px-[1.5rem]
                 border-[3.5px] rounded-[10px] ${buttonStyles[type].border}
                 ${buttonStyles[type].text} text-[1.6rem] font-semibold leading-[21px]
                 ${buttonStyles[type].bg}
-                active:translate-y-0 hover:translate-y-[-5px]
-                ${styles}
+                ${activeStyles} ${styles}
             `}>
                 {children}
             </button>
