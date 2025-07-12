@@ -7,13 +7,14 @@ import Button from "@/components/ui/button";
 import IconButton from "@/components/ui/iconButton";
 
 import Arrow from "@/assets/arrow";
+import Cross from "@/assets/cross";
 
 export default function CreateQuiz() {
     return (
         <SectionWithHeader bigTitle="Создание квиза">
             <div>
                 {/* Main information */}
-                <h2 className="text-[3rem] font-extrabold mb-[3rem]">Общая информация</h2>
+                <h2 className="text-[3rem] font-extrabold mb-[3rem]">Заголовок этапа</h2>
                 {/* <div className="flex gap-[3rem]">
                     <div className="flex flex-col gap-[2rem] w-full">
                         <Input type="text" placeholder="Как он будет называться?" name="quiz-name" label="Название"/>
@@ -50,7 +51,7 @@ export default function CreateQuiz() {
                 {/* Main information */}
 
                 {/* Questions */}
-                {/* <div>
+                {/* <div className="flex flex-col gap-[3rem]">
                     <div className="flex gap-[1.5rem]">
                         <div className="flex gap-[1rem]">
                             <Button type="gray" styles="text-[2rem]">1</Button>
@@ -62,6 +63,42 @@ export default function CreateQuiz() {
                             <Button type="red" styles="text-[2rem]">Удалить</Button>
                         </div>
                     </div>
+                    <div className="w-full">
+                        <span className="block font-bold mb-[1.5rem] text-left text-[1.8rem]">Картинка</span>
+                        <div className="border-[5px] border-gray border-dashed rounded-[1rem] h-[450px] mb-[3rem] relative grid place-items-center group hover:border-blue-1">
+                            <span className="absolute text-[2rem] mx-[10rem] text-center text-gray font-bold group-hover:text-blue-1">
+                                Загрузите картинку которая будет показываться на этом вопросе. *Если картинка не загружена то вопрос будет без нее.
+                            </span>
+                            <input type="file" name="quiz-cover" className="opacity-0 cursor-pointer w-full h-full" />
+                        </div>
+                        <Button type="blue">Загрузить изображение</Button>
+                    </div>
+                    <Input type="text" placeholder="Как он будет называться?" name="quiz-name" label="Текст вопроса"/>
+                    <div className="flex flex-col gap-[1.5rem]">
+                        <span className="block font-bold mb-[1.5rem] text-left text-[1.8rem]">Варианты ответов</span>
+                        <div className="flex gap-[1rem]">
+                            <CheckButton type="radio" name="quiz-question"/>
+                            <Input type="text" placeholder="Текст ответа" name="quiz-name"/>
+                            <IconButton type="gray">
+                                <Cross styles="w-[25px]"/>
+                            </IconButton>
+                        </div>
+                        <div className="flex gap-[1rem]">
+                            <CheckButton type="radio" name="quiz-question"/>
+                            <Input type="text" placeholder="Текст ответа" name="quiz-name"/>
+                            <IconButton type="gray">
+                                <Cross styles="w-[25px]"/>
+                            </IconButton>
+                        </div>
+                        <div className="flex gap-[1rem]">
+                            <CheckButton type="radio" name="quiz-question"/>
+                            <Input type="text" placeholder="Текст ответа" name="quiz-name"/>
+                            <IconButton type="gray">
+                                <Cross styles="w-[25px]"/>
+                            </IconButton>
+                        </div>
+                    </div>
+                    <Button type="blue">Добавить ответ</Button>
                 </div> */}
                 {/* Questions */}
 

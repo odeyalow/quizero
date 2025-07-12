@@ -20,7 +20,7 @@ const Input:React.FC<InputProps> = ({ type, name, label, placeholder }) => {
             autoComplete="off"
             className="
                 translate-y-[-3px]
-                w-full py-[8px] px-[15px] relative z-2
+                w-full h-[45px] px-[15px] relative z-2
                 border-[3.5px] border-gray rounded-[10px]
                 bg-white
                 text-[1.6rem] font-semibold placeholder:text-gray leading-[5px]

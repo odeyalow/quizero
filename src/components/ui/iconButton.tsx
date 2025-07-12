@@ -13,7 +13,7 @@ const IconButton:React.FC<IconButtonProps> = ({ type, styles, onClick, children 
         <Button
             onClick={onClick}
             type={type}
-            styles={`py-[0] pl-[0] pr-[0] h-[41px] min-w-[45px] grid place-items-center ${styles}`}>
+            styles={`py-[0] pl-[0] pr-[0] h-[45px] min-w-[45px] grid place-items-center ${styles}`}>
             {children}
         </Button>
     );
