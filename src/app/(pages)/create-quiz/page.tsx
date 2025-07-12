@@ -102,6 +102,11 @@ export default function CreateQuiz() {
                 </div> */}
                 {/* Questions */}
 
+                {/* Preview */}
+                <div>
+                    
+                </div>
+                {/* Preview */}
 
                 <div className="flex justify-between mt-[3rem] h-[43.4px]">
                     <Button type="yellow" styles="flex items-center gap-[0.5rem] h-full">

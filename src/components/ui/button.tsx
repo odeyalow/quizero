@@ -28,7 +28,7 @@ const Button:React.FC<ButtonProps> = ({ type, onClick, active, children, styles 
                 cursor-pointer relative z-2
                 w-full h-[45px] px-[1.5rem]
                 border-[3.5px] rounded-[10px] ${buttonStyles[type].border}
-                ${buttonStyles[type].text} text-[1.6rem] font-semibold leading-[21px]
+                ${buttonStyles[type].text} text-[1.6rem] font-extrabold leading-[21px]
                 ${buttonStyles[type].bg}
                 ${activeStyles} ${styles}
             `}>
