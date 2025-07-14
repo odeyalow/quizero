@@ -1,5 +1,5 @@
-import Button from "./button";
 import IconButton from "./iconButton";
+
 const MenuOpenButton = ({ onClick }: { onClick: () => void }) => {
     return (
         <IconButton

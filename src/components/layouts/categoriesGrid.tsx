@@ -7,25 +7,25 @@ const CategoriesGrid = () => {
             imageUrl="/images/temporary.png"
             imageAlt="Temp"
             title="Категория"
-            slug="/categories/category"
+            slug="/categories/singleCategory"
             />
             <CategoryCard
             imageUrl="/images/temporary.png"
             imageAlt="Temp"
             title="Категория"
-            slug="/categories/category"
+            slug="/categories/singleCategory"
             />
             <CategoryCard
             imageUrl="/images/temporary.png"
             imageAlt="Temp"
             title="Категория"
-            slug="/categories/category"
+            slug="/categories/singleCategory"
             />
             <CategoryCard
             imageUrl="/images/temporary.png"
             imageAlt="Temp"
             title="Категория"
-            slug="/categories/category"
+            slug="/categories/singleCategory"
             />
         </div>
     );

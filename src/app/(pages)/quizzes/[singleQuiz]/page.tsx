@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import SectionWithHeader from "@/components/layouts/sectionWithHeader";
 import Button from "@/components/ui/button";
@@ -7,7 +8,7 @@ import IconButton from "@/components/ui/iconButton";
 import Triangle from "@/assets/triangle";
 import Share from "@/assets/share";
 
-export default function Discover() {
+export default function SingleQuiz() {
     return (
         <SectionWithHeader bigTitle="Готовы к вызову?">
             <h2 className="text-[3rem] font-extrabold mb-[3rem]">Названия квиза</h2>
@@ -40,10 +41,12 @@ export default function Discover() {
                     </div>
                     <div className="flex gap-[1rem] max-sm:flex-col">
                         <div className="w-full">
-                            <Button type="yellow" styles="flex justify-center items-center gap-[0.5rem]">
-                            Начать
-                            <Triangle />
-                        </Button>
+                            <Link href='/quizzes/atempt/quizID'>
+                                <Button type="yellow" styles="flex justify-center items-center gap-[0.5rem]">
+                                    Начать
+                                    <Triangle />
+                                </Button>
+                            </Link>
                         </div>
                         <IconButton type="blue">
                             <Share />

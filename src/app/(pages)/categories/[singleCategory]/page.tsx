@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import SectionWithHeader from "@/components/layouts/sectionWithHeader";
 import QuizzesGrid from "@/components/layouts/quizzesGrid";
 
-export default function Categories() {
+export default function SingleCategory() {
     const params = useSearchParams();
     const categoryName = params.get('categoryName')
 
