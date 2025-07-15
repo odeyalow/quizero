@@ -8,7 +8,7 @@ import Cross from "@/assets/cross";
 
 export default function QuizAtempt() {
     return (
-        <Section styles="mt-[-5rem]">
+        <Section styles="mb-[10rem]">
             <div>
                 <div className="mb-[5rem]">
                     <span style={{fontSize: 'clamp(2rem, 7vw, 2.4rem)'}}
