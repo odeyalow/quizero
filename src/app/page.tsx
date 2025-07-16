@@ -3,6 +3,7 @@ import Link from "next/link";
 import Button from "@/components/ui/button";
 import Section from "@/components/layouts/section";
 import Input from "@/components/ui/input";
+import BaseModal from "@/components/ui/baseModal";
 
 export default function Home() {
   return (
@@ -76,8 +77,8 @@ export default function Home() {
               <div className="mb-[2rem]">
                 <Input type="text" name="quiz name" placeholder="Название твоего квиза..."/>
               </div>
-              <Link href='/discover'>
-                <Button type="yellow">Перейти к темам</Button>
+              <Link href='/create-quiz'>
+                <Button type="yellow">Создать квиз</Button>
               </Link>
           </div>
         </div> 
