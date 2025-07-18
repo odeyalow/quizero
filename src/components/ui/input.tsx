@@ -1,5 +1,7 @@
 'use client';
 
+import { FieldErrors, UseFormRegister } from "react-hook-form";
+
 import EyeClosed from "@/assets/eyeClosed";
 import EyeOpen from "@/assets/eyeOpen";
 import { useState } from "react";
@@ -10,9 +12,11 @@ interface InputProps {
     name: string;
     placeholder: string;
     styles?: string;
+    register?: UseFormRegister<any>;
+    errors?: FieldErrors;
 }
 
-const Input:React.FC<InputProps> = ({ type, name, label, placeholder, styles }) => {
+const Input:React.FC<InputProps> = ({ type, name, label, placeholder, styles, register, errors }) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [inputFocus, setInputFocus] = useState<boolean>(false);
     const inputType = type === 'password' && showPassword ? 'text' : type;
@@ -22,7 +26,8 @@ const Input:React.FC<InputProps> = ({ type, name, label, placeholder, styles }) 
     }
 
     return (
-        <div className="relative w-full">
+        <>
+            <div className="relative w-full">
             {
                 label && (
                     <span className="block font-bold mb-[1.5rem] text-left text-[1.8rem]">{label}</span>
@@ -42,6 +47,7 @@ const Input:React.FC<InputProps> = ({ type, name, label, placeholder, styles }) 
                 name={name}
                 autoComplete="off"
                 className="w-full pr-[15px] focus:outline-0"
+                {...(register && register(name))}
                 onFocus={() => setInputFocus(true)}
                 onBlur={() => setInputFocus(false)}
                 />
@@ -50,9 +56,11 @@ const Input:React.FC<InputProps> = ({ type, name, label, placeholder, styles }) 
                         {showPassword ? <EyeOpen /> : <EyeClosed />}
                     </button>
                 )}
+                </div>
+                <div className="absolute bottom-0 z-0 rounded-b-[10px] bg-gray w-full h-[25px] transform-none"></div>
             </div>
-            <div className="absolute bottom-0 z-0 rounded-b-[10px] bg-gray w-full h-[25px] transform-none"></div>
-        </div>
+            { errors && <strong className="text-red-1 text-[1.6rem] mt-[-1rem]">{errors?.[name]?.message as string}</strong> }
+        </>
     );
 }
  
