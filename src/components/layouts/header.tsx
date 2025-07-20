@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 import Image from "next/image";
@@ -12,19 +12,28 @@ import NavLink from "../ui/navLink";
 import Button from "../ui/button";
 import MenuOpenButton from "../ui/menuOpenButton";
 import MenuCloseButton from "../ui/menuCloseButton";
+import { useAuthData } from "./authProvider";
+import useAuth from "@/hooks/useAuth";
 
 const Header = () => {
+    const user = useAuthData();
+    const { signOutUser } = useAuth();
     const pathname = usePathname();
+    const [showProfileDropdown, setShowProfileDropdown] = useState<boolean>(false);
     const [showMenu, setShowMenu] = useState<boolean>(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
     const menuStyles = showMenu ? 'max-lg:right-0' : 'max-lg:left-[100%]';
     const isAuthPage = pathname !== '/login' && pathname !== '/register';
 
     useEffect(() => {
         document.body.style.overflowY = showMenu ? 'hidden' : 'scroll';
+        document.addEventListener('click', (event) => {
+            if (!dropdownRef.current?.contains(event.target as Node)) setShowProfileDropdown(false);
+        })
     }, [showMenu]);
 
     const handleMenu = () => setShowMenu(!showMenu);
-    
+    const handleProfileDropdown = () => setShowProfileDropdown(!showProfileDropdown);
     return (
         <>
             <header className="mb-[5rem] lg:sticky z-50 top-0 bg-light-1/30 lg:backdrop-blur-sm">
@@ -54,9 +63,38 @@ const Header = () => {
                                         <NavLink href="/categories">Категории</NavLink>
                                     </div>
                                     <div className="flex max-lg:gap-[1.5rem] max-sm:justify-end">
-                                        <Link href='/login'>
-                                            <Button type="dark">Войти</Button>
-                                        </Link>
+                                        {
+                                            user.user ? (
+                                            <div
+                                            ref={dropdownRef}
+                                            className="relative">
+                                                <Image
+                                                src='/images/user-pfp.png'
+                                                alt="User Profile Picture"
+                                                width={50}
+                                                height={50}
+                                                onClick={handleProfileDropdown}
+                                                className="border-[3.5px] border-yellow-1 rounded-[1.5rem] hover:border-yellow-2 max-w-[45px] h-[45px]"
+                                                />
+                                                {
+                                                    showProfileDropdown && (
+                                                        <div className="border-gray border-[3.5px] rounded-[1.5rem] p-[2rem] bg-white absolute right-0 mt-[1rem] text-[2rem] text-left">
+                                                            <NavLink href="/profile">
+                                                                <button onClick={handleProfileDropdown}>👤 Профиль</button>
+                                                            </NavLink>
+                                                            <button
+                                                            onClick={signOutUser}
+                                                            className="text-red-1 hover:text-red-2 cursor-pointer mt-[2rem]">🚪 Выйти</button>
+                                                        </div>
+                                                    )
+                                                }
+                                            </div>
+                                            ) : (
+                                                <Link href='/login'>
+                                                    <Button type="dark">Войти</Button>
+                                                </Link>
+                                            )
+                                        }
                                         <MenuOpenButton onClick={handleMenu}/>
                                     </div>
                                 </>

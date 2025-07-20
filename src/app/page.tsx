@@ -1,11 +1,13 @@
+'use client';
+
 import Link from "next/link";
 
 import Button from "@/components/ui/button";
 import Section from "@/components/layouts/section";
 import Input from "@/components/ui/input";
-import BaseModal from "@/components/ui/baseModal";
 
 export default function Home() {
+
   return (
     <div className="pt-[5rem] relative max-sm:pt-0">
       <Section styles="mb-[20rem] flex flex-col">
@@ -77,7 +79,7 @@ export default function Home() {
               <div className="mb-[2rem]">
                 <Input type="text" name="quiz name" placeholder="Название твоего квиза..."/>
               </div>
-              <Link href='/create-quiz'>
+              <Link href='create-quiz'>
                 <Button type="yellow">Создать квиз</Button>
               </Link>
           </div>

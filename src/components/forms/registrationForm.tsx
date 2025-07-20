@@ -6,7 +6,8 @@ import * as z from "zod";
 
 import Input from "../ui/input";
 import Button from "../ui/button";
-import { xid } from "zod/v4-mini";
+
+import useAuth from "@/hooks/useAuth";
 
 const RegistrationSchema = z.object({
     username: z.string().min(3, { message: 'Имя пользователя должна быть более 3 символов' }),
@@ -24,6 +25,7 @@ const RegistrationSchema = z.object({
 type RegistrationType = z.infer<typeof RegistrationSchema>;
 
 const RegistrationForm = () => {
+    const { errorMessage, registerUser } = useAuth();
     const {
         register,
         handleSubmit,
@@ -33,7 +35,7 @@ const RegistrationForm = () => {
     });
 
     const onSubmit = (data: RegistrationType) => {
-        console.log(data)
+        registerUser(data.email, data.password, data.username);
     };
 
     return (
@@ -67,6 +69,7 @@ const RegistrationForm = () => {
             placeholder="Введите пароль повторно"
             label="Подтверждение пароля"/>
             <Button type="yellow">Зарегистрироваться</Button>
+        { errorMessage && <strong className="text-red-1 text-[1.6rem] mt-[-1rem]">{errorMessage}</strong> }
        </form>
     );
 }

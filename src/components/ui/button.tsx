@@ -3,12 +3,13 @@ import ButtonType from "@/types/buttonType";
 interface ButtonProps {
     type: ButtonType;
     onClick?: () => void;
-    active?: boolean
+    active?: boolean;
+    disabled?: boolean;
     children: React.ReactNode;
     styles?: string;
 }
 
-const Button:React.FC<ButtonProps> = ({ type, onClick, active, children, styles }) => {
+const Button:React.FC<ButtonProps> = ({ type, onClick, active, disabled, children, styles }) => {
     const buttonStyles = {
         yellow: { bg: 'bg-yellow-1', text: 'text-yellow-2', border: 'border-yellow-2', decorBg: 'bg-yellow-2' },
         dark: { bg: 'bg-dark-1', text: 'text-yellow-1', border: 'border-dark-2', decorBg: 'bg-dark-2' },
@@ -19,10 +20,11 @@ const Button:React.FC<ButtonProps> = ({ type, onClick, active, children, styles 
     }
     
     const activeStyles = !active && 'translate-y-[-3px] hover:translate-y-[-5px] active:translate-y-0'
-    
+
     return (
         <div className="relative">
             <button
+            disabled={disabled}
             onClick={onClick}
             className={`
                 cursor-pointer relative z-2
