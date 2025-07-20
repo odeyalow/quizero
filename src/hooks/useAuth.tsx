@@ -1,9 +1,16 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword,
+        getAuth,
+        signInWithEmailAndPassword,
+        signOut,
+        updateProfile } from "firebase/auth";
 import app from "@/lib/firebase";
+
+import useDatabase from "./useDatabase";
 
 const useAuth = () => {
     const auth = getAuth(app);
+    const { createUserData } = useDatabase();
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     //TODO: Add loading and error ui handlers
@@ -13,6 +20,7 @@ const useAuth = () => {
             await updateProfile(userCredential.user, {
                 displayName: username
             })
+            createUserData(userCredential.user.uid);
             setErrorMessage('');
         } catch (error: any) {
             switch (error.code) {

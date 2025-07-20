@@ -69,7 +69,7 @@ const Header = () => {
                                             ref={dropdownRef}
                                             className="relative">
                                                 <Image
-                                                src='/images/user-pfp.png'
+                                                src='/images/user-pfp-placeholder.svg'
                                                 alt="User Profile Picture"
                                                 width={50}
                                                 height={50}

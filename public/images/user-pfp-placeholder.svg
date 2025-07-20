@@ -1,0 +1,20 @@
+<svg width="200.000000" height="200.000000" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<desc>
+			Created with Pixso.
+	</desc>
+	<defs>
+		<clipPath id="clip155_1">
+			<rect id="user-pfp-placeholder" width="200.000000" height="200.000000" fill="white" fill-opacity="0"/>
+		</clipPath>
+	</defs>
+	<g clip-path="url(#clip155_1)">
+		<rect id="фрейм 3" width="200.000000" height="200.000000" fill="#FFFFFF" fill-opacity="1.000000"/>
+		<mask id="mask155_5" mask-type="alpha" maskUnits="userSpaceOnUse" x="0.000000" y="0.000000" width="200.000000" height="200.000000">
+			<rect id="фрейм 3" width="200.000000" height="200.000000" fill="#000000" fill-opacity="1.000000"/>
+		</mask>
+		<g mask="url(#mask155_5)">
+			<circle id="Эллипс 1" cx="100.500000" cy="74.500000" r="37.500000" fill="#98CE14" fill-opacity="1.000000"/>
+			<ellipse id="Эллипс 1" rx="78.766823" ry="82.363434" transform="matrix(0.999978 -0.00658701 0.00658701 0.999978 100.308 209.88)" fill="#98CE14" fill-opacity="1.000000"/>
+		</g>
+	</g>
+</svg>
