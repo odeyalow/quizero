@@ -33,7 +33,7 @@ const BaseModal:React.FC<BaseModalProps> = ({
     if ( modalActive ) {
         return (
             <div className="bg-black/40 fixed inset-0 z-999 grid place-items-center px-[2.5rem] w-full">
-                <div className={`bg-light-1 p-[3rem] rounded-[1.5rem] border-[5px] border-light-2 w-full ${styles}`}>
+                <div className={`bg-light-1 p-[3rem] rounded-[1.5rem] border-[5px] border-light-2 w-[600px] ${styles}`}>
                     <header className="flex items-center justify-between gap-[1.5rem] mb-[1.5rem]">
                         <h5 className={`text-[2.5rem] font-extrabold ${textColor}`}>{title}</h5>
                         <IconButton onClick={onClose} type="gray">
@@ -42,7 +42,7 @@ const BaseModal:React.FC<BaseModalProps> = ({
                     </header>
                     { 
                         description && (
-                            <p className="text-[1.6rem] text-left">
+                            <p className="text-[1.8rem] text-left mb-[3rem]">
                                 {description}
                             </p>
                         )
@@ -51,8 +51,12 @@ const BaseModal:React.FC<BaseModalProps> = ({
                     {
                         type === 'confirm' ? (
                             <div className="flex gap-[1.5rem]">
-                                <Button type="gray" onClick={onClose}>Отмена</Button>
-                                <Button type={buttonType} onClick={onClose}>{buttonText}</Button>
+                                <div className="w-full">
+                                    <Button styles="text-[2rem]" type="gray" onClick={onClose}>Отмена</Button>
+                                </div>
+                                <div className="w-full">
+                                    <Button styles="text-[2rem]" type={buttonType} onClick={onClose}>{buttonText}</Button>
+                                </div>
                             </div>
                         ) : (
                             <Button type='yellow' onClick={onClose}>{buttonText}</Button>

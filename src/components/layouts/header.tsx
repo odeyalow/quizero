@@ -12,18 +12,23 @@ import NavLink from "../ui/navLink";
 import Button from "../ui/button";
 import MenuOpenButton from "../ui/menuOpenButton";
 import MenuCloseButton from "../ui/menuCloseButton";
+import BaseModal from "../ui/baseModal";
 import { useAuthData } from "./authProvider";
 import useAuth from "@/hooks/useAuth";
+import useModal from "@/hooks/useModal";
 
 const Header = () => {
     const user = useAuthData();
     const { signOutUser } = useAuth();
+
     const pathname = usePathname();
+
     const [showProfileDropdown, setShowProfileDropdown] = useState<boolean>(false);
     const [showMenu, setShowMenu] = useState<boolean>(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const menuStyles = showMenu ? 'max-lg:right-0' : 'max-lg:left-[100%]';
     const isAuthPage = pathname !== '/login' && pathname !== '/register';
+    const { showModal, openModal, closeModal } = useModal();
 
     useEffect(() => {
         document.body.style.overflowY = showMenu ? 'hidden' : 'scroll';
@@ -31,6 +36,11 @@ const Header = () => {
             if (!dropdownRef.current?.contains(event.target as Node)) setShowProfileDropdown(false);
         })
     }, [showMenu]);
+
+    const handleSignOut = () => {
+        signOutUser();
+        closeModal();
+    }
 
     const handleMenu = () => setShowMenu(!showMenu);
     const handleProfileDropdown = () => setShowProfileDropdown(!showProfileDropdown);
@@ -85,7 +95,7 @@ const Header = () => {
                                                                 <button className="text-dark-1 hover:text-yellow-1" onClick={handleProfileDropdown}>👤 Профиль</button>
                                                             </NavLink>
                                                             <button
-                                                            onClick={signOutUser}
+                                                            onClick={openModal}
                                                             className="text-red-1 hover:text-red-2 cursor-pointer mt-[2rem]">🚪 Выйти</button>
                                                         </div>
                                                     )
@@ -107,6 +117,15 @@ const Header = () => {
                     </nav>
                 </Section>
             </header>
+            <BaseModal
+                modalActive={showModal}
+                title="Уже уходите? 😢"
+                onClose={handleSignOut}
+                type="confirm"
+                buttonText="Да, выйти"
+                danger
+                description="Если выйдете, придётся снова авторизоваться при следующем заходе. Точно хотите выйти?"
+            />
         </>
     );
 }
