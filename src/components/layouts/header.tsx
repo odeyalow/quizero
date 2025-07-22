@@ -120,7 +120,8 @@ const Header = () => {
             <BaseModal
                 modalActive={showModal}
                 title="Уже уходите? 😢"
-                onClose={handleSignOut}
+                onClose={closeModal}
+                onConfirm={handleSignOut}
                 type="confirm"
                 buttonText="Да, выйти"
                 danger

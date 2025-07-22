@@ -7,11 +7,12 @@ interface BaseModalProps {
     modalActive: boolean
     title: string;
     styles?: string;
-    onClose: () => void
+    onClose: () => void;
+    onConfirm: () => void;
     type: 'confirm' | 'accept';
     buttonText: string;
     description?: string;
-    danger?: boolean
+    danger?: boolean;
     children?: React.ReactNode;
 }
 
@@ -20,6 +21,7 @@ const BaseModal:React.FC<BaseModalProps> = ({
     title,
     styles,
     onClose,
+    onConfirm,
     type,
     buttonText,
     description,
@@ -55,11 +57,11 @@ const BaseModal:React.FC<BaseModalProps> = ({
                                     <Button styles="text-[2rem]" type="gray" onClick={onClose}>Отмена</Button>
                                 </div>
                                 <div className="w-full">
-                                    <Button styles="text-[2rem]" type={buttonType} onClick={onClose}>{buttonText}</Button>
+                                    <Button styles="text-[2rem]" type={buttonType} onClick={onConfirm}>{buttonText}</Button>
                                 </div>
                             </div>
                         ) : (
-                            <Button type='yellow' onClick={onClose}>{buttonText}</Button>
+                            <Button type='yellow' onClick={onConfirm}>{buttonText}</Button>
                         )
                     }
                 </div>

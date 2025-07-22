@@ -5,10 +5,12 @@ import Link from "next/link";
 import Button from "@/components/ui/button";
 import Section from "@/components/layouts/section";
 import Input from "@/components/ui/input";
+import { useAuthData } from "@/components/layouts/authProvider";
 
-import useGetData from "@/hooks/useGetData";
-import { UserDataType } from "@/types/userDataType";
 export default function Home() {
+  const user = useAuthData();
+  const linkHref = user.user ? 'create-quiz' : 'login';
+
   return (
     <div className="pt-[5rem] relative max-sm:pt-0">
       <Section styles="mb-[20rem] flex flex-col">
@@ -80,7 +82,7 @@ export default function Home() {
               <div className="mb-[2rem]">
                 <Input type="text" name="quiz name" placeholder="Название твоего квиза..."/>
               </div>
-              <Link href='create-quiz'>
+              <Link href={linkHref}>
                 <Button type="yellow">Создать квиз</Button>
               </Link>
           </div>
