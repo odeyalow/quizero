@@ -6,8 +6,9 @@ import Button from "@/components/ui/button";
 import Section from "@/components/layouts/section";
 import Input from "@/components/ui/input";
 
+import useGetData from "@/hooks/useGetData";
+import { UserDataType } from "@/types/userDataType";
 export default function Home() {
-
   return (
     <div className="pt-[5rem] relative max-sm:pt-0">
       <Section styles="mb-[20rem] flex flex-col">

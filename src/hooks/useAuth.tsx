@@ -4,49 +4,48 @@ import { createUserWithEmailAndPassword,
         signInWithEmailAndPassword,
         signOut,
         updateProfile } from "firebase/auth";
-import app from "@/lib/firebase";
 
-import useDatabase from "./useDatabase";
+import app from "@/lib/firebase";
+import useUserInit from "@/hooks/useUserInit";
 
 const useAuth = () => {
     const auth = getAuth(app);
-    const { createUserData } = useDatabase();
-    const [errorMessage, setErrorMessage] = useState<string>('');
-
-    //TODO: Add loading and error ui handlers
+    const [formErrorMessage, setformErrorMessage] = useState<string>('');
+    const { mutate, isPending, isError } = useUserInit();
+    
     const registerUser = async (email: string, password: string, username: string) => {
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             await updateProfile(userCredential.user, {
                 displayName: username
             })
-            createUserData(userCredential.user.uid);
-            setErrorMessage('');
+            mutate();
+            setformErrorMessage('');
         } catch (error: any) {
             switch (error.code) {
                 case "auth/email-already-in-use":
-                    setErrorMessage('Пользователь с такой почтой уже существует');
+                    setformErrorMessage('Пользователь с такой почтой уже существует');
                     break;
                 case "auth/too-many-requests":
                     throw new Error("Слишком много попыток входа. Попробуйте позже.");
                 default:
-                    setErrorMessage('Непредвиденная ошибка, попробуйте еще раз');
+                    setformErrorMessage('Непредвиденная ошибка, попробуйте еще раз');
             }
         }
     }
     const loginUser = async (email: string, password: string) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            setErrorMessage('');
+            setformErrorMessage('');
         } catch (error: any) {
             switch (error.code) {
                 case "auth/invalid-credential":
-                    setErrorMessage('Неправильный логин или пароль');
+                    setformErrorMessage('Неправильный логин или пароль');
                     break;
                 case "auth/too-many-requests":
                     throw new Error("Слишком много попыток входа. Попробуйте позже.");
                 default:
-                    setErrorMessage('Непредвиденная ошибка, попробуйте еще раз');
+                    setformErrorMessage('Непредвиденная ошибка, попробуйте еще раз');
             }
         }
     }
@@ -58,7 +57,7 @@ const useAuth = () => {
         }
     }
 
-    return { errorMessage, loginUser, registerUser, signOutUser };
+    return { formErrorMessage, loginUser, registerUser, signOutUser, isPending, isError };
 }
  
 export default useAuth;

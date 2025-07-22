@@ -74,13 +74,15 @@ const Header = () => {
                                                 width={50}
                                                 height={50}
                                                 onClick={handleProfileDropdown}
-                                                className="border-[3.5px] border-yellow-1 rounded-[1.5rem] hover:border-yellow-2 max-w-[45px] h-[45px]"
+                                                className="
+                                                translate-y-[-3px] hover:translate-y-[-5px] active:translate-y-0
+                                                border-[3.5px] relative z-2 border-yellow-2 rounded-[10px] max-w-[45px] h-[45px]"
                                                 />
                                                 {
                                                     showProfileDropdown && (
-                                                        <div className="border-gray border-[3.5px] rounded-[1.5rem] p-[2rem] bg-white absolute right-0 mt-[1rem] text-[2rem] text-left">
+                                                        <div className="border-gray border-[3.5px] rounded-[1.5rem] p-[2rem] bg-white absolute z-15 right-0 mt-[1rem] text-[2rem] text-left">
                                                             <NavLink href="/profile">
-                                                                <button onClick={handleProfileDropdown}>👤 Профиль</button>
+                                                                <button className="text-dark-1 hover:text-yellow-1" onClick={handleProfileDropdown}>👤 Профиль</button>
                                                             </NavLink>
                                                             <button
                                                             onClick={signOutUser}
@@ -88,6 +90,8 @@ const Header = () => {
                                                         </div>
                                                     )
                                                 }
+                                                <div className='absolute bottom-0 z-[0] rounded-b-[10px] w-full h-[25px] bg-yellow-2'></div>
+
                                             </div>
                                             ) : (
                                                 <Link href='/login'>

@@ -1,11 +1,10 @@
-export interface UserDataType {
-    createdAt: string;
+import QuizDataType from "./QuizDataType";
+
+interface UserDataType {
     createdQuizzes: QuizDataType[];
     createdQuizzesAmount: number;
     passedQuizzesAmount: number;
     percentOfCorrectAnswers: number;
 };
 
-export interface QuizDataType {
-    title: string;
-}
+export default UserDataType;

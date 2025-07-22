@@ -3,11 +3,14 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 import Input from "../ui/input";
 import Button from "../ui/button";
 
 import useAuth from "@/hooks/useAuth";
+import { useAuthData } from "../layouts/authProvider";
 
 const RegistrationSchema = z.object({
     username: z.string().min(3, { message: 'Имя пользователя должна быть более 3 символов' }),
@@ -25,7 +28,12 @@ const RegistrationSchema = z.object({
 type RegistrationType = z.infer<typeof RegistrationSchema>;
 
 const RegistrationForm = () => {
-    const { errorMessage, registerUser } = useAuth();
+    const { push } = useRouter();
+    const { user } = useAuthData();
+
+    useEffect(() => { if (user) push('/') }, [user]);
+    
+    const { formErrorMessage, registerUser } = useAuth();
     const {
         register,
         handleSubmit,
@@ -69,7 +77,7 @@ const RegistrationForm = () => {
             placeholder="Введите пароль повторно"
             label="Подтверждение пароля"/>
             <Button type="yellow">Зарегистрироваться</Button>
-        { errorMessage && <strong className="text-red-1 text-[1.6rem] mt-[-1rem]">{errorMessage}</strong> }
+        { formErrorMessage && <strong className="text-red-1 text-[1.6rem] mt-[-1rem]">{formErrorMessage}</strong> }
        </form>
     );
 }
