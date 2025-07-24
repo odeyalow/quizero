@@ -3,6 +3,8 @@ import Image from "next/image";
 
 import Button from "./button";
 
+import Verified from "@/assets/verified";
+
 interface QuizCardProps {
     imageUrl?: string
     slug: string
@@ -45,9 +47,16 @@ const QuizCard:React.FC<QuizCardProps> = ({ imageUrl, author, slug, title }) => 
                     )
                 }
                 <h2 style={{fontSize: 'clamp(2rem, 5vw, 3rem)'}}
-                    className="text-[3rem] font-extrabold text-dark-1 mt-[2rem] mb-[1rem]">{title}</h2>
-                <h3 className="text-[2rem] font-extrabold text-gray mb-[2rem]">от {author}</h3>
-                <Link href={slug} className="w-full">
+                    className="text-[3rem] font-extrabold text-dark-1 mt-[2rem] mb-[1.5rem]">{title}</h2>
+                <div className="flex items-center gap-[0.5rem] mb-[2rem]">
+                    <h3 className="text-[2rem] font-extrabold text-gray">от {author}</h3>
+                    {
+                        author === 'Quizero' && (
+                            <Verified />
+                        )
+                    }
+                </div>
+                <Link href={`quizzes/${slug}`} className="w-full">
                     <Button type="blue" styles="text-[2rem]">Пройти</Button>
                 </Link>
             </div>

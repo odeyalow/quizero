@@ -8,7 +8,7 @@ export interface QuizDataType {
     author: string;
     category: string;
     tags: string[];
-    questionsa: QuestionType[]
+    questions: QuestionType[]
 }
 
 export interface QuestionType {
