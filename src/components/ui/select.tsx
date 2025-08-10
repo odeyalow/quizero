@@ -52,7 +52,7 @@ const Select:React.FC<SelectProps> = ({ label, options }) => {
                         {
                             options.map(option => {
                                 return <CheckButton
-                                        type="checkbox"
+                                        type="radio"
                                         name="category-checkbox"
                                         value={option}
                                         key={option}

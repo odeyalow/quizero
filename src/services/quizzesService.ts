@@ -1,0 +1,36 @@
+import { db } from "@/lib/firebase";
+import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+
+import { QuizDataType } from "@/types/QuizDataType";
+
+const quizzesRef = collection(db, "quizzes");
+
+const quizzesService = {
+    getAll: async (): Promise<QuizDataType[]> => {
+        const quizzes = query(quizzesRef, where('isPublic', '==', true));
+        const querySnapshot = await getDocs(quizzes);
+        return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as Omit<QuizDataType, 'id'> }));
+    },
+    getBySearchQuery: async (searchQuery: string, quizzes: QuizDataType[]): Promise<QuizDataType[]> => {
+        if (!query) return [];
+        return quizzes.filter((quiz: QuizDataType) => 
+            quiz.title.toLowerCase().includes(searchQuery.toLocaleUpperCase()) ||
+            quiz.description.toLowerCase().includes(searchQuery.toLocaleUpperCase()),
+        )
+    },
+    getWithFilters: async (filters: { category: string, authorConfirmed: boolean }): Promise<QuizDataType[]> => {
+        let quizzes: any = quizzesRef;
+
+        if ( filters.category ) {
+            quizzes = query(quizzes, where('category', '==', filters.category))
+        }
+        if ( filters.authorConfirmed ) {
+            quizzes = query(quizzes, where('authorConfirmed', '==', filters.authorConfirmed));
+        }
+
+        const snapshot = await getDocs(quizzes);
+        return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as Omit<QuizDataType, 'id'> }));
+    }, 
+}
+
+export default quizzesService;

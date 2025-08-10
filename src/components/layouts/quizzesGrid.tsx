@@ -13,6 +13,7 @@ const QuizzesGrid = ({ quizzes }: { quizzes?: QuizDataType[] }) => {
                             title={quiz.title}
                             imageUrl={quiz.coverImage}
                             author={quiz.author}
+                            authorConfirmed={quiz.authorConfirmed}
                         />
                     )
                 })

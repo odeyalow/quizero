@@ -4,7 +4,23 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   trailingSlash: false,
   images: {
-    domains: ['firebasestorage.googleapis.com', 'images.unsplash.com', 'cdn.pixabay.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+        port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.pixabay.com',
+        port: ''
+      }
+    ],
   },
   i18n: {
     locales: ['ru'],

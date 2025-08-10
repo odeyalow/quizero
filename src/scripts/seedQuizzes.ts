@@ -8,439 +8,409 @@ export const seedQuizzes = async () => {
 const quizzes: QuizDataType[] = [
   {
     isPublic: true,
-    slug: "hollywood-classics",
-    title: "Классика Голливуда",
-    description: "Проверьте свои знания о величайших фильмах золотой эры Голливуда и современной классике",
-    coverImage: "https://images.unsplash.com/photo-1489599096842-824e8de2c72a?w=800&h=600&fit=crop",
+    slug: "amazing-animals-world",
+    title: "Удивительный мир животных",
+    description: "Погрузитесь в захватывающий мир дикой природы! Узнайте интересные факты о поведении животных, их уникальных способностях и адаптации к окружающей среде.",
+    coverImage: "https://images.unsplash.com/photo-1474511320723-9a56873867b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    questionsAmount: 14,
+    author: "Quizero",
+    category: "nature",
+    tags: ["животные", "дикая природа", "фауна", "биология"],
+    questions: [
+      {
+        title: "Какое животное может изменять цвет своей кожи для маскировки?",
+        image: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Игуана", isCorrect: false },
+          { text: "Хамелеон", isCorrect: true },
+          { text: "Геккон", isCorrect: false },
+          { text: "Варан", isCorrect: false }
+        ]
+      },
+      {
+        title: "Какое самое крупное млекопитающее в мире?",
+        image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Африканский слон", isCorrect: false },
+          { text: "Синий кит", isCorrect: true },
+          { text: "Белый медведь", isCorrect: false },
+          { text: "Жираф", isCorrect: false }
+        ]
+      },
+      {
+        title: "Сколько лет может прожить гигантская черепаха?",
+        image: "https://images.unsplash.com/photo-1437622368342-7a3d73a34c8f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "50-70 лет", isCorrect: false },
+          { text: "80-100 лет", isCorrect: false },
+          { text: "150+ лет", isCorrect: true },
+          { text: "200+ лет", isCorrect: false }
+        ]
+      },
+      {
+        title: "Какая птица является символом мира?",
+        image: "https://images.unsplash.com/photo-1518717758536-85ae29035b6d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Лебедь", isCorrect: false },
+          { text: "Голубь", isCorrect: true },
+          { text: "Орел", isCorrect: false },
+          { text: "Сокол", isCorrect: false }
+        ]
+      },
+      {
+        title: "У какого животного самое острое зрение?",
+        image: "https://images.unsplash.com/photo-1571771019784-3ff35f4f4277?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Сова", isCorrect: false },
+          { text: "Орел", isCorrect: true },
+          { text: "Кот", isCorrect: false },
+          { text: "Человек", isCorrect: false }
+        ]
+      },
+      {
+        title: "Какое животное спит больше всего в день?",
+        image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Лев", isCorrect: false },
+          { text: "Коала", isCorrect: true },
+          { text: "Панда", isCorrect: false },
+          { text: "Ленивец", isCorrect: false }
+        ]
+      },
+      {
+        title: "Какая рыба может генерировать электрический ток?",
+        image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Акула", isCorrect: false },
+          { text: "Электрический угорь", isCorrect: true },
+          { text: "Скат", isCorrect: false },
+          { text: "Барракуда", isCorrect: false }
+        ]
+      },
+      {
+        title: "Какое животное может регенерировать потерянные конечности?",
+        image: "https://images.unsplash.com/photo-1520637836862-4d197d17c735?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Саламандра", isCorrect: true },
+          { text: "Лягушка", isCorrect: false },
+          { text: "Змея", isCorrect: false },
+          { text: "Черепаха", isCorrect: false }
+        ]
+      },
+      {
+        title: "Какая птица не умеет летать, но отлично плавает?",
+        image: "https://images.unsplash.com/photo-1551986782-d0169b3f8fa7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Страус", isCorrect: false },
+          { text: "Пингвин", isCorrect: true },
+          { text: "Эму", isCorrect: false },
+          { text: "Казуар", isCorrect: false }
+        ]
+      },
+      {
+        title: "У какого животного самый длинный язык относительно размера тела?",
+        image: "https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Жираф", isCorrect: false },
+          { text: "Хамелеон", isCorrect: true },
+          { text: "Муравьед", isCorrect: false },
+          { text: "Лягушка", isCorrect: false }
+        ]
+      },
+      {
+        title: "Какое животное считается самым умным среди беспозвоночных?",
+        image: "https://images.unsplash.com/photo-1583212292454-1fe6229603b7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Паук", isCorrect: false },
+          { text: "Осьминог", isCorrect: true },
+          { text: "Пчела", isCorrect: false },
+          { text: "Муравей", isCorrect: false }
+        ]
+      },
+      {
+        title: "Какая змея самая длинная в мире?",
+        image: "https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Кобра", isCorrect: false },
+          { text: "Анаконда", isCorrect: false },
+          { text: "Сетчатый питон", isCorrect: true },
+          { text: "Удав", isCorrect: false }
+        ]
+      },
+      {
+        title: "Какое животное может выжить в космосе?",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Таракан", isCorrect: false },
+          { text: "Тихоходка", isCorrect: true },
+          { text: "Бактерия", isCorrect: false },
+          { text: "Скорпион", isCorrect: false }
+        ]
+      },
+      {
+        title: "У какого животного детеныши рождаются размером с рисовое зерно?",
+        image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        options: [
+          { text: "Панда", isCorrect: true },
+          { text: "Коала", isCorrect: false },
+          { text: "Кенгуру", isCorrect: false },
+          { text: "Опоссум", isCorrect: false }
+        ]
+      }
+    ]
+  },
+  {
+    isPublic: true,
+    slug: "plant-kingdom-secrets",
+    title: "Тайны растительного мира",
+    description: "Откройте для себя удивительные секреты растений! Узнайте о их уникальных способностях, адаптации и роли в экосистеме нашей планеты.",
+    coverImage: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     questionsAmount: 12,
     author: "Quizero",
-    category: "cinema",
-    tags: ["классика", "голливуд", "история кино", "легенды"],
+    category: "nature",
+    tags: ["растения", "флора", "ботаника", "экосистема"],
     questions: [
       {
-        title: "Кто сыграл главную роль в фильме 'Касабланка' (1942)?",
-        image: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=600&h=400&fit=crop",
+        title: "Какое дерево считается самым высоким в мире?",
+        image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Хамфри Богарт", isCorrect: true },
-          { text: "Кэри Грант", isCorrect: false },
-          { text: "Джеймс Стюарт", isCorrect: false },
-          { text: "Кларк Гейбл", isCorrect: false }
+          { text: "Дуб", isCorrect: false },
+          { text: "Секвойя", isCorrect: true },
+          { text: "Эвкалипт", isCorrect: false },
+          { text: "Сосна", isCorrect: false }
         ]
       },
       {
-        title: "Какой фильм получил Оскар за лучший фильм в 1994 году?",
-        image: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=600&h=400&fit=crop",
+        title: "Какое растение поворачивается за солнцем в течение дня?",
+        image: "https://images.unsplash.com/photo-1470509037663-253afd7f0f51?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Список Шиндлера", isCorrect: true },
-          { text: "Побег из Шоушенка", isCorrect: false },
-          { text: "Форrest Гамп", isCorrect: false },
-          { text: "Криминальное чтиво", isCorrect: false }
+          { text: "Роза", isCorrect: false },
+          { text: "Подсолнух", isCorrect: true },
+          { text: "Тюльпан", isCorrect: false },
+          { text: "Лилия", isCorrect: false }
         ]
       },
       {
-        title: "Кто режиссер трилогии 'Крестный отец'?",
-        image: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
+        title: "Какое растение может жить дольше всего?",
+        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Фрэнсис Форд Коппола", isCorrect: true },
-          { text: "Мартин Скорсезе", isCorrect: false },
-          { text: "Стивен Спилберг", isCorrect: false },
-          { text: "Джордж Лукас", isCorrect: false }
+          { text: "Дуб", isCorrect: false },
+          { text: "Баобаб", isCorrect: false },
+          { text: "Сосна Мафусаил", isCorrect: true },
+          { text: "Кедр", isCorrect: false }
         ]
       },
       {
-        title: "В каком году вышел фильм 'Звездные войны: Новая надежда'?",
-        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
+        title: "Какое растение называют 'хищным'?",
+        image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "1977", isCorrect: true },
-          { text: "1975", isCorrect: false },
-          { text: "1979", isCorrect: false },
-          { text: "1980", isCorrect: false }
+          { text: "Кактус", isCorrect: false },
+          { text: "Венерина мухоловка", isCorrect: true },
+          { text: "Крапива", isCorrect: false },
+          { text: "Роза", isCorrect: false }
         ]
       },
       {
-        title: "Кто сыграл Дороти в фильме 'Волшебник страны Оз' (1939)?",
-        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop",
+        title: "Из какой части растения получают корицу?",
+        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Джуди Гарланд", isCorrect: true },
-          { text: "Грейс Келли", isCorrect: false },
-          { text: "Ингрид Бергман", isCorrect: false },
-          { text: "Кэтрин Хепберн", isCorrect: false }
+          { text: "Листьев", isCorrect: false },
+          { text: "Коры", isCorrect: true },
+          { text: "Корней", isCorrect: false },
+          { text: "Плодов", isCorrect: false }
         ]
       },
       {
-        title: "Какой фильм Альфреда Хичкока считается его шедевром о птицах?",
-        image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop",
+        title: "Какое растение производит больше всего кислорода?",
+        image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Птицы", isCorrect: true },
-          { text: "Психо", isCorrect: false },
-          { text: "Головокружение", isCorrect: false },
-          { text: "Окно во двор", isCorrect: false }
+          { text: "Дуб", isCorrect: false },
+          { text: "Эвкалипт", isCorrect: false },
+          { text: "Фитопланктон", isCorrect: true },
+          { text: "Сосна", isCorrect: false }
         ]
       },
       {
-        title: "Кто сыграл Скарлетт О'Хара в 'Унесенных ветром'?",
-        image: "https://images.unsplash.com/photo-1489599096842-824e8de2c72a?w=600&h=400&fit=crop",
+        title: "Какое растение может накапливать воду в своих листьях?",
+        image: "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Вивьен Ли", isCorrect: true },
-          { text: "Джин Харлоу", isCorrect: false },
-          { text: "Бетт Дэвис", isCorrect: false },
-          { text: "Джоан Кроуфорд", isCorrect: false }
+          { text: "Папоротник", isCorrect: false },
+          { text: "Кактус", isCorrect: false },
+          { text: "Алоэ", isCorrect: true },
+          { text: "Мох", isCorrect: false }
         ]
       },
       {
-        title: "Какой актер сыграл главную роль в 'Гражданине Кейне'?",
-        image: "https://images.unsplash.com/photo-1489599096842-824e8de2c72a?w=600&h=400&fit=crop",
+        title: "Какой фрукт технически является ягодой?",
+        image: "https://images.unsplash.com/photo-1571771019784-3ff35f4f4277?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Орсон Уэллс", isCorrect: true },
-          { text: "Джеймс Кэгни", isCorrect: false },
-          { text: "Спенсер Трейси", isCorrect: false },
-          { text: "Уильям Хольден", isCorrect: false }
+          { text: "Клубника", isCorrect: false },
+          { text: "Банан", isCorrect: true },
+          { text: "Малина", isCorrect: false },
+          { text: "Ежевика", isCorrect: false }
         ]
       },
       {
-        title: "В каком году вышел первый фильм о Джеймсе Бонде с Шоном Коннери?",
-        image: "https://images.unsplash.com/photo-1571847140471-1d7766e825ea?w=600&h=400&fit=crop",
+        title: "Какое растение используется для производства текилы?",
+        image: "https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "1962", isCorrect: true },
-          { text: "1960", isCorrect: false },
-          { text: "1964", isCorrect: false },
-          { text: "1965", isCorrect: false }
+          { text: "Кактус", isCorrect: false },
+          { text: "Агава", isCorrect: true },
+          { text: "Алоэ", isCorrect: false },
+          { text: "Юкка", isCorrect: false }
         ]
       },
       {
-        title: "Кто режиссер фильма 'Апокалипсис сегодня'?",
-        image: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
+        title: "Какую часть растения мы едим, когда едим картофель?",
+        image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Фрэнсис Форд Коппола", isCorrect: true },
-          { text: "Майкл Чимино", isCorrect: false },
-          { text: "Оливер Стоун", isCorrect: false },
-          { text: "Стэнли Кубрик", isCorrect: false }
+          { text: "Корень", isCorrect: false },
+          { text: "Стебель (клубень)", isCorrect: true },
+          { text: "Лист", isCorrect: false },
+          { text: "Семя", isCorrect: false }
         ]
       },
       {
-        title: "Какой фильм получил 11 Оскаров в 1960 году?",
-        image: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=600&h=400&fit=crop",
+        title: "Какое растение может 'ходить' перемещая свои корни?",
+        image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Бен-Гур", isCorrect: true },
-          { text: "Лоуренс Аравийский", isCorrect: false },
-          { text: "Мост через реку Квай", isCorrect: false },
-          { text: "Вестсайдская история", isCorrect: false }
+          { text: "Баньян", isCorrect: false },
+          { text: "Ходячая пальма", isCorrect: true },
+          { text: "Манgrove", isCorrect: false },
+          { text: "Фикус", isCorrect: false }
         ]
       },
       {
-        title: "Кто сыграл Рокки Бальбоа в одноименной серии фильмов?",
-        image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
+        title: "Какое растение цветет только ночью?",
+        image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Сильвестр Сталлоне", isCorrect: true },
-          { text: "Арнольд Шварценеггер", isCorrect: false },
-          { text: "Роберт Де Ниро", isCorrect: false },
-          { text: "Аль Пачино", isCorrect: false }
+          { text: "Роза", isCorrect: false },
+          { text: "Царица ночи (кактус)", isCorrect: true },
+          { text: "Лилия", isCorrect: false },
+          { text: "Орхидея", isCorrect: false }
         ]
       }
     ]
   },
   {
     isPublic: true,
-    slug: "modern-cinema-blockbusters",
-    title: "Современные блокбастеры",
-    description: "Тест на знание популярных фильмов 2000-х и 2010-х годов, супергероев и франшиз",
-    coverImage: "https://images.unsplash.com/photo-1489599096842-824e8de2c72a?w=800&h=600&fit=crop",
-    questionsAmount: 15,
+    slug: "weather-climate-phenomena",
+    title: "Погода и климатические явления",
+    description: "Исследуйте удивительный мир погоды и климата! Узнайте о природных явлениях, их причинах и влиянии на нашу планету и жизнь на Земле.",
+    coverImage: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    questionsAmount: 11,
     author: "Quizero",
-    category: "cinema",
-    tags: ["блокбастеры", "современное кино", "супергерои", "франшизы"],
+    category: "nature",
+    tags: ["погода", "климат", "явления", "атмосфера"],
     questions: [
       {
-        title: "Кто сыграл Железного человека в киновселенной Marvel?",
-        image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=600&h=400&fit=crop",
+        title: "Что вызывает образование радуги?",
+        image: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Роберт Дауни младший", isCorrect: true },
-          { text: "Крис Эванс", isCorrect: false },
-          { text: "Крис Хемсворт", isCorrect: false },
-          { text: "Марк Руффало", isCorrect: false }
+          { text: "Отражение солнечного света от облаков", isCorrect: false },
+          { text: "Преломление света в каплях воды", isCorrect: true },
+          { text: "Магнитные поля Земли", isCorrect: false },
+          { text: "Химические реакции в атмосфере", isCorrect: false }
         ]
       },
       {
-        title: "Какой фильм стал самым кассовым в истории кинематографа?",
-        image: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=600&h=400&fit=crop",
+        title: "Как называется самый сильный тип ветра?",
+        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Аватар", isCorrect: true },
-          { text: "Мстители: Финал", isCorrect: false },
-          { text: "Титаник", isCorrect: false },
-          { text: "Звездные войны: Пробуждение силы", isCorrect: false }
+          { text: "Торнадо", isCorrect: false },
+          { text: "Ураган", isCorrect: true },
+          { text: "Циклон", isCorrect: false },
+          { text: "Шторм", isCorrect: false }
         ]
       },
       {
-        title: "Кто режиссер трилогии 'Темный рыцарь'?",
-        image: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
+        title: "При какой температуре вода замерзает в градусах Цельсия?",
+        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Кристофер Нолан", isCorrect: true },
-          { text: "Зак Снайдер", isCorrect: false },
-          { text: "Тим Бертон", isCorrect: false },
-          { text: "Сэм Рэйми", isCorrect: false }
+          { text: "-1°C", isCorrect: false },
+          { text: "0°C", isCorrect: true },
+          { text: "1°C", isCorrect: false },
+          { text: "2°C", isCorrect: false }
         ]
       },
       {
-        title: "В каком году вышел первый фильм 'Гарри Поттер'?",
-        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop",
+        title: "Что такое северное сияние?",
+        image: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "2001", isCorrect: true },
-          { text: "2000", isCorrect: false },
-          { text: "2002", isCorrect: false },
-          { text: "1999", isCorrect: false }
+          { text: "Отражение льда в атмосфере", isCorrect: false },
+          { text: "Взаимодействие солнечного ветра с магнитосферой", isCorrect: true },
+          { text: "Свечение полярного льда", isCorrect: false },
+          { text: "Электрические разряды в облаках", isCorrect: false }
         ]
       },
       {
-        title: "Кто сыграл Джокера в фильме 'Темный рыцарь' (2008)?",
-        image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=600&h=400&fit=crop",
+        title: "Какая самая высокая зарегистрированная температура на Земле?",
+        image: "https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Хит Леджер", isCorrect: true },
-          { text: "Джек Николсон", isCorrect: false },
-          { text: "Хоакин Феникс", isCorrect: false },
-          { text: "Джаред Лето", isCorrect: false }
+          { text: "48°C", isCorrect: false },
+          { text: "54°C", isCorrect: true },
+          { text: "60°C", isCorrect: false },
+          { text: "65°C", isCorrect: false }
         ]
       },
       {
-        title: "Какой фильм положил начало киновселенной Marvel?",
-        image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=600&h=400&fit=crop",
+        title: "Что измеряют в миллиметрах ртутного столба?",
+        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Железный человек", isCorrect: true },
-          { text: "Тор", isCorrect: false },
-          { text: "Первый мститель", isCorrect: false },
-          { text: "Невероятный Халк", isCorrect: false }
+          { text: "Влажность", isCorrect: false },
+          { text: "Атмосферное давление", isCorrect: true },
+          { text: "Скорость ветра", isCorrect: false },
+          { text: "Количество осадков", isCorrect: false }
         ]
       },
       {
-        title: "Кто режиссер фильма 'Начало' (Inception)?",
-        image: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
+        title: "В каких облаках образуется молния?",
+        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Кристофер Нолан", isCorrect: true },
-          { text: "Дени Вильнёв", isCorrect: false },
-          { text: "Райан Джонсон", isCorrect: false },
-          { text: "Джеймс Кэмерон", isCorrect: false }
+          { text: "Перистых", isCorrect: false },
+          { text: "Кучевых", isCorrect: false },
+          { text: "Грозовых (кучево-дождевых)", isCorrect: true },
+          { text: "Слоистых", isCorrect: false }
         ]
       },
       {
-        title: "Сколько фильмов входит в основную сагу 'Звездных войн'?",
-        image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=400&fit=crop",
+        title: "Как называется прибор для измерения влажности воздуха?",
+        image: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "9", isCorrect: true },
-          { text: "6", isCorrect: false },
-          { text: "8", isCorrect: false },
-          { text: "12", isCorrect: false }
+          { text: "Барометр", isCorrect: false },
+          { text: "Гигрометр", isCorrect: true },
+          { text: "Анемометр", isCorrect: false },
+          { text: "Термометр", isCorrect: false }
         ]
       },
       {
-        title: "Кто сыграл Неда Старка в сериале 'Игра престолов'?",
-        image: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=600&h=400&fit=crop",
+        title: "Что вызывает образование тумана?",
+        image: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Шон Бин", isCorrect: true },
-          { text: "Марк Эдди", isCorrect: false },
-          { text: "Чарльз Дэнс", isCorrect: false },
-          { text: "Лиам Каннингэм", isCorrect: false }
+          { text: "Высокая температура", isCorrect: false },
+          { text: "Конденсация водяного пара", isCorrect: true },
+          { text: "Сильный ветер", isCorrect: false },
+          { text: "Низкое давление", isCorrect: false }
         ]
       },
       {
-        title: "В каком году вышел фильм 'Мстители: Финал'?",
-        image: "https://images.unsplash.com/photo-1635805737707-575885ab0820?w=600&h=400&fit=crop",
+        title: "Какой газ создает парниковый эффект?",
+        image: "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "2019", isCorrect: true },
-          { text: "2018", isCorrect: false },
-          { text: "2020", isCorrect: false },
-          { text: "2017", isCorrect: false }
+          { text: "Азот", isCorrect: false },
+          { text: "Кислород", isCorrect: false },
+          { text: "Углекислый газ", isCorrect: true },
+          { text: "Аргон", isCorrect: false }
         ]
       },
       {
-        title: "Кто режиссер фильма 'Джокер' (2019)?",
-        image: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
+        title: "Как называется циркуляция воды между океанами, атмосферой и сушей?",
+        image: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         options: [
-          { text: "Тодд Филлипс", isCorrect: true },
-          { text: "Мэтт Ривз", isCorrect: false },
-          { text: "Дэвид Финчер", isCorrect: false },
-          { text: "Кристофер Нолан", isCorrect: false }
-        ]
-      },
-      {
-        title: "Какой актер сыграл Волан-де-Морта в фильмах о Гарри Поттере?",
-        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=400&fit=crop",
-        options: [
-          { text: "Рэйф Файнс", isCorrect: true },
-          { text: "Алан Рикман", isCorrect: false },
-          { text: "Джейсон Айзекс", isCorrect: false },
-          { text: "Том Фелтон", isCorrect: false }
-        ]
-      },
-      {
-        title: "Сколько фильмов 'Форсаж' вышло на экраны (основная серия)?",
-        image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=600&h=400&fit=crop",
-        options: [
-          { text: "10", isCorrect: true },
-          { text: "8", isCorrect: false },
-          { text: "9", isCorrect: false },
-          { text: "11", isCorrect: false }
-        ]
-      },
-      {
-        title: "Кто сыграл главную роль в фильме 'Джон Уик'?",
-        image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=400&fit=crop",
-        options: [
-          { text: "Киану Ривз", isCorrect: true },
-          { text: "Том Круз", isCorrect: false },
-          { text: "Джейсон Стэйтем", isCorrect: false },
-          { text: "Лиам Нисон", isCorrect: false }
-        ]
-      },
-      {
-        title: "Какой фильм Pixar рассказывает о роботе, оставшемся на Земле?",
-        image: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&h=400&fit=crop",
-        options: [
-          { text: "ВАЛЛ-И", isCorrect: true },
-          { text: "Рататуй", isCorrect: false },
-          { text: "В поисках Немо", isCorrect: false },
-          { text: "Корпорация монстров", isCorrect: false }
-        ]
-      }
-    ]
-  },
-  {
-    isPublic: true,
-    slug: "directors-and-actors",
-    title: "Режиссеры и актеры",
-    description: "Проверьте, насколько хорошо вы знаете знаменитых режиссеров, актеров и их фильмографию",
-    coverImage: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=800&h=600&fit=crop",
-    questionsAmount: 13,
-    author: "Quizero",
-    category: "cinema",
-    tags: ["режиссеры", "актеры", "биографии", "фильмография", "звезды"],
-    questions: [
-      {
-        title: "Кто из режиссеров снял фильмы 'Криминальное чтиво' и 'Убить Билла'?",
-        image: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
-        options: [
-          { text: "Квентин Тарантино", isCorrect: true },
-          { text: "Роберт Родригес", isCorrect: false },
-          { text: "Кристофер Нолан", isCorrect: false },
-          { text: "Дэвид Финчер", isCorrect: false }
-        ]
-      },
-      {
-        title: "Какая актриса получила Оскар за роль в фильме 'Ла-Ла Ленд'?",
-        image: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=600&h=400&fit=crop",
-        options: [
-          { text: "Эмма Стоун", isCorrect: true },
-          { text: "Эмма Уотсон", isCorrect: false },
-          { text: "Райан Гослинг", isCorrect: false },
-          { text: "Эми Адамс", isCorrect: false }
-        ]
-      },
-      {
-        title: "Кто режиссер фильмов 'Такси Driver' и 'Славные парни'?",
-        image: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
-        options: [
-          { text: "Мартин Скорсезе", isCorrect: true },
-          { text: "Фрэнсис Форд Коппола", isCorrect: false },
-          { text: "Сидни Люмет", isCorrect: false },
-          { text: "Вуди Аллен", isCorrect: false }
-        ]
-      },
-      {
-        title: "Какой актер сыграл главные роли в фильмах 'Форест Гамп' и 'Филадельфия'?",
-        image: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=600&h=400&fit=crop",
-        options: [
-          { text: "Том Хэнкс", isCorrect: true },
-          { text: "Том Круз", isCorrect: false },
-          { text: "Кевин Костнер", isCorrect: false },
-          { text: "Мэтт Дэймон", isCorrect: false }
-        ]
-      },
-      {
-        title: "Кто снял фильм 'Интерстеллар'?",
-        image: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
-        options: [
-          { text: "Кристофер Нолан", isCorrect: true },
-          { text: "Ридли Скотт", isCorrect: false },
-          { text: "Дени Вильнёв", isCorrect: false },
-          { text: "Альфонсо Куарон", isCorrect: false }
-        ]
-      },
-      {
-        title: "Какая актриса получила наибольшее количество номинаций на Оскар?",
-        image: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=600&h=400&fit=crop",
-        options: [
-          { text: "Мерил Стрип", isCorrect: true },
-          { text: "Кэтрин Хепберн", isCorrect: false },
-          { text: "Бетт Дэвис", isCorrect: false },
-          { text: "Джуди Денч", isCorrect: false }
-        ]
-      },
-      {
-        title: "Кто режиссер фильма 'Властелин колец: Возвращение короля'?",
-        image: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
-        options: [
-          { text: "Питер Джексон", isCorrect: true },
-          { text: "Гильермо дель Торо", isCorrect: false },
-          { text: "Сэм Рэйми", isCorrect: false },
-          { text: "Джеймс Кэмерон", isCorrect: false }
-        ]
-      },
-      {
-        title: "В скольких фильмах сыграл Роберт Де Ниро под руководством Мартина Скорсезе?",
-        image: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=600&h=400&fit=crop",
-        options: [
-          { text: "9", isCorrect: true },
-          { text: "6", isCorrect: false },
-          { text: "8", isCorrect: false },
-          { text: "12", isCorrect: false }
-        ]
-      },
-      {
-        title: "Кто снял фильм 'Бегущий по лезвию 2049'?",
-        image: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
-        options: [
-          { text: "Дени Вильнёв", isCorrect: true },
-          { text: "Ридли Скотт", isCorrect: false },
-          { text: "Кристофер Нолан", isCorrect: false },
-          { text: "Альфонсо Куарон", isCorrect: false }
-        ]
-      },
-      {
-        title: "Какой актер получил Оскар за роль в фильме 'Джокер' (2019)?",
-        image: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=600&h=400&fit=crop",
-        options: [
-          { text: "Хоакин Феникс", isCorrect: true },
-          { text: "Адам Драйвер", isCorrect: false },
-          { text: "Леонардо Ди Каприо", isCorrect: false },
-          { text: "Кристиан Бейл", isCorrect: false }
-        ]
-      },
-      {
-        title: "Кто режиссер фильма 'Зеленая миля'?",
-        image: "https://images.unsplash.com/photo-1518676590629-3dcbd9c5a5c9?w=600&h=400&fit=crop",
-        options: [
-          { text: "Фрэнк Дарабонт", isCorrect: true },
-          { text: "Роб Райнер", isCorrect: false },
-          { text: "Джордж Клуни", isCorrect: false },
-          { text: "Рон Ховард", isCorrect: false }
-        ]
-      },
-      {
-        title: "Какая актриса сыграла Елизавету II в фильме 'Королева' (2006)?",
-        image: "https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=600&h=400&fit=crop",
-        options: [
-          { text: "Хелен Миррен", isCorrect: true },
-          { text: "Джуди Денч", isCorrect: false },
-          { text: "Тильда Суинтон", isCorrect: false },
-          { text: "Кейт Бланшетт", isCorrect: false }
-        ]
-      },
-      {
-        title: "Сколько Оскаров получил фильм 'Властелин колец: Возвращение короля'?",
-        image: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?w=600&h=400&fit=crop",
-        options: [
-          { text: "11", isCorrect: true },
-          { text: "9", isCorrect: false },
-          { text: "13", isCorrect: false },
-          { text: "8", isCorrect: false }
+          { text: "Круговорот воды", isCorrect: true },
+          { text: "Водный цикл", isCorrect: false },
+          { text: "Гидрологический процесс", isCorrect: false },
+          { text: "Водообмен", isCorrect: false }
         ]
       }
     ]

@@ -6,6 +6,7 @@ export interface QuizDataType {
     coverImage?: string;
     questionsAmount: number;
     author: string;
+    authorConfirmed: boolean;
     category: string;
     tags: string[];
     questions: QuestionType[]

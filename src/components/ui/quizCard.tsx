@@ -10,9 +10,10 @@ interface QuizCardProps {
     slug: string
     title: string;
     author: string;
+    authorConfirmed: boolean
 }
 
-const QuizCard:React.FC<QuizCardProps> = ({ imageUrl, author, slug, title }) => {
+const QuizCard:React.FC<QuizCardProps> = ({ imageUrl, author, authorConfirmed, slug, title }) => {
     return (
         <div
         className="relative">
@@ -46,12 +47,12 @@ const QuizCard:React.FC<QuizCardProps> = ({ imageUrl, author, slug, title }) => 
                         </div>
                     )
                 }
-                <h2 style={{fontSize: 'clamp(2rem, 5vw, 3rem)'}}
+                <h2 style={{fontSize: 'clamp(2rem, 5vw, 2.5rem)'}}
                     className="text-[3rem] font-extrabold text-dark-1 mt-[2rem] mb-[1.5rem]">{title}</h2>
                 <div className="flex items-center gap-[0.5rem] mb-[2rem]">
                     <h3 className="text-[2rem] font-extrabold text-gray">от {author}</h3>
                     {
-                        author === 'Quizero' && (
+                        authorConfirmed && (
                             <Verified />
                         )
                     }
