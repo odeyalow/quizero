@@ -1,6 +1,6 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
-function useGetData<T>(documentName: string, queryFn: () => T[] ): UseQueryResult<T[], Error> {
+function useGetData<T>(documentName: string, queryFn: () => Promise<T[]> | T[] ): UseQueryResult<T[], Error> {
     return useQuery<T[], Error>({
         queryKey: [documentName],
         queryFn: queryFn,

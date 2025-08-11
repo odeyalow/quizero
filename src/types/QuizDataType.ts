@@ -1,4 +1,5 @@
 export interface QuizDataType {
+    id: string
     isPublic: boolean;
     slug: string;
     title: string;
@@ -6,7 +7,7 @@ export interface QuizDataType {
     coverImage?: string;
     questionsAmount: number;
     author: string;
-    authorConfirmed: boolean;
+    isConfirmed: boolean;
     category: string;
     tags: string[];
     questions: QuestionType[]

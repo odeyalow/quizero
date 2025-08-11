@@ -8,12 +8,16 @@ const QuizzesGrid = ({ quizzes }: { quizzes?: QuizDataType[] }) => {
                 quizzes && quizzes.map((quiz: QuizDataType) => {
                     return (
                         <QuizCard
-                            key={quiz.slug}
+                            key={quiz.id}
+                            id={quiz.id}
                             slug={quiz.slug}
                             title={quiz.title}
                             imageUrl={quiz.coverImage}
                             author={quiz.author}
-                            authorConfirmed={quiz.authorConfirmed}
+                            isConfirmed={quiz.isConfirmed}
+                            category={quiz.category}
+                            description={quiz.description}
+                            questionsAmount={quiz.questionsAmount}
                         />
                     )
                 })

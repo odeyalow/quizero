@@ -7,7 +7,7 @@ import QuizzesGrid from "@/components/layouts/quizzesGrid";
 
 export default function SingleCategory() {
     const params = useSearchParams();
-    const categoryName = params.get('categoryName')
+    const categoryName = params.get('categoryName');
 
     return (
         <>

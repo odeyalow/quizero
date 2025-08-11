@@ -1,24 +1,34 @@
 import { db } from "@/lib/firebase";
-import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
+import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
 
 import { QuizDataType } from "@/types/QuizDataType";
 
 const quizzesRef = collection(db, "quizzes");
 
 const quizzesService = {
-    getAll: async (): Promise<QuizDataType[]> => {
+    getById: async (id: string): Promise<QuizDataType | null> => {
+        const docRef = doc(quizzesRef, id);
+        const docSnap = await getDoc(docRef);
+
+        if ( docSnap.exists() ) {
+            return { id: docSnap.id, ...docSnap.data() as Omit<QuizDataType, 'id'> }
+        } else {
+            return null;
+        }
+    },
+    getAll: async (): Promise<QuizDataType[] | null> => {
         const quizzes = query(quizzesRef, where('isPublic', '==', true));
         const querySnapshot = await getDocs(quizzes);
         return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as Omit<QuizDataType, 'id'> }));
     },
-    getBySearchQuery: async (searchQuery: string, quizzes: QuizDataType[]): Promise<QuizDataType[]> => {
-        if (!query) return [];
+    getBySearchQuery: async (searchQuery: string, quizzes: QuizDataType[]): Promise<QuizDataType[] | null> => {
+        if ( !query ) return [];
         return quizzes.filter((quiz: QuizDataType) => 
             quiz.title.toLowerCase().includes(searchQuery.toLocaleUpperCase()) ||
             quiz.description.toLowerCase().includes(searchQuery.toLocaleUpperCase()),
         )
     },
-    getWithFilters: async (filters: { category: string, authorConfirmed: boolean }): Promise<QuizDataType[]> => {
+    getWithFilters: async (filters: { category: string, authorConfirmed: boolean }): Promise<QuizDataType[] | null> => {
         let quizzes: any = quizzesRef;
 
         if ( filters.category ) {
