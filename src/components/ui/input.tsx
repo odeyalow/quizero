@@ -11,18 +11,28 @@ interface InputProps {
     label?: string;
     name: string;
     placeholder: string;
+    value?: string;
     styles?: string;
     register?: UseFormRegister<any>;
     errors?: FieldErrors;
+    onChange?: (value: string) => void;
+    onFocus?: (value: boolean) => void;
 }
 
-const Input:React.FC<InputProps> = ({ type, name, label, placeholder, styles, register, errors }) => {
+const Input:React.FC<InputProps> = ({ type, name, label, placeholder, value, styles, register, errors, onChange, onFocus }) => {
     const [showPassword, setShowPassword] = useState<boolean>(false);
     const [inputFocus, setInputFocus] = useState<boolean>(false);
     const inputType = type === 'password' && showPassword ? 'text' : type;
+
     const handleShowPassword = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         setShowPassword(!showPassword);
+    }
+    const handleFocus = (booleanValue: boolean) => {
+        setInputFocus(booleanValue);
+        setTimeout(() => {
+            onFocus?.(booleanValue);
+        }, 100);
     }
 
     return (
@@ -42,14 +52,16 @@ const Input:React.FC<InputProps> = ({ type, name, label, placeholder, styles, re
                     ${inputFocus ? 'translate-y-0' : 'translate-y-[-3px]'} ${styles}
                 `}>
                 <input
+                onChange={(e) => onChange?.(e.target.value)}
                 type={inputType}
                 placeholder={placeholder}
+                value={value ?? ''}
                 name={name}
                 autoComplete="off"
                 className="w-full pr-[15px] focus:outline-0"
                 {...(register && register(name))}
-                onFocus={() => setInputFocus(true)}
-                onBlur={() => setInputFocus(false)}
+                onFocus={() => handleFocus(true)}
+                onBlur={() => handleFocus(false)}
                 />
                 {type === 'password' && (
                     <button onClick={handleShowPassword} className="w-[25px]">

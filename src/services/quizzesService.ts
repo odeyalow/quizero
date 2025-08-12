@@ -16,19 +16,18 @@ const quizzesService = {
             return null;
         }
     },
-    getAll: async (): Promise<QuizDataType[] | null> => {
+    getAll: async (): Promise<QuizDataType[]> => {
         const quizzes = query(quizzesRef, where('isPublic', '==', true));
         const querySnapshot = await getDocs(quizzes);
         return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as Omit<QuizDataType, 'id'> }));
     },
-    getBySearchQuery: async (searchQuery: string, quizzes: QuizDataType[]): Promise<QuizDataType[] | null> => {
-        if ( !query ) return [];
+    getBySearchQuery: async (searchQuery: string, quizzes: QuizDataType[]): Promise<QuizDataType[]> => {
+        if ( !searchQuery ) return [];
         return quizzes.filter((quiz: QuizDataType) => 
-            quiz.title.toLowerCase().includes(searchQuery.toLocaleUpperCase()) ||
-            quiz.description.toLowerCase().includes(searchQuery.toLocaleUpperCase()),
+            quiz.title.toLowerCase().includes(searchQuery.toLowerCase())
         )
     },
-    getWithFilters: async (filters: { category: string, authorConfirmed: boolean }): Promise<QuizDataType[] | null> => {
+    getWithFilters: async (filters: { category: string, authorConfirmed: boolean }): Promise<QuizDataType[]> => {
         let quizzes: any = quizzesRef;
 
         if ( filters.category ) {
