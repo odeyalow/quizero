@@ -11,7 +11,9 @@ export default function Quizzes() {
     
     return (
         <SectionWithHeader bigTitle="Все квизы">
-            <QuizzesGrid quizzes={data}/>
+           {
+            data &&  <QuizzesGrid quizzes={data}/>
+           }
         </SectionWithHeader>
     )
 }

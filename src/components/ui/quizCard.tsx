@@ -6,6 +6,9 @@ import Button from "./button";
 import Verified from "@/assets/verified";
 
 import useModal from "@/hooks/useModal";
+import useGetSingleData from "@/hooks/useGetSingleData";
+import categoriesService from "@/services/categoriesService";
+import CategoryDataType from "@/types/CategoryDataType";
 
 interface QuizCardProps {
     id: string;
@@ -21,11 +24,12 @@ interface QuizCardProps {
 
 const QuizCard:React.FC<QuizCardProps> = ({ id, imageUrl, author, isConfirmed, slug, title, category, description, questionsAmount }) => {
     const { showModal, openModal, closeModal } = useModal();
+    const { data } = useGetSingleData<CategoryDataType | null>(`category-${category}`, () => categoriesService.getById(category));
 
     const linkHref = {
-        pathname: `quizzes/${slug}`,
+        pathname: `/quizzes/${slug}`,
         query: {
-            id: id
+            id: id,
         }
     }
 
@@ -108,8 +112,7 @@ const QuizCard:React.FC<QuizCardProps> = ({ id, imageUrl, author, isConfirmed, s
                             <h2 style={{fontSize: 'clamp(2rem, 5vw, 2.5rem)'}}
                             className="font-extrabold text-dark-1 mt-[2rem] mb-[3rem]">{title}</h2>
                             <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-[2rem] mb-[3rem]">
-                                {/* TODO: FILL CATEGORIES LIST IN FIRESTORE */}
-                                <span className="text-gray text-[2rem] font-bold">💬 {category}</span>
+                                <span className="text-gray text-[2rem] font-bold">{data?.emoji} {data?.title}</span>
                                 <span className="text-gray text-[2rem] font-bold">❓ Вопросы: {questionsAmount}</span>
                                 <span className="text-gray text-[2rem] font-bold">👤 от {author}</span>
                             </div>

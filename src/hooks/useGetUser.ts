@@ -1,4 +1,4 @@
-import UserDataType from "@/types/userDataType";
+import UserDataType from '@/types/UserDataType';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';

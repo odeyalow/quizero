@@ -1,5 +1,5 @@
 import Button from "./button";
-import ButtonType from "@/types/buttonType";
+import ButtonType from "@/types/ButtonType";
 
 interface IconButtonProps {
     type: ButtonType;

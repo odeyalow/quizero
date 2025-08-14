@@ -7,6 +7,10 @@ import Section from "@/components/layouts/section";
 import Input from "@/components/ui/input";
 import { useAuthData } from "@/components/layouts/authProvider";
 
+//When data add is needed
+// import { useEffect } from "react";
+// import { seedData } from "@/scripts/seedData";
+
 export default function Home() {
   const user = useAuthData();
   const linkHref = user.user ? 'create-quiz' : 'login';

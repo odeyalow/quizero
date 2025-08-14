@@ -1,4 +1,4 @@
-import UserDataType from "@/types/userDataType";
+import UserDataType from "@/types/UserDataType";
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
@@ -18,7 +18,9 @@ function useUserInit() {
         passedQuizzesAmount: 0,
         createdQuizzesAmount: 0,
         percentOfCorrectAnswers: 0,
-        createdQuizzes: [],
+        correctAnswersAmount: 0,
+        allAnswersAmount: 0,
+        createdQuizzes: []
     }
     
 

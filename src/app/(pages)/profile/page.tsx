@@ -19,6 +19,14 @@ export default function Profile() {
 
     const userPfpURL = user.user?.photoURL ?? '/images/user-pfp-placeholder.svg';
 
+    const getPersentOfCorrectAnswers = () => {
+        if ( data && data?.allAnswersAmount !== 0 ) {
+            return Math.round((data?.correctAnswersAmount / data?.allAnswersAmount) * 100);
+        } else {
+            return 0;
+        }
+    }
+    
     if ( !user.user ) {
         return (
              <div className="flex flex-col items-center pt-[10rem] text-center px-[25px]">
@@ -65,9 +73,9 @@ export default function Profile() {
             <div className="w-full h-min bg-white border-[5px] border-gray rounded-[1.5rem] p-[3rem] flex flex-col items-start max-sm:items-center">
                 <h3 className="text-[3rem] font-extrabold mb-[1rem]">Статистика</h3>
                 <div className="flex flex-col gap-[1rem] mb-[3rem] max-md:leading-[5rem] max-sm:text-center">
-                    <h6 className="text-[2.4rem] font-regular">✅ Пройден квизов: <strong className="font-extrabold text-[4rem] text-yellow-1">{data?.passedQuizzesAmount}</strong></h6>
+                    <h6 className="text-[2.4rem] font-regular">✅ Пройдено квизов: <strong className="font-extrabold text-[4rem] text-yellow-1">{data?.passedQuizzes.length}</strong></h6>
                     <h6 className="text-[2.4rem] font-regular">✏ Создано квизов: <strong className="font-extrabold text-[4rem] text-yellow-1">{data?.createdQuizzesAmount}</strong></h6>
-                    <h6 className="text-[2.4rem] font-regular">📈 Процент правильных ответов: <strong className="font-extrabold text-[4rem] text-yellow-1">{data?.percentOfCorrectAnswers}%</strong></h6>
+                    <h6 className="text-[2.4rem] font-regular">📈 Процент правильных ответов: <strong className="font-extrabold text-[4rem] text-yellow-1">{getPersentOfCorrectAnswers()}%</strong></h6>
                 </div>
                 <div className="w-full"><Button type="blue">Поделиться профилем</Button></div>
             </div>
@@ -77,7 +85,7 @@ export default function Profile() {
                 <h3 className="text-[3.5rem] font-extrabold text-center mb-[5rem]">Созданные квизы</h3>
                 {
                     data && data?.createdQuizzes.length > 0 ? (
-                        <QuizzesGrid />
+                        <QuizzesGrid quizzes={data.createdQuizzes}/>
                     ) : (
                         <div className="flex flex-col items-center gap-[3rem]">
                             <h6 className="text-[2.4rem] font-regular">У вас пока нет созданных квизов.</h6>

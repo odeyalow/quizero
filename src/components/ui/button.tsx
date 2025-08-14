@@ -1,4 +1,4 @@
-import ButtonType from "@/types/buttonType";
+import ButtonType from "@/types/ButtonType";
 
 interface ButtonProps {
     type: ButtonType;
@@ -20,6 +20,7 @@ const Button:React.FC<ButtonProps> = ({ type, onClick, active, disabled, childre
     }
     
     const activeStyles = !active && 'translate-y-[-3px] hover:translate-y-[-5px] active:translate-y-0'
+    const disabledStyles = disabled && 'brightness-80 translate-y-[0px] hover:translate-y-[0px]'
 
     return (
         <div className="relative">
@@ -33,6 +34,7 @@ const Button:React.FC<ButtonProps> = ({ type, onClick, active, disabled, childre
                 ${buttonStyles[type].text} text-[1.6rem] font-extrabold leading-[21px]
                 ${buttonStyles[type].bg}
                 ${activeStyles} ${styles}
+                ${disabledStyles}
             `}>
                 {children}
             </button>

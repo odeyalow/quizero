@@ -2,17 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 
 interface CategoryCardProps {
-    imageUrl: string
-    imageAlt: string;
-    slug: string
+    emoji: string
+    id: string
     title: string;
 }
 
-const CategoryCard:React.FC<CategoryCardProps> = ({ imageUrl, imageAlt, slug, title }) => {
+const CategoryCard:React.FC<CategoryCardProps> = ({ emoji, id, title }) => {
     const linkHref = {
-        pathname: slug,
+        pathname: `categories/${id}`,
         query: {
-            categoryName: title
+            title: title,
+            id: id
         }
     }
 
@@ -30,13 +30,7 @@ const CategoryCard:React.FC<CategoryCardProps> = ({ imageUrl, imageAlt, slug, ti
                 active:translate-y-0 hover:translate-y-[-10px]
                 bg-white
             `}>
-                <Image
-                className="max-sm:w-[40px] max-[300px]:hidden"
-                src={imageUrl}
-                width={65}
-                height={65}
-                alt={imageAlt}
-                ></Image>
+                <span>{emoji}</span>
                 <h2>{title}</h2>
             </div>
             <div className={`absolute bottom-0 z-[0] rounded-b-[20px] w-full h-[30px] bg-gray`}></div>

@@ -27,7 +27,7 @@ const quizzesService = {
             quiz.title.toLowerCase().includes(searchQuery.toLowerCase())
         )
     },
-    getWithFilters: async (filters: { category: string, authorConfirmed: boolean }): Promise<QuizDataType[]> => {
+    getWithFilters: async (filters: { category?: string, authorConfirmed?: boolean }): Promise<QuizDataType[]> => {
         let quizzes: any = quizzesRef;
 
         if ( filters.category ) {
@@ -39,7 +39,30 @@ const quizzesService = {
 
         const snapshot = await getDocs(quizzes);
         return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as Omit<QuizDataType, 'id'> }));
-    }, 
+    },
+    getByIdArray: async (idArray: string[]): Promise<QuizDataType[]> => {
+        if ( idArray.length === 0 ) return [];
+
+        const chunks = [];
+        for (let i = 0; i < idArray.length; i += 10) {
+            chunks.push(idArray.slice(i, i + 10));
+        }
+
+        let results: any[] = [];
+
+        for (const chunk of chunks) {
+            const quizzes = query(
+                collection(db, "quizzes"),
+                where("__name__", "in", chunk)
+            );
+            const quizzesSnap = await getDocs(quizzes);
+            quizzesSnap.forEach((doc) => {
+                results.push({ id: doc.id, ...doc.data() as Omit<QuizDataType, 'id'> });
+            });
+        }
+
+        return results;
+    }
 }
 
 export default quizzesService;

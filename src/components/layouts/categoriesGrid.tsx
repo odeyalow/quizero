@@ -1,32 +1,25 @@
+'use client';
+
 import CategoryCard from "@/components/ui/categoryCard"
 
+import useGetData from "@/hooks/useGetData";
+import categoriesService from "@/services/categoriesService";
+import CategoryDataType from "@/types/CategoryDataType";
+
 const CategoriesGrid = () => {
+    const { data } = useGetData<CategoryDataType>('categories', categoriesService.getAll);
     return (
         <div className="min-[400px]:grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] max-sm:flex max-sm:flex-col gap-[3rem]">
-            <CategoryCard
-            imageUrl="/images/temporary.png"
-            imageAlt="Temp"
-            title="Категория"
-            slug="/categories/singleCategory"
-            />
-            <CategoryCard
-            imageUrl="/images/temporary.png"
-            imageAlt="Temp"
-            title="Категория"
-            slug="/categories/singleCategory"
-            />
-            <CategoryCard
-            imageUrl="/images/temporary.png"
-            imageAlt="Temp"
-            title="Категория"
-            slug="/categories/singleCategory"
-            />
-            <CategoryCard
-            imageUrl="/images/temporary.png"
-            imageAlt="Temp"
-            title="Категория"
-            slug="/categories/singleCategory"
-            />
+            {
+                data && data.map((category: CategoryDataType) => {
+                    return <CategoryCard
+                            key={category.id}
+                            emoji={category.emoji}
+                            title={category.title}
+                            id={category.id}
+                            />
+                })
+            }
         </div>
     );
 }
