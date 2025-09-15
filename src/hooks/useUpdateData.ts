@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient, QueryKey } from '@tanstack/react-query';
 
-function useUpdateUser(mutationFn: () => Promise<void>, mutationKey?: QueryKey) {   
+function useUpdateData(mutationFn: () => Promise<void>, mutationKey?: QueryKey) {   
     const queryClient = useQueryClient();
     
     return useMutation({
@@ -11,4 +11,4 @@ function useUpdateUser(mutationFn: () => Promise<void>, mutationKey?: QueryKey) 
     })
 }
 
-export default useUpdateUser;
+export default useUpdateData;

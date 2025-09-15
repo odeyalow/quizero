@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import Button from "@/components/ui/button";
+import Button from "../components/ui/button";
 import Section from "@/components/layouts/section";
 import Input from "@/components/ui/input";
 import { useAuthData } from "@/components/layouts/authProvider";
@@ -13,7 +13,6 @@ import { useAuthData } from "@/components/layouts/authProvider";
 
 export default function Home() {
   const user = useAuthData();
-  const linkHref = user.user ? 'create-quiz' : 'login';
 
   return (
     <div className="pt-[5rem] relative max-sm:pt-0">
@@ -84,9 +83,9 @@ export default function Home() {
             <h3 style={{fontSize: 'clamp(1rem, 6vw, 3rem)'}}
               className="text-[3rem] font-semibold mb-[3rem] text-center">Название</h3>
               <div className="mb-[2rem]">
-                <Input type="text" name="quiz name" placeholder="Название твоего квиза..."/>
+                <Input value="" type="text" name="quiz name" placeholder="Название твоего квиза..."/>
               </div>
-              <Link href={linkHref}>
+              <Link href={user.user ? 'create-quiz' : 'login'}>
                 <Button type="yellow">Создать квиз</Button>
               </Link>
           </div>

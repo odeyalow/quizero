@@ -2,7 +2,7 @@ import ButtonType from "@/types/ButtonType";
 
 interface ButtonProps {
     type: ButtonType;
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     active?: boolean;
     disabled?: boolean;
     children: React.ReactNode;

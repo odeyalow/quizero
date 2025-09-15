@@ -2,14 +2,13 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-import Input from "../ui/input";
+import Input from "./input";
 import useGetData from "@/hooks/useGetData";
 import quizzesService from "@/services/quizzesService";
 import { QuizDataType } from "@/types/QuizDataType";
 
-
 const SearchField = () => {
-    const [searchValue, setSearchValue] = useState<string>();
+    const [searchValue, setSearchValue] = useState<string>('');
     const { data } = useGetData<QuizDataType>('quizzes', quizzesService.getAll);
     const [searchResults, setSearchResults] = useState<QuizDataType[]>();
     const [searchFocused, setSearchFocused] = useState<boolean>(false);
@@ -52,7 +51,10 @@ const SearchField = () => {
                         {
                             searchResults.map((result: QuizDataType) => {
                                 return(
-                                    <Link key={result.id} href={linkHandle(result.slug, result.id)} onClick={() => setSearchValue('')}>
+                                    <Link
+                                    key={result.id}
+                                    href={linkHandle(result.slug, result.id)}
+                                    onClick={() => setSearchValue('')}>
                                         <li className="p-[1.25rem] hover:bg-gray">{result.title}</li>
                                     </Link>
                                 )
@@ -64,7 +66,7 @@ const SearchField = () => {
             }
             {
                 noResultValidation && (
-                    <div className="bg-white border-[3.5px] border-gray rounded-[1rem] text-[1.6rem] max-h-[450px] overflow-y-hidden absolute z-99 w-full mt-[1rem] p-[1.5rem]">Квизов по вашему запросу не найдено</div>
+                    <div className="bg-white border-[3.5px] border-gray rounded-[1rem] text-[1.6rem] max-h-[450px] overflow-y-hidden absolute z-99 w-full mt-[1rem] p-[1.25rem]">Квизов по вашему запросу не найдено</div>
                 )
             }
         </div>

@@ -2,7 +2,7 @@ import Link from "next/link"
 
 import SectionWithHeader from "@/components/layouts/sectionWithHeader"
 import RegistrationForm from "@/components/forms/registrationForm"
-import Button from "@/components/ui/button"
+import Button from "../../../../components/ui/button"
 
 export default function Register() {
     return (

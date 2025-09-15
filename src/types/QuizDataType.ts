@@ -1,5 +1,6 @@
 export interface QuizDataType {
-    id: string
+    id: string;
+    ownerId?: string
     isPublic: boolean;
     slug: string;
     title: string;

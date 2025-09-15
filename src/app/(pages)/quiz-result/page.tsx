@@ -6,12 +6,12 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import Section from "@/components/layouts/section";
-import Button from "@/components/ui/button";
+import Button from "../../../components/ui/button";
 
 import Triangle from "@/assets/triangle";
 import Share from "@/assets/share";
 
-import useUpdateUser from "@/hooks/useUpdateUser";
+import useUpdateUser from "@/hooks/useUpdateData";
 import userService from "@/services/userService";
 import { useAuthData } from "@/components/layouts/authProvider";
 import useGetUser from "@/hooks/useGetUser";

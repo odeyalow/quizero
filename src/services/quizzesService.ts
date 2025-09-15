@@ -62,6 +62,9 @@ const quizzesService = {
         }
 
         return results;
+    },
+    addQuiz: async (quizData: QuizDataType) => {
+        
     }
 }
 

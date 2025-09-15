@@ -69,7 +69,7 @@ const Header = () => {
                                         `}>
                                         <MenuCloseButton onClick={handleMenu} />
                                         <NavLink href="/">Главная</NavLink>
-                                        <NavLink href="/create-quiz"> Создать</NavLink>
+                                        <NavLink href={user.user ? '/create-quiz' : 'login'}> Создать</NavLink>
                                         <NavLink href="/categories">Категории</NavLink>
                                     </div>
                                     <div className="flex max-lg:gap-[1.5rem] max-sm:justify-end">

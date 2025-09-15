@@ -5,13 +5,13 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import Section from "@/components/layouts/section";
-import Button from "@/components/ui/button";
+import Button from "../../../../../components/ui/button";
 import BaseModal from "@/components/ui/baseModal";
 import NavigationGuard from "@/components/layouts/navigationGuard";
 
 import useGetSingleData from "@/hooks/useGetSingleData";
 import quizzesService from "@/services/quizzesService";
-import { OptionType, QuestionType, QuizDataType } from "@/types/QuizDataType";
+import { OptionType, QuizDataType } from "@/types/QuizDataType";
 import useModal from "@/hooks/useModal";
 
 import Arrow from "@/assets/arrow";

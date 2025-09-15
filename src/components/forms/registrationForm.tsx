@@ -6,7 +6,7 @@ import * as z from "zod";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import Input from "../ui/input";
+import FormInput from "../ui/formInput";
 import Button from "../ui/button";
 
 import useAuth from "@/hooks/useAuth";
@@ -48,28 +48,28 @@ const RegistrationForm = () => {
 
     return (
        <form className="flex flex-col gap-[2rem]" onSubmit={handleSubmit(onSubmit)}>
-        <Input
+        <FormInput
             register={register}
             errors={errors}
             type="text"
             name="username"
             placeholder="Введите имя пользователя"
             label="Имя пользователя" />
-        <Input
+        <FormInput
             register={register}
             errors={errors}
             type="email"
             name="email"
             placeholder="Введите эл. почту"
             label="Эл. почта" />
-        <Input
+        <FormInput
             register={register}
             errors={errors}
             type="password"
             name="password"
             placeholder="Введите ваш пароль"
             label="Пароль"/>
-        <Input
+        <FormInput
             register={register}
             errors={errors}
             type="password"

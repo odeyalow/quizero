@@ -1,8 +1,6 @@
 import { db } from "@/lib/firebase";
 import { doc, updateDoc, increment, arrayUnion, runTransaction } from "firebase/firestore";
 
-import UserDataType from "@/types/UserDataType";
-
 const userService = {
     updateOnQuizComplete: async (uid: string, quizId: string, quizCorrectAnswersAmount: number, allQuizAnswersAmount: number) => {
         const userRef = doc(db, "users", uid);

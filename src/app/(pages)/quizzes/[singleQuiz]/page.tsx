@@ -3,11 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 import SectionWithHeader from "@/components/layouts/sectionWithHeader";
-import Button from "@/components/ui/button";
+import Button from "../../../../components/ui/button";
 import IconButton from "@/components/ui/iconButton";
 
 import Triangle from "@/assets/triangle";
@@ -19,9 +19,12 @@ import quizzesService from "@/services/quizzesService";
 import { QuizDataType } from "@/types/QuizDataType";
 import categoriesService from "@/services/categoriesService";
 import CategoryDataType from "@/types/CategoryDataType";
+import { useAuthData } from "@/components/layouts/authProvider";
 
 export default function SingleQuiz() {
     const params = useSearchParams();
+    const router = useRouter();
+    const user = useAuthData();
     const quizId = params.get('id');
     const { data: quizData } = useGetSingleData<QuizDataType | null>(`quiz-${quizId}`, () => quizzesService.getById(quizId!));
     const { data: categoryData } = useGetSingleData<CategoryDataType | null>(`category-${quizData?.category}`, () => categoriesService.getById(quizData?.category!));
@@ -87,7 +90,7 @@ export default function SingleQuiz() {
                     </div>
                     <div className="flex gap-[1rem] max-[300px]:flex-col">
                         <div className="w-full">
-                            <Link href={linkHref}>
+                            <Link href={user.user ? linkHref : '/login'}>
                                 <Button type="yellow" styles="flex justify-center items-center gap-[0.5rem]">
                                     Начать
                                     <Triangle />

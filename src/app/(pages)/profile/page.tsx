@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import QuizzesGrid from "@/components/layouts/quizzesGrid";
 import SectionWithHeader from "@/components/layouts/sectionWithHeader";
-import Button from "@/components/ui/button";
+import Button from "../../../components/ui/button";
 import IconButton from "@/components/ui/iconButton";
 
 import Edit from "@/assets/edit";
