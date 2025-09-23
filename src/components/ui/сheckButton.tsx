@@ -1,7 +1,7 @@
 interface CheckButtonProps {
     type: 'checkbox' | 'radio';
     checked?: boolean;
-    value: string;
+    value?: string;
     name: string;
     onChange?: () => void
 }
@@ -18,7 +18,7 @@ const CheckButton:React.FC<CheckButtonProps> = ({ type, name, value, checked, on
             onChange={onChange}
             type={type}
             name={name}
-            defaultChecked={checked}
+            checked={checked}
             />
             <span className="block font-bold text-left text-[1.8rem] ml-[1rem]">{value}</span>
         </div>

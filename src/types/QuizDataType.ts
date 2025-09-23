@@ -5,7 +5,7 @@ export interface QuizDataType {
     slug: string;
     title: string;
     description: string;
-    coverImage?: string;
+    coverImage: string;
     questionsAmount: number;
     author: string;
     isConfirmed: boolean;
@@ -16,7 +16,7 @@ export interface QuizDataType {
 
 export interface QuestionType {
     title: string;
-    image?: string;
+    imageUrl: string;
     options: OptionType[]
 }
 

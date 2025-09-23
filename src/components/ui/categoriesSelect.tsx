@@ -16,7 +16,6 @@ const CategoriesSelect = ({ onSelect }: { onSelect: (categoryId: string) => void
     const { data } = useGetData<CategoryDataType>('categories', categoriesService.getAll);
     const [showOptions, setShowOptions] = useState<boolean>(false);
     const selectRef = useRef<HTMLDivElement>(null);
-    const [selectedCategory, setSelectedCategory] = useState<string>('💭 Общее');
 
     const handleShowOptions = () => {
         setShowOptions(!showOptions);
@@ -24,7 +23,6 @@ const CategoriesSelect = ({ onSelect }: { onSelect: (categoryId: string) => void
 
     const onCategorySelect = (data: CategoryDataType) => {
         setShowOptions(false);
-        setSelectedCategory(`${data.emoji} ${data.title}`);
         onSelect(data.id);
     }
 
