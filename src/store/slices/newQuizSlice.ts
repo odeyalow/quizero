@@ -8,8 +8,8 @@ const initialState: NewQuizDataType = {
     ownerId: '',
     isPublic: true,
     slug: '',
-    title: 'a',
-    description: 'a',
+    title: '',
+    description: '',
     coverImageUrl: '',
     questionsAmount: 0,
     author: '',
@@ -21,16 +21,6 @@ const initialState: NewQuizDataType = {
             imageUrl: '',
             options: []
         },
-        // {
-        //     title: '',
-        //     image: 'https://cdn.pixabay.com/photo/2025/07/10/18/57/snowfield-9707323_1280.jpg',
-        //     options: []
-        // },
-        // {
-        //     title: '',
-        //     image: 'https://cdn.pixabay.com/photo/2025/08/25/20/04/nature-9796816_1280.jpg',
-        //     options: []
-        // }
     ],
 }
 

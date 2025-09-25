@@ -1,21 +1,20 @@
 'use client'
 
-import Image from "next/image";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import MainInfoForm from "@/components/forms/mainInfoForm";
 import QuestionsForm from "@/components/forms/questionsForm";
 import QuizPreview from "@/components/layouts/quizPreview";
+import Button from "@/components/ui/button";
 
 import SectionWithHeader from "@/components/layouts/sectionWithHeader";
-
-import Arrow from "@/assets/arrow";
 
 export default function CreateQuiz() {
     const router = useRouter();
 
     const [step, setStep] = useState<number>(1);
+    const [showQuestions, setShowQuestions] = useState<boolean>(false);
 
     const onNextStep = () => {
         if ( step !== 3 ) setStep(prev => prev + 1);
@@ -24,6 +23,7 @@ export default function CreateQuiz() {
     }
     const onPrevStep = () => {
         setStep(prev => prev - 1);
+        setShowQuestions(false);
     }
 
     return (
@@ -31,54 +31,47 @@ export default function CreateQuiz() {
             <div>
                 <div className="mb-[3rem] max-sm:text-center">
                     <h2 style={{fontSize: 'clamp(2rem, 7vw, 3rem)'}}
-                        className="text-[3rem] font-extrabold mb-[1rem] text-yellow-1">
+                        className="text-[3rem] font-extrabold mb-[1rem] text-yellow-1 inline-block">
                             { step === 1 && 'Общая информация' }
                             { step === 2 && 'Вопросы' }
                             { step === 3 && 'Предпросмотр' }
                     </h2>
                     {
                         step === 3 && (
+                            <div className="flex gap-[1rem] flex-wrap max-sm:justify-center my-[2rem]">
+                                <Button
+                                type={!showQuestions ? 'blue' : 'gray'}
+                                active={!showQuestions}
+                                styles="text-[2rem]"
+                                onClick={() => setShowQuestions(false)}>Главная информация</Button>
+                                <Button
+                                type={showQuestions ? 'blue' : 'gray'}
+                                active={showQuestions}
+                                styles="text-[2rem]"
+                                onClick={() => setShowQuestions(true)}>Вопросы</Button>
+                            </div>
+                        )
+                    }
+                    {
+                        step === 3 && !showQuestions && (
                             <p style={{fontSize: 'clamp(1rem, 5vw, 2rem)'}}
                                 className="text-[2rem]">
                                 Так будет выглядеть страница вашего квиза после публикации!
                             </p>
                         )
                     }
+                    {
+                        step === 3 && showQuestions && (
+                            <p style={{fontSize: 'clamp(1rem, 5vw, 2rem)'}}
+                                className="text-[2rem]">
+                                Так будет выглядеть страница вопросов вашего квиза при процессе прохождения!
+                            </p>
+                        )
+                    }
                 </div>
                 { step === 1 && <MainInfoForm onNextStep={onNextStep}/>}
                 { step === 2 && <QuestionsForm onPrevStep={onPrevStep} onNextStep={onNextStep}/>}
-                { step === 3 && <QuizPreview />}
-
-                {/* <div className="flex justify-between mt-[10rem] h-[43.4px] max-[350px]:flex-col-reverse gap-[1.5rem]">
-                    {
-                        step !== 1 ? (
-                            <Button
-                            onClick={onPrevStep}
-                            type="yellow"
-                            styles="flex items-center gap-[0.5rem] h-full justify-center">
-                                <Arrow styles="max-w-[20px] h-[20px]"/>
-                                Назад
-                            </Button>
-                        ) : <div></div>
-                    }
-                    <Button
-                    onClick={() => onNextStep()}
-                    type="yellow"
-                    styles="flex items-center gap-[0.5rem] h-full justify-center">
-                        {step === 3 ? (
-                            <>
-                                Опубликовать
-                                
-                            </>
-                        ) : (
-                            <>
-                                Продолжить
-                                <Arrow styles="max-w-[20px] h-[20px] rotate-180"/>
-                            </>
-                        )}
-                        
-                    </Button>
-                </div> */}
+                { step === 3 && <QuizPreview showQuestions={showQuestions} onPrevStep={onPrevStep}/>}
             </div>
         </SectionWithHeader>
     )

@@ -92,9 +92,9 @@ export default function QuizAtempt() {
                     </div>
                     <div className="bg-white border-[5px] border-gray rounded-[2rem] p-[3rem] max-sm:p-[1.5rem]">
                         {
-                            currentQuestion?.image && (
+                            currentQuestion?.imageUrl && (
                                 <Image
-                                src={currentQuestion?.image}
+                                src={currentQuestion?.imageUrl}
                                 width={1000}
                                 height={600}
                                 alt="Quiz Cover"
@@ -103,7 +103,7 @@ export default function QuizAtempt() {
                             )
                         }
                         <h2 style={{fontSize: 'clamp(1.5rem, 5vw, 3rem)'}}
-                            className="text-[3rem] font-extrabold my-[3rem]">{currentQuestion?.title}</h2>
+                            className="text-[3rem] font-extrabold mb-[3rem]">{currentQuestion?.title}</h2>
                         <div className="flex flex-col gap-[2rem]">
                             {
                                 randomizedOptions.map((option: OptionType) => {

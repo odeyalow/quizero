@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 
 import Button from "./button";
-import CheckButton from "@/components/ui/сheckButton";
 
 import useGetData from "@/hooks/useGetData";
 import CategoryDataType from "@/types/CategoryDataType";
