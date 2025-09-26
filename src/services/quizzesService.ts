@@ -1,7 +1,10 @@
-import { db } from "@/lib/firebase";
-import { collection, getDocs, query, where, doc, getDoc } from "firebase/firestore";
+import { db, storage } from "@/lib/firebase";
+import { collection, getDocs, query, where, doc, getDoc, setDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { QuizDataType } from "@/types/QuizDataType";
+import QuizImageFilesType from "@/types/QuizImageFilesType";
+import NewQuizDataType from "@/types/newQuizDataType";
 
 const quizzesRef = collection(db, "quizzes");
 
@@ -63,8 +66,48 @@ const quizzesService = {
 
         return results;
     },
-    addQuiz: async (quizData: QuizDataType) => {
+    createQuiz: async (quizData: NewQuizDataType, quizImages: QuizImageFilesType) => {
+        const quizRef = doc(collection(db, "quizzes"));
+        const quizId = quizRef.id;
         
+        const { coverImage, questionImages} = quizImages;
+
+
+        let coverImageUrl: string | null = null;
+        if (coverImage) {
+            const ext = coverImage?.name.split('.').pop();
+            const coverRef = ref(storage, `quizzes/${quizId}/cover.${ext}`);
+            await uploadBytes(coverRef, coverImage);
+            coverImageUrl = await getDownloadURL(coverRef);
+        }
+
+        const updatedQuestions = await Promise.all(
+        quizData.questions.map(async (q) => {
+            const file = questionImages[q.id];
+            if (!file) return q;
+
+            const ext = file.name.split(".").pop();
+            const questionRef = ref(storage, `quizzes/${quizId}/questions/${q.id}.${ext}`);
+            await uploadBytes(questionRef, file);
+            const downloadURL = await getDownloadURL(questionRef);
+
+            return {
+                ...q,
+                image: downloadURL,
+            };
+            })
+        );
+
+        const finalQuizData = {
+            ...quizData,
+            coverImageUrl,
+            questions: updatedQuestions,
+            createdAt: Date.now(),
+        };
+
+        await setDoc(quizRef, finalQuizData);
+
+        return { quizId };
     }
 }
 

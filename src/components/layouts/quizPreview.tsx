@@ -1,16 +1,20 @@
 import QuizMainInfoPreview from "./quizMainInfoPreview";
 import QuizQuestionsPreview from "./quizQuestionsPreview";
 import Button from "../ui/button";
+import useModal from "@/hooks/useModal";
+import BaseModal from "../ui/baseModal";
 
 import Arrow from "@/assets/arrow";
 
 interface QuizPreviewProps {
     showQuestions: boolean;
     onPrevStep: () => void;
-    onPost?: () => void;
+    onQuizPost: () => void;
 }
 
-const QuizPreview:React.FC<QuizPreviewProps> = ({ showQuestions, onPrevStep, onPost }) => {
+const QuizPreview:React.FC<QuizPreviewProps> = ({ showQuestions, onPrevStep, onQuizPost }) => {
+    const { openModal, closeModal, showModal } = useModal();
+
     return (
         <div>
             {
@@ -25,11 +29,20 @@ const QuizPreview:React.FC<QuizPreviewProps> = ({ showQuestions, onPrevStep, onP
                     Назад
                 </Button>
                 <Button
+                onClick={openModal}
                 type="yellow"
                 styles="flex items-center gap-[0.5rem] h-full justify-center">
                     Опубликовать
                 </Button>
             </div>
+            <BaseModal
+            title="Готовы поделиться своим квизом?"
+            description="Почти всё готово! После публикации другие пользователи смогут пройти ваш квиз (если выбран публичный доступ). Проверьте ещё раз всё ли верно? Если да — смело нажимайте на кнопку! 🚀"
+            buttonText="Опубликовать"
+            modalActive={showModal}
+            type="confirm"
+            onConfirm={onQuizPost}
+            onClose={closeModal}/>
         </div>
     );
 }

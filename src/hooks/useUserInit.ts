@@ -15,12 +15,12 @@ function useUserInit() {
     
     const queryClient = useQueryClient();
     const initialUserData: UserDataType = {
-        passedQuizzesAmount: 0,
         createdQuizzesAmount: 0,
         percentOfCorrectAnswers: 0,
         correctAnswersAmount: 0,
         allAnswersAmount: 0,
-        createdQuizzes: []
+        createdQuizzes: [],
+        passedQuizzes: []
     }
     
 

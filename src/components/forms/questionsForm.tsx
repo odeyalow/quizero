@@ -26,11 +26,20 @@ import {
 import { OptionType, QuestionType } from "@/types/QuizDataType";
 
 interface QuestionFormProps {
+    onQuestionImageAdd: (questionId: string, file: File) => void;
+    onQuestionImageRemove: (questionId: string) => void;
+    onQuestionImageKeyDelete: (questionId: string) => void;
     onPrevStep: () => void;
     onNextStep: () => void;
 }
 
-const QuestionsForm:React.FC<QuestionFormProps> = ({ onPrevStep, onNextStep }) => {
+const QuestionsForm:React.FC<QuestionFormProps> = ({
+    onQuestionImageAdd,
+    onQuestionImageRemove,
+    onQuestionImageKeyDelete,
+    onPrevStep,
+    onNextStep
+    }) => {
     const newQuiz = useAppSelector((state) => state.newQuiz);
     const dispatch = useAppDispatch();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -73,7 +82,7 @@ const QuestionsForm:React.FC<QuestionFormProps> = ({ onPrevStep, onNextStep }) =
     useEffect(() => {
         if ( coverImage ) {
             const coverImageUrl = URL.createObjectURL(coverImage);
-            dispatch(setQuestionImage({ questionId: currentQuestionNumber-1, imageUrl: coverImageUrl}));
+            dispatch(setQuestionImage({ questionId: currentQuestionNumber-1, image: coverImageUrl}));
         }
     }, [coverImage])
 
@@ -88,6 +97,8 @@ const QuestionsForm:React.FC<QuestionFormProps> = ({ onPrevStep, onNextStep }) =
         else setCurrentQuestionNumber(1);
         
         dispatch(removeQuestion(currentQuestionNumber));
+        onQuestionImageRemove(newQuiz.questions[currentQuestionNumber-1].id);
+        onQuestionImageKeyDelete(newQuiz.questions[currentQuestionNumber-1].id);
     }
     const onQuestionChange = (index: number) => {
         setCurrentQuestionNumber(index+1);
@@ -120,9 +131,9 @@ const QuestionsForm:React.FC<QuestionFormProps> = ({ onPrevStep, onNextStep }) =
     }
     const handleFileButton = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        if ( newQuiz.questions[currentQuestionNumber-1].imageUrl ) {
+        if ( newQuiz.questions[currentQuestionNumber-1].image ) {
             setCoverImage(null);
-            dispatch(setQuestionImage({ questionId: currentQuestionNumber-1, imageUrl: ''}));
+            dispatch(setQuestionImage({ questionId: currentQuestionNumber-1, image: ''}));
         };
         fileInputRef.current?.click();
     }
@@ -183,13 +194,13 @@ const QuestionsForm:React.FC<QuestionFormProps> = ({ onPrevStep, onNextStep }) =
                 <div className="w-full">
                     <span className="block font-bold mb-[1.5rem] text-left text-[1.8rem]">Картинка</span>
                     <div className={`border-[5px]  rounded-[1rem] h-[450px] mb-[3rem] relative grid place-items-center group  max-sm:h-[250px]
-                    ${newQuiz.questions[currentQuestionNumber-1].imageUrl === ''
+                    ${newQuiz.questions[currentQuestionNumber-1].image === ''
                     ? 'border-gray border-dashed hover:border-blue-1'
                     : 'border-light-2'}`}>
                         {
-                            newQuiz.questions[currentQuestionNumber-1].imageUrl ? (
+                            newQuiz.questions[currentQuestionNumber-1].image ? (
                                 <Image
-                                src={newQuiz.questions[currentQuestionNumber-1].imageUrl ?? ''}
+                                src={newQuiz.questions[currentQuestionNumber-1].image ?? ''}
                                 fill
                                 alt="Quiz Image Preview"
                                 className="object-cover rounded-[.5rem]"
@@ -202,9 +213,9 @@ const QuestionsForm:React.FC<QuestionFormProps> = ({ onPrevStep, onNextStep }) =
                             )
                         }
                         {
-                            newQuiz.questions[currentQuestionNumber-1].imageUrl ? (
+                            newQuiz.questions[currentQuestionNumber-1].image ? (
                                 <Image
-                                src={newQuiz.questions[currentQuestionNumber-1].imageUrl}
+                                src={newQuiz.questions[currentQuestionNumber-1].image}
                                 fill
                                 alt="Quiz Image Preview"
                                 className="rounded-[0.5rem] object-cover"
@@ -218,15 +229,17 @@ const QuestionsForm:React.FC<QuestionFormProps> = ({ onPrevStep, onNextStep }) =
                                 onChange={(e) => {
                                     const file = e.target.files?.[0] || null;
                                     setCoverImage(file);
+                                    if ( file )
+                                        onQuestionImageAdd(newQuiz.questions[currentQuestionNumber-1].id, file)
                                 }}/>
                             )
                         }
                     </div>
                     <Button
                     onClick={handleFileButton}
-                    type={newQuiz.questions[currentQuestionNumber-1].imageUrl ? 'red' : 'blue'}
+                    type={newQuiz.questions[currentQuestionNumber-1].image ? 'red' : 'blue'}
                     >
-                        {newQuiz.questions[currentQuestionNumber-1].imageUrl ? 'Удалить изображение' : 'Загрузить изображение'}
+                        {newQuiz.questions[currentQuestionNumber-1].image ? 'Удалить изображение' : 'Загрузить изображение'}
                     </Button>
                 </div>
                 <span className="block font-bold text-left text-[1.8rem]">Текст вопроса</span>

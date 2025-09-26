@@ -37,7 +37,13 @@ const mainInfoSchema = z.object({
 
 export type MainInfoType = z.infer<typeof mainInfoSchema>;
 
-const MainInfoForm = ({ onNextStep }: { onNextStep: () => void }) => {
+interface MainInfoProps {
+    onCoverImageAdd: (file: File) => void;
+    onCoverImageRemove: () => void;
+    onNextStep: () => void;
+}
+
+const MainInfoForm:React.FC<MainInfoProps> = ({ onCoverImageAdd, onCoverImageRemove, onNextStep }) => {
     const { user } = useAuthData();
     const [coverImage, setCoverImage] = useState<File | null>();
     const [tagInput, setTagInput] = useState<string>('');
@@ -69,6 +75,7 @@ const MainInfoForm = ({ onNextStep }: { onNextStep: () => void }) => {
         if ( coverImage ) {
             const coverImageUrl = URL.createObjectURL(coverImage);
             dispatch(setCoverImageUrl(coverImageUrl));
+            onCoverImageAdd(coverImage);
         }
     }, [coverImage])
 
@@ -103,6 +110,7 @@ const MainInfoForm = ({ onNextStep }: { onNextStep: () => void }) => {
         if ( newQuiz.coverImageUrl ) {
             setCoverImage(null);
             dispatch(setCoverImageUrl(''));
+            onCoverImageRemove();
         };
         fileInputRef.current?.click();
     }

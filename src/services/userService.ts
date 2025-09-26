@@ -28,6 +28,7 @@ const userService = {
             createdQuizzes: arrayUnion(createdQuizId)
         })
     },
+    // TODO: ADD USER PFP UPLOAD FUNCTIONALITY
     updateProfilePicture: (uid: string, imageUrl: string) => {
         const userRef = doc(db, "users", uid);
     }

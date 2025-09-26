@@ -15,8 +15,9 @@ export interface QuizDataType {
 }
 
 export interface QuestionType {
+    id: string;
     title: string;
-    imageUrl: string;
+    image: string;
     options: OptionType[]
 }
 

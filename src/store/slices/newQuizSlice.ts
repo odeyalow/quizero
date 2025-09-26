@@ -17,8 +17,9 @@ const initialState: NewQuizDataType = {
     tags: [],
     questions: [
         {
+            id: `q-${Date.now()}`,
             title: '',
-            imageUrl: '',
+            image: '',
             options: []
         },
     ],
@@ -61,16 +62,17 @@ const newQuizSlice = createSlice({
         },
         addQuestion: (state) => {
             state.questions.push({
+                id: `q-${Date.now()}`,
                 title: '',
-                imageUrl: '',
+                image: '',
                 options: []
             });
         },
         setQuestionTitle: (state, action: PayloadAction<{ questionId: number, title: string }>) => {
             state.questions[action.payload.questionId].title = action.payload.title;
         },
-        setQuestionImage: (state, action: PayloadAction<{ questionId: number, imageUrl: string }>) => {
-            state.questions[action.payload.questionId].imageUrl = action.payload.imageUrl;
+        setQuestionImage: (state, action: PayloadAction<{ questionId: number, image: string }>) => {
+            state.questions[action.payload.questionId].image = action.payload.image;
         },
         addOption: (state, action: PayloadAction<number>) => {
             if ( state.questions[action.payload].options.length === 0 ) {

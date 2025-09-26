@@ -1,30 +1,68 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import MainInfoForm from "@/components/forms/mainInfoForm";
 import QuestionsForm from "@/components/forms/questionsForm";
 import QuizPreview from "@/components/layouts/quizPreview";
 import Button from "@/components/ui/button";
-
 import SectionWithHeader from "@/components/layouts/sectionWithHeader";
+import useCreateQuiz from "@/hooks/useAddQuiz";
+import { useAppSelector } from "@/hooks/useStore";
+
+import QuizImageFilesType from "@/types/QuizImageFilesType";
 
 export default function CreateQuiz() {
     const router = useRouter();
-
+    const newQuiz = useAppSelector((state) => state.newQuiz);
+    
     const [step, setStep] = useState<number>(1);
     const [showQuestions, setShowQuestions] = useState<boolean>(false);
+    
+    const [quizImageFiles, setQuizImageFiles] = useState<QuizImageFilesType>({
+        coverImage: null,
+        questionImages: {
+        }
+    });
 
-    const onNextStep = () => {
-        if ( step !== 3 ) setStep(prev => prev + 1);
-        // TODO: Replace id in replace to quiz id that have been added!
-        else if ( step === 3 ) router.replace(`/quizzes/ID`);
+    const { data, mutate, isPending, isError, isSuccess } = useCreateQuiz(newQuiz, quizImageFiles);
+
+    useEffect(() => {
+    if (isSuccess && data) {
+        router.replace(`/quizzes/${data.quizId}`);
     }
+    }, [isSuccess, data, router]);
+
+    const onQuizPost = () => mutate();
+
+    const onNextStep = () => 
+        setStep(prev => prev + 1);
     const onPrevStep = () => {
         setStep(prev => prev - 1);
         setShowQuestions(false);
     }
+
+    const onCoverImageAdd = (file: File) =>
+        setQuizImageFiles(prev => ({...prev, coverImage: file}));
+    const onCoverImageRemove = () =>
+        setQuizImageFiles(prev => ({...prev, coverImage: null}));
+    const onQuestionImageAdd = (questionId: string, file: File) => {
+        setQuizImageFiles(prev => ({...prev, questionImages: { ...prev.questionImages, [questionId]: file}}))
+    }
+    const onQuestionImageRemove = (questionId: string) => {
+        setQuizImageFiles(prev => ({...prev, questionImages: { ...prev.questionImages, [questionId]: null}}))
+    }
+    const onQuestionImageKeyDelete = (questionId: string) => {
+        setQuizImageFiles(prev => {
+            const newQuestionImages = { ...prev.questionImages };
+            delete newQuestionImages[questionId];  // ✅ безопасно
+            return {
+            ...prev,
+            questionImages: newQuestionImages,
+            };
+        });
+    };
 
     return (
         <SectionWithHeader bigTitle="Создание квиза">
@@ -69,9 +107,23 @@ export default function CreateQuiz() {
                         )
                     }
                 </div>
-                { step === 1 && <MainInfoForm onNextStep={onNextStep}/>}
-                { step === 2 && <QuestionsForm onPrevStep={onPrevStep} onNextStep={onNextStep}/>}
-                { step === 3 && <QuizPreview showQuestions={showQuestions} onPrevStep={onPrevStep}/>}
+                { step === 1 &&
+                <MainInfoForm
+                onCoverImageAdd={onCoverImageAdd}
+                onCoverImageRemove={onCoverImageRemove}
+                onNextStep={onNextStep}/>}
+                { step === 2 &&
+                <QuestionsForm
+                onQuestionImageAdd={onQuestionImageAdd}
+                onQuestionImageRemove={onQuestionImageRemove}
+                onQuestionImageKeyDelete={onQuestionImageKeyDelete}
+                onPrevStep={onPrevStep}
+                onNextStep={onNextStep}/>}
+                { step === 3 &&
+                <QuizPreview
+                onQuizPost={onQuizPost}
+                showQuestions={showQuestions}
+                onPrevStep={onPrevStep}/>}
             </div>
         </SectionWithHeader>
     )

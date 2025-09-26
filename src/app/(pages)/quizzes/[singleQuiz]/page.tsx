@@ -47,7 +47,7 @@ export default function SingleQuiz() {
             <div className="flex gap-[3rem] max-[1100px]:flex-col">
                 <div className="max-w-[670px] max-[1100px]:max-w-full max-[1100px]:flex max-[1100px]:flex-col max-[1100px]:items-center">
                     {
-                        quizData?.coverImage && (
+                        quizData?.coverImage ? (
                             <Image
                             src={quizData?.coverImage}
                             width={670}
@@ -55,6 +55,16 @@ export default function SingleQuiz() {
                             alt="Quiz Cover"
                             className="max-w-[100%] h-[380px] object-cover rounded-[1rem] border-light-2 border-[5px] mb-[3rem] max-sm:h-[300px]"
                             />
+                        ) : (
+                            <div className="
+                                text-center
+                                w-[670px] h-[380px] max-md:h-[200px] 
+                                rounded-[1rem] bg-white p-[1rem]
+                                border-dark-1 border-[5px] border-dashed
+                                flex flex-col justify-center items-center gap-[1rem] mb-[3rem]">
+                                <span className="text-[3rem] text-dark-1 font-bold">Упс...</span>
+                                <span className="text-[2rem] text-dark-1 font-meduim">👀Картинки нет!</span>
+                            </div>
                         )
                     }
                     <div>

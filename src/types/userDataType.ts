@@ -2,8 +2,8 @@ import { QuizDataType } from "./QuizDataType";
 
 interface UserDataType {
     createdQuizzes: QuizDataType[];
+    passedQuizzes: [];
     createdQuizzesAmount: number;
-    passedQuizzes: string[];
     percentOfCorrectAnswers: number;
     correctAnswersAmount: number;
     allAnswersAmount: number;

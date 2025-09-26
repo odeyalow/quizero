@@ -71,6 +71,9 @@ const QuizQuestionsPreview = () => {
                         }
                     </div>
                 </div>
+                <span className='text-[2rem] text-gray inline-block mt-[2rem]'>
+                    При прохождении любого квиза, варианты ответов каждый раз будут в случайном порядке! Сейчас вы видите начальный порядок ответов.
+                </span>
             </div>
         </div>
     );
