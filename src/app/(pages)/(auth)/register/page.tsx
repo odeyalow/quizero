@@ -1,10 +1,12 @@
-import Link from "next/link"
+'use client';
 
 import SectionWithHeader from "@/components/layouts/sectionWithHeader"
 import RegistrationForm from "@/components/forms/registrationForm"
-import Button from "../../../../components/ui/button"
+import Button from "@/components/ui/button"
+import { useRouter } from "next/navigation"
 
 export default function Register() {
+    const { replace } = useRouter();
     return (
         <SectionWithHeader bigTitle="Регистрация">
             <h2 style={{fontSize: 'clamp(2rem, 5vw, 3rem)'}}
@@ -20,7 +22,7 @@ export default function Register() {
                     Регистрация через Google
                 </Button>
                 <div className="text-[1.8rem] flex justify-center mt-[3rem]">
-                    <Link href='login' className="hover:text-yellow-1">Уже есть аккаунт?</Link>
+                    <button onClick={() => replace('/login')} className="hover:text-yellow-1">Уже есть аккаунт?</button>
                 </div>
             </div>
         </SectionWithHeader>

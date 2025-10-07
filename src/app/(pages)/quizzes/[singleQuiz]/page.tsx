@@ -9,10 +9,11 @@ import { useEffect } from "react";
 import SectionWithHeader from "@/components/layouts/sectionWithHeader";
 import Button from "../../../../components/ui/button";
 import IconButton from "@/components/ui/iconButton";
+import BaseModal from "@/components/ui/baseModal";
 
 import Triangle from "@/assets/triangle";
 import Share from "@/assets/share";
-import Verified from "@/assets/verified";
+import Trash from "@/assets/trash";
 
 import useGetSingleData from "@/hooks/useGetSingleData";
 import quizzesService from "@/services/quizzesService";
@@ -20,20 +21,35 @@ import { QuizDataType } from "@/types/QuizDataType";
 import categoriesService from "@/services/categoriesService";
 import CategoryDataType from "@/types/CategoryDataType";
 import { useAuthData } from "@/components/layouts/authProvider";
+import useDeleteQuiz from "@/hooks/useDeleteQuiz";
+import userService from "@/services/userService";
+import useModal from "@/hooks/useModal";
+import useGetUser from "@/hooks/useGetUser";
 
 export default function SingleQuiz() {
-    const params = useSearchParams();
     const router = useRouter();
+    const params = useSearchParams();
+    const { openModal, closeModal, showModal} = useModal();
+
     const user = useAuthData();
+    const { data: userData } = useGetUser(user.user?.uid);
     const quizId = params.get('id');
     const { data: quizData } = useGetSingleData<QuizDataType | null>(`quiz-${quizId}`, () => quizzesService.getById(quizId!));
     const { data: categoryData } = useGetSingleData<CategoryDataType | null>(`category-${quizData?.category}`, () => categoriesService.getById(quizData?.category!));
-
-    const linkHref = {
+    const { mutate, isPending, isError, isSuccess } = useDeleteQuiz(() => quizzesService.deleteQuiz(quizId!));
+    
+    const attemptHref = {
         pathname: `/quizzes/atempt/${quizId}`,
         query: {
             id: quizId,
             quizSlug: quizData?.slug
+        }
+    }
+
+    const userHref = {
+        pathname: `/user`,
+        query: {
+            id: quizData?.ownerId
         }
     }
     
@@ -41,19 +57,36 @@ export default function SingleQuiz() {
         document.body.style.overflowY = 'scroll';
     }, [])
 
+    console.log(quizData)
+
+    useEffect(() => {
+        if (isSuccess) {
+            userService.updateOnQuizDelete(user.user?.uid ?? '', quizId!);
+            router.back();
+        };
+    }, [isSuccess, router]);
+
     return (
-        <SectionWithHeader bigTitle="Готовы к вызову?">
-            <h2 className="text-[3rem] font-extrabold mb-[3rem]">{quizData && quizData?.title}</h2>
+        <>
+            <SectionWithHeader bigTitle="Готовы к вызову?">
+            <h2 className="text-[3rem] font-extrabold mb-[3rem]">
+                {quizData && quizData?.title}
+                {
+                    userData?.passedQuizzes.find(id => id === quizId) && (
+                        <span className="text-light-2"> Пройдено</span>
+                    ) 
+                }
+            </h2>
             <div className="flex gap-[3rem] max-[1100px]:flex-col">
                 <div className="max-w-[670px] max-[1100px]:max-w-full max-[1100px]:flex max-[1100px]:flex-col max-[1100px]:items-center">
                     {
-                        quizData?.coverImage ? (
+                        quizData?.coverImageUrl ? (
                             <Image
-                            src={quizData?.coverImage}
+                            src={quizData?.coverImageUrl}
                             width={670}
                             height={380}
                             alt="Quiz Cover"
-                            className="max-w-[100%] h-[380px] object-cover rounded-[1rem] border-light-2 border-[5px] mb-[3rem] max-sm:h-[300px]"
+                            className="min-[1100px]:min-w-[670px] max-w-[670px] w-[100%] h-[380px] object-cover rounded-[1rem] border-light-2 border-[5px] mb-[3rem] max-sm:h-[300px]"
                             />
                         ) : (
                             <div className="
@@ -81,12 +114,11 @@ export default function SingleQuiz() {
                         className="text-[2.4rem] font-bold">{categoryData?.emoji} {categoryData?.title}</h4>
                         <div className="flex items-center gap-[0.5rem]">
                             <h4 style={{fontSize: 'clamp(1.5rem, 5vw, 2.4rem)'}} 
-                            className="text-[2.4rem] font-bold">👤 от {quizData?.author}</h4>
-                            {
-                                quizData?.isConfirmed && (
-                                    <Verified />
-                                )
-                            }
+                                className="text-[2.4rem] font-bold">
+                                👤 от <Link href={userHref} className="text-blue-1">
+                                            {quizData?.author}
+                                        </Link>
+                                </h4>
                         </div>
                         <h4 style={{fontSize: 'clamp(1.5rem, 5vw, 2.4rem)'}} 
                         className="text-[2.4rem] font-bold">❓ Вопросы: {quizData?.questionsAmount}</h4>
@@ -100,7 +132,7 @@ export default function SingleQuiz() {
                     </div>
                     <div className="flex gap-[1rem] max-[300px]:flex-col">
                         <div className="w-full">
-                            <Link href={user.user ? linkHref : '/login'}>
+                            <Link href={user.user ? attemptHref : '/login'}>
                                 <Button type="yellow" styles="flex justify-center items-center gap-[0.5rem]">
                                     Начать
                                     <Triangle />
@@ -110,9 +142,29 @@ export default function SingleQuiz() {
                         <IconButton type="blue">
                             <Share />
                         </IconButton>
+                        {
+                            user.user?.uid === quizData?.ownerId && (
+                                <IconButton
+                                type="red"
+                                onClick={openModal}>
+                                    <Trash />
+                                </IconButton>
+                            )
+                        }
                     </div>
                 </div>
             </div>
-        </SectionWithHeader>
+            </SectionWithHeader>
+            <BaseModal
+                modalActive={showModal}
+                title="Удалить квиз?"
+                onClose={closeModal}
+                onConfirm={mutate}
+                type="confirm"
+                buttonText="Да, удалить"
+                danger
+                description="Вы уверены, что хотите удалить этот квиз? Это действие нельзя отменить."
+            />
+        </>
     )
 }

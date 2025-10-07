@@ -1,5 +1,6 @@
-import { db } from "@/lib/firebase";
-import { doc, updateDoc, increment, arrayUnion, runTransaction } from "firebase/firestore";
+import { db, storage } from "@/lib/firebase";
+import { doc, updateDoc, increment, arrayUnion, runTransaction, arrayRemove, deleteField } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL, getStorage, deleteObject } from "firebase/storage";
 
 const userService = {
     updateOnQuizComplete: async (uid: string, quizId: string, quizCorrectAnswersAmount: number, allQuizAnswersAmount: number) => {
@@ -24,13 +25,44 @@ const userService = {
     updateOnQuizCreate: async (uid: string, createdQuizId: string) => {
         const userRef = doc(db, "users", uid);
         await updateDoc(userRef, {
-            createdQuizzesAmount: increment(1),
             createdQuizzes: arrayUnion(createdQuizId)
         })
     },
-    // TODO: ADD USER PFP UPLOAD FUNCTIONALITY
-    updateProfilePicture: (uid: string, imageUrl: string) => {
+    updateOnQuizDelete: async(uid: string, quizId: string) => {
         const userRef = doc(db, "users", uid);
+        await updateDoc(userRef, {
+            createdQuizzes: arrayRemove(quizId)
+        })
+    },
+    updateProfilePicture: async(uid: string, image: File) => {
+        try {
+            const ext = image.name.split(".").pop();
+            const storageRef = ref(storage, `profileImages/${uid}-profileImage.${ext}`);
+            await uploadBytes(storageRef, image);
+
+            const pfpURL = await getDownloadURL(storageRef);
+
+            const userRef = doc(db, "users", uid);
+            await updateDoc(userRef, {
+                photoURL: pfpURL,
+            });
+        } catch (error) {
+            console.error("Ошибка при обновлении фото профиля:", error);
+            throw error;
+        }
+    },
+    removeProfilePicture: async(uid: string, imageUrl: string) => {
+        try {
+            const storage = getStorage();
+            const fileRef = ref(storage, imageUrl);
+            await deleteObject(fileRef);
+
+            const userRef = doc(db, "users", uid);
+            await updateDoc(userRef, { photoURL: deleteField() })
+        } catch (error) {
+            console.error("Ошибка при удалении фото профиля:", error);
+            throw error;
+        }
     }
 }
 

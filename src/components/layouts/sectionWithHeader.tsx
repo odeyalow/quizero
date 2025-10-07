@@ -16,23 +16,25 @@ interface SectionWithButtonProps {
 
 const SectionWithHeader:React.FC<SectionWithButtonProps> = ({ bigTitle, smallTitle, styles, children }) => {
     const router = useRouter();
-    
+
     return (
         <Section styles={`mb-[10rem] ${styles}`}>
-            <header className="flex gap-[2rem] mb-[5rem] items-center max-sm:justify-center">
-                <IconButton
+            <header className="flex gap-[2rem] mb-[5rem] items-center max-sm:justify-center justify-between">
+                <div className="flex gap-[2rem] items-center">
+                    <IconButton
                     type="gray"
                     onClick={router.back}>
                     <Arrow />
-                </IconButton>
-                {
-                    bigTitle && <h1 style={{fontSize: 'clamp(2.5rem, 8vw, 4rem)'}}
-                    className="font-extrabold text-left">{bigTitle}</h1>
-                }
-                {
-                    smallTitle && <h1 style={{fontSize: 'clamp(1.5rem, 5vw, 2.8rem)'}}
-                    className="font-extrabold text-left">{smallTitle}</h1>
-                }
+                    </IconButton>
+                    {
+                        bigTitle && <h1 style={{fontSize: 'clamp(2.5rem, 8vw, 4rem)'}}
+                        className="font-extrabold text-left">{bigTitle}</h1>
+                    }
+                    {
+                        smallTitle && <h1 style={{fontSize: 'clamp(1.5rem, 5vw, 2.8rem)'}}
+                        className="font-extrabold text-left">{smallTitle}</h1>
+                    }
+                </div>
             </header>
             {children}
         </Section>

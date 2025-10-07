@@ -8,11 +8,15 @@ import Input from "@/components/ui/input";
 import { useAuthData } from "@/components/layouts/authProvider";
 
 //When data add is needed
-// import { useEffect } from "react";
-// import { seedData } from "@/scripts/seedData";
+import { useEffect } from "react";
+import { seedData } from "@/scripts/seedData";
 
 export default function Home() {
   const user = useAuthData();
+
+  // useEffect(() => {
+  //   seedData();
+  // }, [])
 
   return (
     <div className="pt-[5rem] relative max-sm:pt-0">

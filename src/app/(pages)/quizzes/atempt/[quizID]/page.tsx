@@ -30,7 +30,9 @@ export default function QuizAtempt() {
     const currentQuestion = questions?.[currentQuestionNumber];
     const { showModal, openModal, closeModal } = useModal();
     const onAnswer = (text: string, isCorrect: boolean) => {
-        setQuestionAnswers(answers => [...answers, { text: text, isCorrect: isCorrect }]);
+        if ( !questionAnswers.find(answer => answer.text === text) ) {
+            setQuestionAnswers(answers => [...answers, { text: text, isCorrect: isCorrect }]);
+        }
         setShowCorrectAnswer(true);
     }
     const getButtonType = (option: OptionType) => {

@@ -12,9 +12,8 @@ const QuizzesGrid = ({ quizzes }: { quizzes: QuizDataType[] }) => {
                             id={quiz.id}
                             slug={quiz.slug}
                             title={quiz.title}
-                            imageUrl={quiz.coverImage}
+                            imageUrl={quiz.coverImageUrl}
                             author={quiz.author}
-                            isConfirmed={quiz.isConfirmed}
                             category={quiz.category}
                             description={quiz.description}
                             questionsAmount={quiz.questionsAmount}

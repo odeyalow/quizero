@@ -47,21 +47,18 @@ const SearchField = () => {
             <Input value={searchValue} type="text" name="search" placeholder="Искать квизы..." onChange={onSearch} onFocus={handleFocus}/>
             {
                 searchValidation && (
-                    <ul className="bg-white border-[3.5px] border-gray rounded-[1rem] text-[1.6rem] max-h-[450px] overflow-y-scroll absolute z-99 w-full mt-[1rem]">
-                        {
-                            searchResults.map((result: QuizDataType) => {
-                                return(
-                                    <Link
-                                    key={result.id}
-                                    href={linkHandle(result.slug, result.id)}
-                                    onClick={() => setSearchValue('')}>
-                                        <li className="p-[1.25rem] hover:bg-gray">{result.title}</li>
-                                    </Link>
-                                )
-                            })
-                        }
-                        
-                    </ul>
+                    searchResults.map((result: QuizDataType) => {
+                        return(
+                            <Link
+                            key={result.id}
+                            href={linkHandle(result.slug, result.id)}
+                            onClick={() => setSearchValue('')}>
+                                <ul className="bg-white border-[3.5px] border-gray rounded-[1rem] text-[1.6rem] max-h-[450px] overflow-y-scroll absolute z-99 w-full mt-[1rem]">
+                                    <li className="p-[1.25rem] hover:bg-gray">{result.title}</li>
+                                </ul>
+                            </Link>
+                        )
+                    })
                 )
             }
             {

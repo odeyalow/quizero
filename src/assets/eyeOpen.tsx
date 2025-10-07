@@ -5,6 +5,7 @@ const EyeOpen = () => (
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
   >
+    <title>Скрыть</title>
     <g id="SVGRepo_bgCarrier" strokeWidth={0} />
     <g
       id="SVGRepo_tracerCarrier"

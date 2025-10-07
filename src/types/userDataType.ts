@@ -1,12 +1,14 @@
 import { QuizDataType } from "./QuizDataType";
 
 interface UserDataType {
-    createdQuizzes: QuizDataType[];
-    passedQuizzes: [];
-    createdQuizzesAmount: number;
+    role: string;
+    username: string,
+    createdQuizzes: string[];
+    passedQuizzes: string[];
     percentOfCorrectAnswers: number;
     correctAnswersAmount: number;
     allAnswersAmount: number;
+    photoURL?: string;
 };
 
 export default UserDataType;

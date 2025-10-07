@@ -3,7 +3,7 @@ import newQuizSlice from './slices/newQuizSlice';
 
 export const store = configureStore({
     reducer: {
-        newQuiz: newQuizSlice
+        newQuiz: newQuizSlice,
     }
 })
 

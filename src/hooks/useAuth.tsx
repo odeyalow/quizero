@@ -35,7 +35,6 @@ const useAuth = () => {
     }
     const loginUser = async (email: string, password: string) => {
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
             setformErrorMessage('');
         } catch (error: any) {
             switch (error.code) {

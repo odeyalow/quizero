@@ -19,7 +19,9 @@ export default function SingleCategory() {
         <>
             <SectionWithHeader smallTitle={`Все квизы в категории "${categoryName}"`}>
                 {
-                    data &&  <QuizzesGrid quizzes={data}/>
+                    data?.length ?  <QuizzesGrid quizzes={data}/> : (
+                        <h2 className="text-gray text-[2.5rem] text-center pt-[10rem]">Упс... В этой категории пока нету квизов(</h2>
+                    )
                 }
             </SectionWithHeader>
         </>

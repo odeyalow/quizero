@@ -5,10 +5,9 @@ export interface QuizDataType {
     slug: string;
     title: string;
     description: string;
-    coverImage: string;
+    coverImageUrl: string;
     questionsAmount: number;
     author: string;
-    isConfirmed: boolean;
     category: string;
     tags: string[];
     questions: QuestionType[]

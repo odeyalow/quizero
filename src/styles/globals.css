@@ -55,3 +55,7 @@ input:focus, button:focus {
 *{
   transition: ease .2s;
 }
+
+button {
+  cursor: pointer;
+}

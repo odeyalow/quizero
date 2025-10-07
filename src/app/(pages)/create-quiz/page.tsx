@@ -10,6 +10,8 @@ import Button from "@/components/ui/button";
 import SectionWithHeader from "@/components/layouts/sectionWithHeader";
 import useCreateQuiz from "@/hooks/useAddQuiz";
 import { useAppSelector } from "@/hooks/useStore";
+import userService from "@/services/userService";
+import { useAuthData } from "@/components/layouts/authProvider";
 
 import QuizImageFilesType from "@/types/QuizImageFilesType";
 
@@ -27,11 +29,13 @@ export default function CreateQuiz() {
     });
 
     const { data, mutate, isPending, isError, isSuccess } = useCreateQuiz(newQuiz, quizImageFiles);
+    const user = useAuthData();
 
     useEffect(() => {
-    if (isSuccess && data) {
-        router.replace(`/quizzes/${data.quizId}`);
-    }
+        if (isSuccess && data) {
+            router.replace(`/quizzes/${data.quizData.slug}?id=${data.quizId}`);
+            if ( user.user ) userService.updateOnQuizCreate(user.user?.uid, data.quizId);
+        }
     }, [isSuccess, data, router]);
 
     const onQuizPost = () => mutate();
@@ -56,7 +60,7 @@ export default function CreateQuiz() {
     const onQuestionImageKeyDelete = (questionId: string) => {
         setQuizImageFiles(prev => {
             const newQuestionImages = { ...prev.questionImages };
-            delete newQuestionImages[questionId];  // ✅ безопасно
+            delete newQuestionImages[questionId];
             return {
             ...prev,
             questionImages: newQuestionImages,
@@ -91,20 +95,22 @@ export default function CreateQuiz() {
                         )
                     }
                     {
-                        step === 3 && !showQuestions && (
-                            <p style={{fontSize: 'clamp(1rem, 5vw, 2rem)'}}
-                                className="text-[2rem]">
-                                Так будет выглядеть страница вашего квиза после публикации!
-                            </p>
-                        )
-                    }
-                    {
-                        step === 3 && showQuestions && (
-                            <p style={{fontSize: 'clamp(1rem, 5vw, 2rem)'}}
-                                className="text-[2rem]">
-                                Так будет выглядеть страница вопросов вашего квиза при процессе прохождения!
-                            </p>
-                        )
+                        step === 3 &&
+                        <>
+                            {
+                                showQuestions ? (
+                                    <p style={{fontSize: 'clamp(1rem, 5vw, 2rem)'}}
+                                        className="text-[2rem]">
+                                        Так будет выглядеть страница вопросов вашего квиза в процессе прохождения!
+                                    </p>
+                                ) : (
+                                    <p style={{fontSize: 'clamp(1rem, 5vw, 2rem)'}}
+                                    className="text-[2rem]">
+                                        Так будет выглядеть страница вашего квиза после публикации!
+                                    </p>
+                                )
+                            }
+                        </>
                     }
                 </div>
                 { step === 1 &&

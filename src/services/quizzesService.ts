@@ -1,5 +1,5 @@
 import { db, storage } from "@/lib/firebase";
-import { collection, getDocs, query, where, doc, getDoc, setDoc } from "firebase/firestore";
+import { collection, getDocs, query, where, doc, getDoc, setDoc, deleteDoc, limit, DocumentSnapshot, startAfter } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import { QuizDataType } from "@/types/QuizDataType";
@@ -14,15 +14,48 @@ const quizzesService = {
         const docSnap = await getDoc(docRef);
 
         if ( docSnap.exists() ) {
-            return { id: docSnap.id, ...docSnap.data() as Omit<QuizDataType, 'id'> }
-        } else {
-            return null;
-        }
+            return { id: docSnap.id, ...docSnap.data() as Omit<QuizDataType, 'id'> };
+        } else return null;
+    },
+    getByIds: async (ids: string[]): Promise<QuizDataType[]> => {
+        const docs = await Promise.all(ids.map(id => getDoc(doc(quizzesRef, id))));
+
+        return docs
+        .filter(docSnap => docSnap.exists())
+        .map(docSnap => ({
+            id: docSnap.id,
+            ...docSnap.data() as Omit<QuizDataType, 'id'>
+        }))
     },
     getAll: async (): Promise<QuizDataType[]> => {
         const quizzes = query(quizzesRef, where('isPublic', '==', true));
         const querySnapshot = await getDocs(quizzes);
         return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() as Omit<QuizDataType, 'id'> }));
+    },
+    getWithPagination: async (limitNumber = 9, lastVisible?: DocumentSnapshot) => {
+        let q = query(
+            collection(db, "quizzes"),
+            where("isPublic", "==", true),
+            limit(limitNumber)
+        );
+
+        if (lastVisible) {
+            q = query(
+                collection(db, "quizzes"),
+                where("isPublic", "==", true),
+                startAfter(lastVisible),
+                limit(limitNumber)
+            );
+        }
+
+        const querySnapshot = await getDocs(q);
+        const data: QuizDataType[] = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...(doc.data() as Omit<QuizDataType, "id">),
+        }));
+        const lastDoc = querySnapshot.docs[querySnapshot.docs.length - 1] ?? null;
+
+        return { data, last: lastDoc };
     },
     getBySearchQuery: async (searchQuery: string, quizzes: QuizDataType[]): Promise<QuizDataType[]> => {
         if ( !searchQuery ) return [];
@@ -30,14 +63,11 @@ const quizzesService = {
             quiz.title.toLowerCase().includes(searchQuery.toLowerCase())
         )
     },
-    getWithFilters: async (filters: { category?: string, authorConfirmed?: boolean }): Promise<QuizDataType[]> => {
+    getWithFilters: async (filters: { category?: string }): Promise<QuizDataType[]> => {
         let quizzes: any = quizzesRef;
 
         if ( filters.category ) {
             quizzes = query(quizzes, where('category', '==', filters.category))
-        }
-        if ( filters.authorConfirmed ) {
-            quizzes = query(quizzes, where('authorConfirmed', '==', filters.authorConfirmed));
         }
 
         const snapshot = await getDocs(quizzes);
@@ -107,8 +137,12 @@ const quizzesService = {
 
         await setDoc(quizRef, finalQuizData);
 
-        return { quizId };
-    }
+        return { quizId, quizData };
+    },
+    deleteQuiz: async (id: string) => {
+        const docRef = doc(quizzesRef, id);
+        await deleteDoc(docRef);
+    },
 }
 
 export default quizzesService;

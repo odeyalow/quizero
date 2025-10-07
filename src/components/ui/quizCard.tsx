@@ -3,12 +3,11 @@ import Image from "next/image";
 
 import Button from "./button";
 
-import Verified from "@/assets/verified";
-
 import useModal from "@/hooks/useModal";
 import useGetSingleData from "@/hooks/useGetSingleData";
 import categoriesService from "@/services/categoriesService";
 import CategoryDataType from "@/types/CategoryDataType";
+import { usePathname } from "next/navigation";
 
 interface QuizCardProps {
     id: string;
@@ -16,14 +15,14 @@ interface QuizCardProps {
     slug: string
     title: string;
     author: string;
-    isConfirmed: boolean;
     category: string;
     description: string;
     questionsAmount: number;
 }
 
-const QuizCard:React.FC<QuizCardProps> = ({ id, imageUrl, author, isConfirmed, slug, title, category, description, questionsAmount }) => {
+const QuizCard:React.FC<QuizCardProps> = ({ id, imageUrl, author, slug, title, category, description, questionsAmount }) => {
     const { showModal, openModal, closeModal } = useModal();
+    const pathname = usePathname();
     const { data } = useGetSingleData<CategoryDataType | null>(`category-${category}`, () => categoriesService.getById(category));
 
     const linkHref = {
@@ -70,15 +69,18 @@ const QuizCard:React.FC<QuizCardProps> = ({ id, imageUrl, author, isConfirmed, s
                     }
                     <h2 style={{fontSize: 'clamp(2rem, 5vw, 2.5rem)'}}
                         className="text-[3rem] font-extrabold text-dark-1 mt-[2rem] mb-[1.5rem]">{title}</h2>
-                    <div className="flex items-center gap-[0.5rem] mb-[2rem]">
+                    <div className="flex items-center gap-[0.5rem]">
                         <h3 className="text-[2rem] font-extrabold text-gray">от {author}</h3>
-                        {
-                            isConfirmed && (
-                                <Verified />
-                            )
-                        }
                     </div>
-                    <Link href={linkHref} className="w-full">
+                    {
+                        pathname === '/quizzes' && (
+                            <h3 style={{fontSize: 'clamp(2rem, 5vw, 2rem)'}}
+                                className="font-extrabold text-gray mt-[2rem]">
+                                {data?.emoji} {data?.title}
+                            </h3>
+                        )
+                    }
+                    <Link href={linkHref} className="w-full mt-[2.5rem]">
                         <Button type="blue" styles="text-[2rem]">Пройти</Button>
                     </Link>
                 </div>

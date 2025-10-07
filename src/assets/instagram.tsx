@@ -9,6 +9,7 @@ const Instagram = () => {
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
         >
+            <title>Instagram</title>
             <g id="SVGRepo_bgCarrier" strokeWidth={0} />
             <g
             id="SVGRepo_tracerCarrier"

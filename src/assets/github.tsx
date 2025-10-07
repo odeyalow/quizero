@@ -6,6 +6,7 @@ const Github = () => {
     xmlnsXlink="http://www.w3.org/1999/xlink"
     fill="currentColor"
   >
+    <title>Github</title>
     <g id="SVGRepo_bgCarrier" strokeWidth={0} />
     <g
       id="SVGRepo_tracerCarrier"

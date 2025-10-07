@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -16,12 +16,15 @@ import BaseModal from "../ui/baseModal";
 import { useAuthData } from "./authProvider";
 import useAuth from "@/hooks/useAuth";
 import useModal from "@/hooks/useModal";
+import useGetUser from "@/hooks/useGetUser";
 
 const Header = () => {
     const user = useAuthData();
+    const userData = useGetUser(user.user?.uid);
     const { signOutUser } = useAuth();
 
     const pathname = usePathname();
+    const router = useRouter();
 
     const [showProfileDropdown, setShowProfileDropdown] = useState<boolean>(false);
     const [showMenu, setShowMenu] = useState<boolean>(false);
@@ -30,6 +33,8 @@ const Header = () => {
     const isAuthPage = pathname !== '/login' && pathname !== '/register';
     const { showModal, openModal, closeModal } = useModal();
 
+    const userPfpURL = userData.data?.photoURL ?? '/images/user-pfp-placeholder.svg';
+
     useEffect(() => {
         document.body.style.overflowY = showMenu ? 'hidden' : 'scroll';
         document.addEventListener('click', (event) => {
@@ -37,9 +42,14 @@ const Header = () => {
         })
     }, [showMenu]);
 
+    useEffect(() => {
+        setShowMenu(false);
+    }, [pathname])
+
     const handleSignOut = () => {
         signOutUser();
         closeModal();
+        router.replace('/login');
     }
 
     const handleMenu = () => setShowMenu(!showMenu);
@@ -79,12 +89,13 @@ const Header = () => {
                                             ref={dropdownRef}
                                             className="relative">
                                                 <Image
-                                                src='/images/user-pfp-placeholder.svg'
-                                                alt="User Profile Picture"
-                                                width={50}
-                                                height={50}
+                                                src={userPfpURL}
+                                                alt="Profile Picture"
+                                                width={45}
+                                                height={45}
                                                 onClick={handleProfileDropdown}
                                                 className="
+                                                object-cover
                                                 translate-y-[-3px] hover:translate-y-[-5px] active:translate-y-0
                                                 border-[3.5px] relative z-2 border-yellow-2 rounded-[10px] max-w-[45px] h-[45px]"
                                                 />
@@ -96,7 +107,7 @@ const Header = () => {
                                                             </NavLink>
                                                             <button
                                                             onClick={openModal}
-                                                            className="text-red-1 hover:text-red-2 cursor-pointer mt-[2rem]">🚪 Выйти</button>
+                                                            className="text-red-1 hover:text-red-2 mt-[2rem]">🚪 Выйти</button>
                                                         </div>
                                                     )
                                                 }

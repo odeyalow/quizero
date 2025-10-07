@@ -5,6 +5,7 @@ const Cross = ({ styles }: { styles?: string }) => (
     xmlns="http://www.w3.org/2000/svg"
     className={styles}
   >
+    <title>Закрыть</title>
     <g id="SVGRepo_bgCarrier" strokeWidth={0} />
     <g
       id="SVGRepo_tracerCarrier"

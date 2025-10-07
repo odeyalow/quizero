@@ -37,7 +37,7 @@ const CategoriesSelect = ({ onSelect }: { onSelect: (categoryId: string) => void
 
     return (
         <div className="relative w-full" ref={selectRef}>
-            <span className="block font-bold mb-[1.5rem] text-left text-[1.8rem]">Категории</span>
+            <span className="block font-bold mb-[1.5rem] text-left text-[1.8rem]">Категория</span>
             <Button
                 type="gray"
                 styles='flex items-center justify-between h-[43.2px]'

@@ -13,7 +13,6 @@ const Triangle = () => (
       strokeLinejoin="round"
     />
     <g id="SVGRepo_iconCarrier">
-      <title>{"triangle-filled"}</title>
       <g
         id="Page-1"
         stroke="none"

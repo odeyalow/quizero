@@ -43,7 +43,7 @@ interface MainInfoProps {
     onNextStep: () => void;
 }
 
-const MainInfoForm:React.FC<MainInfoProps> = ({ onCoverImageAdd, onCoverImageRemove, onNextStep }) => {
+const MainInfoForm:React.FC<MainInfoProps> = ({ onCoverImageAdd, onCoverImageRemove, onNextStep}) => {
     const { user } = useAuthData();
     const [coverImage, setCoverImage] = useState<File | null>();
     const [tagInput, setTagInput] = useState<string>('');

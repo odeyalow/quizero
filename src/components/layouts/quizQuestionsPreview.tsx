@@ -48,9 +48,9 @@ const QuizQuestionsPreview = () => {
                 </div>
                 <div className="bg-white border-[5px] border-gray rounded-[2rem] p-[3rem] max-sm:p-[1.5rem]">
                     {
-                        currentQuestion.imageUrl && (
+                        currentQuestion.image && (
                             <Image
-                            src={currentQuestion.imageUrl}
+                            src={currentQuestion.image}
                             width={1000}
                             height={600}
                             alt="Quiz Cover"

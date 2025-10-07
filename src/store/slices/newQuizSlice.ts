@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import NewQuizDataType from "@/types/newQuizDataType";
 import { MainInfoType } from "@/components/forms/mainInfoForm";
-import { OptionType, QuestionType } from "@/types/QuizDataType";
+import { OptionType } from "@/types/QuizDataType";
 
 const initialState: NewQuizDataType = {
     ownerId: '',
