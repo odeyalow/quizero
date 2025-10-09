@@ -84,7 +84,7 @@ export default function SingleQuiz() {
             <h2 className="text-[3rem] font-extrabold mb-[3rem]">
                 {quizData && quizData?.title}
                 {
-                    userData?.passedQuizzes.find(id => id === quizId) && (
+                    userData?.passedQuizzes.find((id: string) => id === quizId) && (
                         <span className="text-light-2"> Пройдено</span>
                     ) 
                 }
