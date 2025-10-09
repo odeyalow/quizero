@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 import FormInput from "../ui/formInput";
@@ -19,7 +19,7 @@ const LoginSchema = z.object({
 type LoginType = z.infer<typeof LoginSchema>;
 
 const LoginForm = () => {
-    const { replace } = useRouter();
+    const { back, replace } = useRouter();
     const { formErrorMessage, loginUser } = useAuth();
     const { user } = useAuthData();
     const {
@@ -30,8 +30,10 @@ const LoginForm = () => {
     } = useForm<LoginType>({
         resolver: zodResolver(LoginSchema)
     });
+    const params = useSearchParams();
+    const fromPage = params.get('fromPage');
 
-    useEffect(() => { if (user) replace('/') }, [user]);
+    useEffect(() => { if (user) fromPage ? replace(fromPage) : back()}, [user]);
     useEffect(() => { if (formErrorMessage) reset()}, [formErrorMessage])
 
     const onSubmit = (data: LoginType) => {

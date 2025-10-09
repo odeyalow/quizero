@@ -8,6 +8,7 @@ import QuizzesGrid from "@/components/layouts/quizzesGrid";
 import SectionWithHeader from "@/components/layouts/sectionWithHeader";
 import Button from "../../../components/ui/button";
 import IconButton from "@/components/ui/iconButton";
+import Input from "@/components/ui/input";
 
 import Edit from "@/assets/edit";
 
@@ -19,6 +20,7 @@ import useGetData from "@/hooks/useGetData";
 import { QuizDataType } from "@/types/QuizDataType";
 import useUpdateData from "@/hooks/useUpdateData";
 import Trash from "@/assets/trash";
+import Cross from "@/assets/cross";
 
 
 export default function Profile() {
@@ -27,12 +29,15 @@ export default function Profile() {
     const [pfp, setPfp] = useState<File | null>();
     const { data: userData } = useGetUser(user.user?.uid);
     const { data: quizzesData } = useGetData<QuizDataType>(
-        `${user.user?.uid ?? ""}-created-quizzes`,
-        () => quizzesService.getByIds(userData!.createdQuizzes),
+        `${user.user?.uid ?? ""}-own-quizzes`,
+        () => quizzesService.getByIdsWithPrivates(userData!.createdQuizzes),
         { enabled: !!(user.user && userData) }
     )
     const pictureAdd = useUpdateData(() => userService.updateProfilePicture(user.user?.uid!, pfp!), ['user', user.user?.uid]);
     const pictureRemove = useUpdateData(() => userService.removeProfilePicture(user.user?.uid!, userData?.photoURL!));
+    const [isEditingUsername, setIsEditingUsername] = useState<boolean>(false);
+    const [newUsername, setNewUsername] = useState<string>('');
+    const { mutate, isSuccess, isPending, isError } = useUpdateData(() => userService.updateUsername(user.user?.uid!, newUsername));
 
     useEffect(() => {
         if ( pfp ) {
@@ -53,7 +58,28 @@ export default function Profile() {
         pictureRemove.mutate();
         setPfp(null);
     }
-    
+    const shareMyProfile = async () => {
+        const shareUrl = `/user?id=${user.user?.uid}`;
+
+        if (navigator.share) {
+            await navigator.share({
+            title: `${userData?.username} в Quizero`,
+            text: 'Посмотрите профиль этого пользователя!',
+            url: shareUrl,
+            });
+        } else {
+            await navigator.clipboard.writeText(shareUrl);
+            alert('Ссылка скопирована!');
+        }
+    };
+
+    useEffect(() => {
+        if ( isSuccess ) {
+            setIsEditingUsername(false);
+            setNewUsername('');
+        }
+    }, [isSuccess])
+
     if ( !user.user ) {
         return (
              <div className="flex flex-col items-center pt-[10rem] text-center px-[25px]">
@@ -111,8 +137,35 @@ export default function Profile() {
                     type="file"
                     className="hidden"/>
                 </div>
-                <h2 style={{fontSize: 'clamp(1.5rem, 7vw, 3rem)'}}
-                    className="text-yellow-1 text-[3rem] font-extrabold">{user.user?.displayName}</h2>
+                {
+                    isEditingUsername ? (
+                        <div className="flex gap-[1rem]">
+                            <Input
+                            type="text"
+                            value={newUsername}
+                            placeholder="Введите имя пользователя"
+                            name="username"
+                            onChange={setNewUsername}/>
+                            <IconButton type="blue" onClick={mutate}>
+                                <Edit />
+                            </IconButton>
+                            <IconButton type="gray" onClick={() => {
+                                setIsEditingUsername(false);
+                                setNewUsername('');
+                            }}>
+                                <Cross />
+                            </IconButton>
+                        </div>
+                    ) : (
+                        <div className="flex items-center gap-[1.5rem]">
+                            <h2 style={{fontSize: 'clamp(1.5rem, 7vw, 3rem)'}}
+                            className="text-yellow-1 text-[3rem] font-extrabold">{userData?.username}</h2>
+                            <IconButton type="gray" onClick={() => setIsEditingUsername(true)}>
+                                <Edit />
+                            </IconButton>
+                        </div>
+                    )
+                }
             </div>
             <div className="w-full h-min bg-white border-[5px] border-gray rounded-[1.5rem] p-[3rem] flex flex-col items-start max-sm:items-center">
                 <h3 className="text-[3rem] font-extrabold mb-[1rem]">Статистика</h3>
@@ -121,7 +174,9 @@ export default function Profile() {
                     <h6 className="text-[2.4rem] font-regular">✏ Создано квизов: <strong className="font-extrabold text-[4rem] text-yellow-1">{userData?.createdQuizzes.length}</strong></h6>
                     <h6 className="text-[2.4rem] font-regular">📈 Процент правильных ответов: <strong className="font-extrabold text-[4rem] text-yellow-1">{getPersentOfCorrectAnswers()}%</strong></h6>
                 </div>
-                <div className="w-full"><Button type="blue">Поделиться профилем</Button></div>
+                <div className="w-full">
+                    <Button type="blue" onClick={shareMyProfile}>Поделиться профилем</Button>
+                </div>
             </div>
             </div>
             <div className="w-full h-[3px] bg-light-2 rounded my-[5rem]"></div>

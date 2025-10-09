@@ -18,6 +18,25 @@ const quizzesService = {
         } else return null;
     },
     getByIds: async (ids: string[]): Promise<QuizDataType[]> => {
+        const docs = await Promise.all(
+            ids.map(async (id) => {
+                const docRef = doc(quizzesRef, id);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data() as Omit<QuizDataType, 'id'>;
+                    if (data.isPublic === true) {
+                    return { id: docSnap.id, ...data };
+                    }
+                }
+
+                return null;
+            })
+        );
+
+        return docs.filter((doc): doc is QuizDataType => doc !== null);
+    },
+    getByIdsWithPrivates: async (ids: string[]): Promise<QuizDataType[]> => {
         const docs = await Promise.all(ids.map(id => getDoc(doc(quizzesRef, id))));
 
         return docs
@@ -67,7 +86,7 @@ const quizzesService = {
         let quizzes: any = quizzesRef;
 
         if ( filters.category ) {
-            quizzes = query(quizzes, where('category', '==', filters.category))
+            quizzes = query(quizzes, where('category', '==', filters.category), where('isPublic', '==', true))
         }
 
         const snapshot = await getDocs(quizzes);

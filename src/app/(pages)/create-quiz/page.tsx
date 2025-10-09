@@ -35,6 +35,7 @@ export default function CreateQuiz() {
         if (isSuccess && data) {
             router.replace(`/quizzes/${data.quizData.slug}?id=${data.quizId}`);
             if ( user.user ) userService.updateOnQuizCreate(user.user?.uid, data.quizId);
+            
         }
     }, [isSuccess, data, router]);
 

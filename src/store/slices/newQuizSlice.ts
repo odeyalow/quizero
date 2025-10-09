@@ -75,13 +75,14 @@ const newQuizSlice = createSlice({
             state.questions[action.payload.questionId].image = action.payload.image;
         },
         addOption: (state, action: PayloadAction<number>) => {
-            if ( state.questions[action.payload].options.length === 0 ) {
-                state.questions[action.payload].options.push({
+            const options = state.questions[action.payload].options;
+            if ( options.length === 0 ) {
+                options.push({
                     text: '',
                     isCorrect: true,
                 })
             } else {
-                state.questions[action.payload].options.push({
+                options.push({
                     text: '',
                     isCorrect: false,
                 })
@@ -96,19 +97,19 @@ const newQuizSlice = createSlice({
             } else if ( options.length > 1 && options[optionId].isCorrect ) {
                 options[optionId-1].isCorrect = true;
             } else {
-                state.questions[action.payload.questionId].options = options
-                .filter((_, index) => index !== optionId );
+                options = options.filter((_, index) => index !== optionId );
             }
-            state.questions[action.payload.questionId].options = options
-            .filter((_, index) => index !== optionId );
+            options = options.filter((_, index) => index !== optionId );
         },
         setOptionText: (state, action: PayloadAction<{ questionId: number, optionId: number, text: string }>) => {
             state.questions[action.payload.questionId].options[action.payload.optionId].text = action.payload.text;
         },
         setOptionCorrect: (state, action: PayloadAction<{ questionId: number, optionId: number }>) => {
-            state.questions[action.payload.questionId].options = state.questions[action.payload.questionId].options
+            let options = state.questions[action.payload.questionId].options;
+
+            options = options
             .map((option: OptionType) => ({...option, isCorrect: false}));
-            state.questions[action.payload.questionId].options[action.payload.optionId].isCorrect = true;
+            options[action.payload.optionId].isCorrect = true;
         },
         removeQuestion: (state, action: PayloadAction<number>) => {
             state.questions = state.questions.filter((_, index) => index+1 !== action.payload);

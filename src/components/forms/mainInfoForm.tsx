@@ -177,7 +177,7 @@ const MainInfoForm:React.FC<MainInfoProps> = ({ onCoverImageAdd, onCoverImageRem
                             src={newQuiz.coverImageUrl}
                             fill
                             alt="Quiz Image Preview"
-                            className="rounded-[0.5rem]"
+                            className="rounded-[0.5rem] object-cover"
                             />
                         ) : (
                             <input

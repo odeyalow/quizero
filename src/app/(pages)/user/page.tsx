@@ -19,7 +19,7 @@ export default function OtherProfile() {
     const userId = params.get('id');
     const { data: userData } = useGetUser(userId ?? '');
     const { data: quizzesData } = useGetData<QuizDataType>(
-        `${userId ?? ''}-created-quizzes`,
+        `${userId ?? ''}-user-quizzes`,
         () => quizzesService.getByIds(userData!.createdQuizzes),
         { enabled: !!(userId && userData) }
     )
@@ -33,6 +33,20 @@ export default function OtherProfile() {
             return 0;
         }
     }
+    const shareUserProfile = async () => {
+        const shareUrl = `/user?id=${userId}`;
+
+        if (navigator.share) {
+            await navigator.share({
+            title: `${userData?.username} в Quizero`,
+            text: 'Посмотрите профиль этого пользователя!',
+            url: shareUrl,
+            });
+        } else {
+            await navigator.clipboard.writeText(shareUrl);
+            alert('Ссылка скопирована!');
+        }
+    };
 
     if ( !userId || !userData ) {
         return (
@@ -74,7 +88,9 @@ export default function OtherProfile() {
                     <h6 className="text-[2.4rem] font-regular">✏ Создано квизов: <strong className="font-extrabold text-[4rem] text-yellow-1">{userData?.createdQuizzes.length}</strong></h6>
                     <h6 className="text-[2.4rem] font-regular">📈 Процент правильных ответов: <strong className="font-extrabold text-[4rem] text-yellow-1">{getPersentOfCorrectAnswers()}%</strong></h6>
                 </div>
-                <div className="w-full"><Button type="blue">Поделиться профилем</Button></div>
+                <div className="w-full">
+                    <Button type="blue" onClick={shareUserProfile}>Поделиться профилем</Button>
+                </div>
             </div>
             </div>
             <div className="w-full h-[3px] bg-light-2 rounded my-[5rem]"></div>

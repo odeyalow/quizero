@@ -34,6 +34,14 @@ const userService = {
             createdQuizzes: arrayRemove(quizId)
         })
     },
+    updateUsername: async(uid: string, newUsername: string) => {
+        const newValue = newUsername === '' ? 'quizero-user' : newUsername;
+        const userRef = doc(db, "users", uid);
+        await updateDoc(userRef, {
+            username: newValue,
+            displayName: newValue
+        })
+    },
     updateProfilePicture: async(uid: string, image: File) => {
         try {
             const ext = image.name.split(".").pop();

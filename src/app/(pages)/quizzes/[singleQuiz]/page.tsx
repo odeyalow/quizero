@@ -29,8 +29,7 @@ import useGetUser from "@/hooks/useGetUser";
 export default function SingleQuiz() {
     const router = useRouter();
     const params = useSearchParams();
-    const { openModal, closeModal, showModal} = useModal();
-
+    const deleteModal = useModal();
     const user = useAuthData();
     const { data: userData } = useGetUser(user.user?.uid);
     const quizId = params.get('id');
@@ -47,7 +46,7 @@ export default function SingleQuiz() {
     }
 
     const userHref = {
-        pathname: `/user`,
+        pathname: '/user',
         query: {
             id: quizData?.ownerId
         }
@@ -57,14 +56,27 @@ export default function SingleQuiz() {
         document.body.style.overflowY = 'scroll';
     }, [])
 
-    console.log(quizData)
-
     useEffect(() => {
         if (isSuccess) {
-            userService.updateOnQuizDelete(user.user?.uid ?? '', quizId!);
+            userService.updateOnQuizDelete(user.user?.uid!, quizId!);
             router.back();
         };
     }, [isSuccess, router]);
+
+    const shareQuiz = async () => {
+        const shareUrl = `${window.location.origin}/quizzes/${quizData?.slug}?id=${quizId}`;
+
+        if (navigator.share) {
+            await navigator.share({
+            title: quizData?.title,
+            text: 'Попробуй пройти этот квиз!',
+            url: shareUrl,
+            });
+        } else {
+            await navigator.clipboard.writeText(shareUrl);
+            alert('Ссылка скопирована!');
+        }
+    };
 
     return (
         <>
@@ -115,7 +127,7 @@ export default function SingleQuiz() {
                         <div className="flex items-center gap-[0.5rem]">
                             <h4 style={{fontSize: 'clamp(1.5rem, 5vw, 2.4rem)'}} 
                                 className="text-[2.4rem] font-bold">
-                                👤 от <Link href={userHref} className="text-blue-1">
+                                👤 от <Link href={user.user?.uid === quizData?.ownerId ? '/profile' : userHref} className="text-blue-1">
                                             {quizData?.author}
                                         </Link>
                                 </h4>
@@ -139,14 +151,14 @@ export default function SingleQuiz() {
                                 </Button>
                             </Link>
                         </div>
-                        <IconButton type="blue">
+                        <IconButton type="blue" onClick={shareQuiz}>
                             <Share />
                         </IconButton>
                         {
-                            user.user?.uid === quizData?.ownerId && (
+                            (userData?.role === 'admin' || user.user?.uid === quizData?.ownerId) && (
                                 <IconButton
                                 type="red"
-                                onClick={openModal}>
+                                onClick={deleteModal.openModal}>
                                     <Trash />
                                 </IconButton>
                             )
@@ -156,9 +168,9 @@ export default function SingleQuiz() {
             </div>
             </SectionWithHeader>
             <BaseModal
-                modalActive={showModal}
+                modalActive={deleteModal.showModal}
                 title="Удалить квиз?"
-                onClose={closeModal}
+                onClose={deleteModal.closeModal}
                 onConfirm={mutate}
                 type="confirm"
                 buttonText="Да, удалить"

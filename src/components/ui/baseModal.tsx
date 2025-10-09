@@ -38,9 +38,13 @@ const BaseModal:React.FC<BaseModalProps> = ({
                 <div className={`bg-light-1 p-[3rem] rounded-[1.5rem] border-[5px] border-light-2 max-w-[600px] ${styles}`}>
                     <header className="flex items-center justify-between gap-[1.5rem] mb-[1.5rem]">
                         <h5 className={`text-[2.5rem] font-extrabold ${textColor}`}>{title}</h5>
-                        <IconButton onClick={onClose} type="gray">
-                            <Cross styles="w-[30px]"/>
-                        </IconButton>
+                        {
+                            type !== 'accept' && (
+                                <IconButton onClick={onClose} type="gray">
+                                    <Cross styles="w-[30px]"/>
+                                </IconButton>
+                            )
+                        }
                     </header>
                     { 
                         description && (

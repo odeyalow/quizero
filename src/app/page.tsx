@@ -7,16 +7,24 @@ import Section from "@/components/layouts/section";
 import Input from "@/components/ui/input";
 import { useAuthData } from "@/components/layouts/authProvider";
 
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
+import { setRequiredInfo } from "@/store/slices/newQuizSlice";
+
 //When data add is needed
-import { useEffect } from "react";
 import { seedData } from "@/scripts/seedData";
 
 export default function Home() {
   const user = useAuthData();
+  const { title } = useAppSelector(state => state.newQuiz);
+  const dispatch = useAppDispatch();
 
   // useEffect(() => {
   //   seedData();
   // }, [])
+
+  const handleInputChange = (title: string) => {
+    dispatch(setRequiredInfo({title, description: ''}))
+  }
 
   return (
     <div className="pt-[5rem] relative max-sm:pt-0">
@@ -87,9 +95,14 @@ export default function Home() {
             <h3 style={{fontSize: 'clamp(1rem, 6vw, 3rem)'}}
               className="text-[3rem] font-semibold mb-[3rem] text-center">Название</h3>
               <div className="mb-[2rem]">
-                <Input value="" type="text" name="quiz name" placeholder="Название твоего квиза..."/>
+                <Input
+                onChange={(e) => handleInputChange(e)}
+                value={title}
+                type="text"
+                name="quiz name"
+                placeholder="Название твоего квиза..."/>
               </div>
-              <Link href={user.user ? 'create-quiz' : 'login'}>
+              <Link href={user.user ? 'create-quiz' : '/login?fromPage=/create-quiz'}>
                 <Button type="yellow">Создать квиз</Button>
               </Link>
           </div>

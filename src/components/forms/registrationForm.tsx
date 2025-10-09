@@ -28,10 +28,10 @@ const RegistrationSchema = z.object({
 type RegistrationType = z.infer<typeof RegistrationSchema>;
 
 const RegistrationForm = () => {
-    const { push } = useRouter();
+    const { replace } = useRouter();
     const { user } = useAuthData();
 
-    useEffect(() => { if (user) push('/') }, [user]);
+    useEffect(() => { if (user) replace('/') }, [user]);
     
     const { formErrorMessage, registerUser } = useAuth();
     const {
