@@ -1,4 +1,4 @@
-import UserDataType from "@/types/UserDataType";
+import UserDataType from '@/types/userDataType';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
