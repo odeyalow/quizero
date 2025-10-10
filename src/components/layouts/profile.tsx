@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import QuizzesGrid from "@/components/layouts/quizzesGrid";
 import SectionWithHeader from "@/components/layouts/sectionWithHeader";
@@ -13,22 +12,20 @@ import useGetUser from "@/hooks/useGetUser";
 import quizzesService from "@/services/quizzesService";
 import useGetData from "@/hooks/useGetData";
 import { QuizDataType } from "@/types/QuizDataType";
+import UserDataType from "@/types/userDataType";
 
-export default function OtherProfile() {
+interface ProfileProps {
+    type: 'own' | 'other';
+    userData: UserDataType;
+    quizData: QuizDataType[];
+}
+
+const Profile:React.FC<ProfileProps> = ({ type, userData, quizData }) => {
     const router = useRouter();
-    const [userId, setUserId] = useState<string | null>(null);
-    const { data: userData } = useGetUser(userId ?? '');
-    const { data: quizzesData } = useGetData<QuizDataType>(
-        `${userId ?? ''}-user-quizzes`,
-        () => quizzesService.getByIds(userData!.createdQuizzes),
-        { enabled: !!(userId && userData) }
-    )
-    const userPfpURL = userData?.photoURL ?? '/images/user-pfp-placeholder.svg';
+    const params = useSearchParams();
+    const userId = params.get('id');
 
-    useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        setUserId(params.get("id"));
-    }, []);
+    const userPfpURL = userData?.photoURL ?? '/images/user-pfp-placeholder.svg';
 
     const getPersentOfCorrectAnswers = () => {
         if ( userData && userData?.allAnswersAmount !== 0 ) {
@@ -37,7 +34,7 @@ export default function OtherProfile() {
             return 0;
         }
     }
-    const shareUserProfile = async () => {
+    const shareProfile = async () => {
         const shareUrl = `/user?id=${userId}`;
 
         if (navigator.share) {
@@ -52,7 +49,7 @@ export default function OtherProfile() {
         }
     };
 
-        if ( !userId || !userData ) {
+        if ( type === 'other' && !userId || !userData ) {
             return (
                 <div className="flex flex-col items-center pt-[10rem] text-center px-[25px]">
                     <h1 style={{fontSize: 'clamp(2rem, 5vw, 3rem)'}}
@@ -66,7 +63,9 @@ export default function OtherProfile() {
                 </div>
             )
         }
-
+        
+        else if ( type === 'own' ) 
+        
         return (
             <SectionWithHeader bigTitle={`Профиль пользователя`}>
                 <div className="flex gap-[5rem] max-lg:flex-col max-lg:items-center">
@@ -109,3 +108,5 @@ export default function OtherProfile() {
             </SectionWithHeader>
         )
 }
+
+export default Profile;

@@ -1,7 +1,6 @@
 'use client';
 
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import Section from "@/components/layouts/section";
@@ -17,13 +16,10 @@ import useGetUser from "@/hooks/useGetUser";
 
 export default function QuizResult() {
     const router = useRouter();
-    const params = useSearchParams();
-    const quizId = params.get('id');
-    const quizSlug = params.get('slug');
-
-    const allQuestionsAmount = Number(sessionStorage.getItem(`quiz-${quizId}-allQuestionsAmount`)) ?? 0;
-    const correctAnswersAmount = Number(sessionStorage.getItem(`quiz-${quizId}-correctAnswersAmount`)) ?? 0;
-
+    const [quizId, setQuizId] = useState<string | null>(null);
+    const [quizSlug, setSlug] = useState<string | null>(null);
+    const [allQuestionsAmount, setAllQuestionsAmount] = useState(0);
+    const [correctAnswersAmount, setCorrectAnswersAmount] = useState(0);
     const { user } = useAuthData();
     const { data: userData, isFetched, refetch } = useGetUser(user?.uid);
 
@@ -40,6 +36,22 @@ export default function QuizResult() {
             );
         }
     }, ["user", user?.uid]);
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const all = sessionStorage.getItem(`quiz-${quizId}-allQuestionsAmount`);
+            const correct = sessionStorage.getItem(`quiz-${quizId}-correctAnswersAmount`);
+
+            setAllQuestionsAmount(all ? Number(all) : 0);
+            setCorrectAnswersAmount(correct ? Number(correct) : 0);
+        }
+    }, [quizId]);
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        setQuizId(params.get("id"));
+        setSlug(params.get("slug"));
+    }, []);
 
     useEffect(() => {
         if (!userData || !quizId) return;
