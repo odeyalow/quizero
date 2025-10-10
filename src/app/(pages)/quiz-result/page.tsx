@@ -1,6 +1,5 @@
 'use client';
 
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
