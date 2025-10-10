@@ -1,7 +1,5 @@
-import ButtonType from "@/types/ButtonType";
-
 interface ButtonProps {
-    type: ButtonType;
+    type: 'yellow' | 'dark' | 'gray' | 'green' | 'red' | 'blue';
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
     active?: boolean;
     disabled?: boolean;

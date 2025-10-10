@@ -1,8 +1,7 @@
 import Button from "./button";
-import ButtonType from "@/types/ButtonType";
 
 interface IconButtonProps {
-    type: ButtonType;
+    type: 'yellow' | 'dark' | 'gray' | 'green' | 'red' | 'blue';
     onClick?: () => void;
     styles?: string;
     children: React.ReactNode;
