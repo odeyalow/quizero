@@ -35,7 +35,7 @@ export default function SingleQuiz() {
     const quizId = params.get('id');
     const { data: quizData } = useGetSingleData<QuizDataType | null>(`quiz-${quizId}`, () => quizzesService.getById(quizId!));
     const { data: categoryData } = useGetSingleData<CategoryDataType | null>(`category-${quizData?.category}`, () => categoriesService.getById(quizData?.category!));
-    const { mutate, isPending, isError, isSuccess } = useDeleteQuiz(() => quizzesService.deleteQuiz(quizId!));
+    const { mutate, isPending, isError, isSuccess } = useDeleteQuiz(`${quizData?.ownerId}-own-quizzes`, () => quizzesService.deleteQuiz(quizId!));
     
     const attemptHref = {
         pathname: `/quizzes/atempt/${quizId}`,

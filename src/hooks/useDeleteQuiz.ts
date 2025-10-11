@@ -1,11 +1,14 @@
 import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
 
-const useDeleteQuiz = (mutationFn: () => Promise<void>) => {
+const useDeleteQuiz = (mutationKey:string, mutationFn: () => Promise<void>) => {
     const queryClient = useQueryClient();
 
     return useMutation({
         mutationFn,
-        onSuccess: () => queryClient.invalidateQueries()
+        onSuccess: () => {
+            queryClient.invalidateQueries();
+            queryClient.invalidateQueries({ queryKey: [mutationKey] });
+        }
     })
 };
 

@@ -14,6 +14,7 @@ import userService from "@/services/userService";
 import { useAuthData } from "@/components/layouts/authProvider";
 
 import QuizImageFilesType from "@/types/QuizImageFilesType";
+import useRevalidateData from "@/hooks/useRevalidateData";
 
 export default function CreateQuiz() {
     const router = useRouter();
@@ -35,7 +36,6 @@ export default function CreateQuiz() {
         if (isSuccess && data) {
             router.replace(`/quizzes/${data.quizData.slug}?id=${data.quizId}`);
             if ( user.user ) userService.updateOnQuizCreate(user.user?.uid, data.quizId);
-            
         }
     }, [isSuccess, data, router]);
 

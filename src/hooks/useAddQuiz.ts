@@ -10,7 +10,10 @@ const useCreateQuiz = (quizData: NewQuizDataType, quizImages: QuizImageFilesType
         mutationFn: () => 
             quizzesService.createQuiz(quizData, quizImages),
 
-        onSuccess: () => queryClient.invalidateQueries()
+        onSuccess: () => {
+            queryClient.invalidateQueries();
+            queryClient.invalidateQueries({ queryKey: [`${quizData.ownerId}-own-quizzes`] });
+        }
     })
 };
 

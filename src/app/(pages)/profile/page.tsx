@@ -21,6 +21,7 @@ import { QuizDataType } from "@/types/QuizDataType";
 import useUpdateData from "@/hooks/useUpdateData";
 import Trash from "@/assets/trash";
 import Cross from "@/assets/cross";
+import useRevalidateData from "@/hooks/useRevalidateData";
 
 
 export default function Profile() {
@@ -29,7 +30,7 @@ export default function Profile() {
     const [pfp, setPfp] = useState<File | null>();
     const { data: userData } = useGetUser(user.user?.uid);
     const { data: quizzesData } = useGetData<QuizDataType>(
-        `${user.user?.uid ?? ""}-own-quizzes`,
+        `${user.user?.uid}-own-quizzes`,
         () => quizzesService.getByIdsWithPrivates(userData!.createdQuizzes),
         { enabled: !!(user.user && userData) }
     )
@@ -38,7 +39,8 @@ export default function Profile() {
     const [isEditingUsername, setIsEditingUsername] = useState<boolean>(false);
     const [newUsername, setNewUsername] = useState<string>('');
     const { mutate, isSuccess, isPending, isError } = useUpdateData(() => userService.updateUsername(user.user?.uid!, newUsername));
-
+    const revalidate = useRevalidateData();
+    
     useEffect(() => {
         if ( pfp ) {
             pictureAdd.mutate();
