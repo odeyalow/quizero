@@ -31,8 +31,8 @@ const Footer = () => {
                         </Link>
                     </div>
                     <div className="flex items-center gap-[5rem] max-sm:flex-col max-sm:gap-[2.5rem]">
-                        <NavLink textColor="text-light-1" href="discover">Исследовать</NavLink>
-                        <NavLink textColor="text-light-1" href="create-quiz"> Создать</NavLink>
+                        <NavLink textColor="text-light-1" href="/categories">Исследовать</NavLink>
+                        <NavLink textColor="text-light-1" href="/create-quiz"> Создать</NavLink>
                         <NavLink textColor="text-light-1" href="/">Главная</NavLink>
                     </div>
                 </div>
