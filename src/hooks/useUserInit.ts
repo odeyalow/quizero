@@ -16,7 +16,7 @@ function useUserInit() {
     const queryClient = useQueryClient();
     const initialUserData: UserDataType = {
         role: 'user',
-        username: user?.displayName ?? '',
+        username: user?.displayName!,
         percentOfCorrectAnswers: 0,
         correctAnswersAmount: 0,
         allAnswersAmount: 0,

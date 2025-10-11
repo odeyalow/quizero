@@ -14,7 +14,6 @@ import userService from "@/services/userService";
 import { useAuthData } from "@/components/layouts/authProvider";
 
 import QuizImageFilesType from "@/types/QuizImageFilesType";
-import useRevalidateData from "@/hooks/useRevalidateData";
 
 export default function CreateQuiz() {
     const router = useRouter();

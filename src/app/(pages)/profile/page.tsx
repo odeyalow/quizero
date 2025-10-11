@@ -21,8 +21,6 @@ import { QuizDataType } from "@/types/QuizDataType";
 import useUpdateData from "@/hooks/useUpdateData";
 import Trash from "@/assets/trash";
 import Cross from "@/assets/cross";
-import useRevalidateData from "@/hooks/useRevalidateData";
-
 
 export default function Profile() {
     const user = useAuthData();
@@ -39,7 +37,6 @@ export default function Profile() {
     const [isEditingUsername, setIsEditingUsername] = useState<boolean>(false);
     const [newUsername, setNewUsername] = useState<string>('');
     const { mutate, isSuccess, isPending, isError } = useUpdateData(() => userService.updateUsername(user.user?.uid!, newUsername));
-    const revalidate = useRevalidateData();
     
     useEffect(() => {
         if ( pfp ) {
@@ -148,7 +145,10 @@ export default function Profile() {
                             placeholder="Введите имя пользователя"
                             name="username"
                             onChange={setNewUsername}/>
-                            <IconButton type="blue" onClick={mutate}>
+                            <IconButton
+                            disabled={!newUsername.trim()}
+                            type="blue"
+                            onClick={() => newUsername.trim() && mutate()}>
                                 <Edit />
                             </IconButton>
                             <IconButton type="gray" onClick={() => {
@@ -161,7 +161,7 @@ export default function Profile() {
                     ) : (
                         <div className="flex items-center gap-[1.5rem]">
                             <h2 style={{fontSize: 'clamp(1.5rem, 7vw, 3rem)'}}
-                            className="text-yellow-1 text-[3rem] font-extrabold">{userData?.username}</h2>
+                            className="text-yellow-1 text-[3rem] font-extrabold">{userData?.username || user.user.displayName}</h2>
                             <IconButton type="gray" onClick={() => setIsEditingUsername(true)}>
                                 <Edit />
                             </IconButton>

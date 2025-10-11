@@ -64,7 +64,7 @@ export default function QuizResult() {
     }, [userData, quizId]);;
 
     useEffect(() => {
-        if ( !quizId ) router.back();
+        if ( quizId === '' ) router.back();
     }, [quizId])
 
     return (
