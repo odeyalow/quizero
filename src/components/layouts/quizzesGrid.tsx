@@ -1,7 +1,10 @@
 import QuizCard from "../ui/quizCard";
 import { QuizDataType } from "@/types/QuizDataType";
+import Spinner from "../ui/spinner";
 
-const QuizzesGrid = ({ quizzes }: { quizzes: QuizDataType[] }) => {
+const QuizzesGrid = ({ quizzes, isPending }: { quizzes: QuizDataType[], isPending?: boolean }) => {
+    
+    if ( isPending ) { return <Spinner />}
     return (
         <div className="min-[400px]:grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] max-sm:flex max-sm:flex-col gap-[3rem] items-stretch">
             {

@@ -90,7 +90,10 @@ const MainInfoForm:React.FC<MainInfoProps> = ({ onCoverImageAdd, onCoverImageRem
         if ( newQuiz.tags.length === 5 ) {
             setTagError('Можно добавить не более 5 ключевых слов');
         }
-        else if ( tagInput === '' ) {
+        else if ( tagInput.length >= 20 ) {
+            setTagError('Ключевое слово должно быть не более 20 символов!');
+        }
+        else if ( !tagInput.trim() ) {
             setTagError('Ключевое слово должно быть не менее 2 символов!');
         }
         else if ( newQuiz.tags.includes(tagInput) ) {
@@ -161,10 +164,12 @@ const MainInfoForm:React.FC<MainInfoProps> = ({ onCoverImageAdd, onCoverImageRem
                         onChange={(e) => handleTagInput(e)}/>
                         <Button type="gray" onClick={onTagAdd}>Добавить</Button>
                     </div>
-                    { tagError !== '' && <strong className="text-red-1 text-[1.6rem] block my-[1rem]">{tagError}</strong> }
-                    {newQuiz.tags.map(tag => {
-                        return <Tag key={tag} text={tag} onRemove={() => handleTagRemove(tag)}/>;  
-                    })}
+                    { tagError !== '' && <strong className="text-red-1 text-[1.6rem] block mt-[1rem] mb-[2rem]">{tagError}</strong> }
+                    <div className="flex gap-[1rem]">
+                        {newQuiz.tags.map(tag => {
+                            return <Tag key={tag} text={tag} onRemove={() => handleTagRemove(tag)}/>;  
+                        })}
+                    </div>
                 </div>
             </div>
             <div className="w-full max-w-[560px]">

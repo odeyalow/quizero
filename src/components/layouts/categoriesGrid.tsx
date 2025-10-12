@@ -1,16 +1,20 @@
 'use client';
 
-import CategoryCard from "@/components/ui/categoryCard"
 import Link from "next/link";
+
+import CategoryCard from "@/components/ui/categoryCard"
+import Spinner from "../ui/spinner";
 
 import useGetData from "@/hooks/useGetData";
 import categoriesService from "@/services/categoriesService";
 import CategoryDataType from "@/types/CategoryDataType";
 
 const CategoriesGrid = () => {
-    const { data } = useGetData<CategoryDataType>('categories', categoriesService.getAll);
+    const { data, isPending } = useGetData<CategoryDataType>('categories', categoriesService.getAll);
+    
+    if ( isPending ) { return <Spinner />}
     return (
-            <div className="min-[400px]:grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] max-sm:flex max-sm:flex-col gap-[3rem]">
+        <div className="min-[400px]:grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] max-sm:flex max-sm:flex-col gap-[3rem]">
                 <Link
                 href='/quizzes'
                 className="relative">
@@ -40,6 +44,7 @@ const CategoriesGrid = () => {
             }
         </div>
     );
+    
 }
  
 export default CategoriesGrid;

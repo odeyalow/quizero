@@ -6,6 +6,7 @@ import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import { QuizDataType } from "@/types/QuizDataType";
 import quizzesService from "@/services/quizzesService";
 import Button from "@/components/ui/button";
+import Spinner from "@/components/ui/spinner";
 
 export default function Quizzes() {
     const { data: quizzes, fetchMore, hasMore, isFetching } = useInfiniteScroll<QuizDataType>(
@@ -15,13 +16,15 @@ export default function Quizzes() {
     return (
         <SectionWithHeader bigTitle="Все квизы">
             <QuizzesGrid quizzes={quizzes}/>
-            {hasMore && !isFetching && (
+            {hasMore && !isFetching ? (
                 <div className="flex justify-center mt-[5rem]">
                     <Button
                     type="blue"
                     onClick={fetchMore}
                     styles="">Загрузить ещё</Button>
                 </div>
+            ) : (
+                <Spinner />
             )}
         </SectionWithHeader>
     )

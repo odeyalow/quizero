@@ -9,8 +9,10 @@ import SectionWithHeader from "@/components/layouts/sectionWithHeader";
 import Button from "../../../components/ui/button";
 import IconButton from "@/components/ui/iconButton";
 import Input from "@/components/ui/input";
+import Spinner from "@/components/ui/spinner";
 
 import Edit from "@/assets/edit";
+import Share from "@/assets/share";
 
 import { useAuthData } from "@/components/layouts/authProvider";
 import useGetUser from "@/hooks/useGetUser";
@@ -36,7 +38,7 @@ export default function Profile() {
     const pictureRemove = useUpdateData(() => userService.removeProfilePicture(user.user?.uid!, userData?.photoURL!));
     const [isEditingUsername, setIsEditingUsername] = useState<boolean>(false);
     const [newUsername, setNewUsername] = useState<string>('');
-    const { mutate, isSuccess, isPending, isError } = useUpdateData(() => userService.updateUsername(user.user?.uid!, newUsername));
+    const { mutate, isSuccess, isPending } = useUpdateData(() => userService.updateUsername(user.user?.uid!, newUsername));
     
     useEffect(() => {
         if ( pfp ) {
@@ -79,6 +81,7 @@ export default function Profile() {
         }
     }, [isSuccess])
 
+    if ( isPending ) { return <Spinner /> }
     if ( !user.user ) {
         return (
              <div className="flex flex-col items-center pt-[10rem] text-center px-[25px] mb-[10rem]">
@@ -100,7 +103,6 @@ export default function Profile() {
             </div>
         )
     }
-    
     return (
         <SectionWithHeader bigTitle="Ваш профиль">
             <div className="flex gap-[5rem] max-lg:flex-col max-lg:items-center">
@@ -177,7 +179,10 @@ export default function Profile() {
                     <h6 className="text-[2.4rem] font-regular">📈 Процент правильных ответов: <strong className="font-extrabold text-[4rem] text-yellow-1">{getPersentOfCorrectAnswers()}%</strong></h6>
                 </div>
                 <div className="w-full">
-                    <Button type="blue" onClick={shareMyProfile}>Поделиться профилем</Button>
+                    <Button type="blue" onClick={shareMyProfile} styles="flex items-center justify-center gap-[1rem]">
+                        Поделиться профилем
+                        <Share />
+                    </Button>
                 </div>
             </div>
             </div>

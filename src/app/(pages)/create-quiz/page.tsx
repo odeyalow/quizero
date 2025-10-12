@@ -28,7 +28,7 @@ export default function CreateQuiz() {
         }
     });
 
-    const { data, mutate, isPending, isError, isSuccess } = useCreateQuiz(newQuiz, quizImageFiles);
+    const { data, mutate, isPending, isSuccess } = useCreateQuiz(newQuiz, quizImageFiles);
     const user = useAuthData();
 
     useEffect(() => {

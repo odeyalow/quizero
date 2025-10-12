@@ -1,4 +1,4 @@
-import { useState } from "react";
+import Trash from "@/assets/trash";
 
 interface TagProps {
     text: string;
@@ -6,26 +6,12 @@ interface TagProps {
 }
 
 const Tag:React.FC<TagProps> = ({ text, onRemove }) => {
-    const [showButton, setShowButton] = useState<boolean>(false);
     return (
-        <div className="pr-[1rem] inline font-bold text-yellow-1 text-[1.6rem]">
-            {
-                !showButton && (
-                    <span 
-                    onMouseEnter={() => setShowButton(true)}>{text}.</span>
-                )
-            }
-            {
-                showButton && (
-                    <button
-                    onMouseLeave={() => setShowButton(false)}
-                    className="text-red-1 cursor-pointer"
-                    onClick={(e) => {
-                        e.preventDefault();
-                        onRemove()
-                    }}>Удалить</button>
-                )
-            }
+        <div className="p-[1rem] font-bold text-gray text-[1.6rem] flex items-center gap-[1rem] bg-white border-gray border-[3.5px] rounded-[1rem]">
+            {text}
+            <button onClick={onRemove}>
+                <Trash />
+            </button>
         </div>
     );
 }

@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef } from "react";
 import Link from "next/link";
 
 import Button from "../components/ui/button";
@@ -10,17 +11,11 @@ import { useAuthData } from "@/components/layouts/authProvider";
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore";
 import { setRequiredInfo } from "@/store/slices/newQuizSlice";
 
-//When data add is needed
-import { seedData } from "@/scripts/seedData";
-
 export default function Home() {
   const user = useAuthData();
   const { title } = useAppSelector(state => state.newQuiz);
   const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   seedData();
-  // }, [])
+  const infoSectionRef = useRef<HTMLDivElement | null>(null);
 
   const handleInputChange = (title: string) => {
     dispatch(setRequiredInfo({title, description: ''}))
@@ -39,7 +34,7 @@ export default function Home() {
           <Link href='/categories'>
             <Button type="yellow">Попробовать</Button>
           </Link>
-          <Button type="gray">Узнать больше</Button>
+          <Button type="gray" onClick={() => infoSectionRef.current?.scrollIntoView({ behavior: 'smooth' })}>Узнать больше</Button>
         </div>
         <div className="bg-white border-dark-1 border-[5px] rounded-[2rem] p-[3rem] mx-[2.5rem] max-sm:self-items-center max-w-[560px] absolute z-5 right-0 lg:mt-[-5rem] max-lg:mt-[5rem] max-[300px]:p-[1.5rem]">
           <h3 style={{fontSize: 'clamp(1rem, 6vw, 3rem)'}}
@@ -58,8 +53,9 @@ export default function Home() {
         </div>
       </Section>
 
-      <Section styles="bg-dark-1 w-full pt-[15rem] max-lg:pt-[25rem] md:pb-[26rem]">
-        <div className="flex flex-col items-end text-right max-sm:text-center">
+      <Section
+        styles="bg-dark-1 w-full pt-[15rem] max-lg:pt-[25rem] md:pb-[26rem]">
+        <div ref={infoSectionRef} className="flex flex-col items-end text-right max-sm:text-center">
           <h1 style={{fontSize: 'clamp(3rem, 11vw, 6.4rem)'}}
           className="text-yellow-1 font-extrabold mb-[2rem]">Множество тем для всех</h1>
           <p style={{fontSize: 'clamp(1.5rem, 5vw, 2rem)'}}

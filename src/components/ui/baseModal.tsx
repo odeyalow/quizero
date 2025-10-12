@@ -11,6 +11,7 @@ interface BaseModalProps {
     onConfirm: () => void;
     type: 'confirm' | 'accept';
     buttonText: string;
+    buttonDisabled?: boolean;
     description?: string;
     danger?: boolean;
     children?: React.ReactNode;
@@ -24,6 +25,7 @@ const BaseModal:React.FC<BaseModalProps> = ({
     onConfirm,
     type,
     buttonText,
+    buttonDisabled,
     description,
     danger,
     children
@@ -65,7 +67,7 @@ const BaseModal:React.FC<BaseModalProps> = ({
                                 </div>
                             </div>
                         ) : (
-                            <Button type='yellow' onClick={onConfirm}>{buttonText}</Button>
+                            <Button disabled={buttonDisabled} type='yellow' onClick={onConfirm}>{buttonText}</Button>
                         )
                     }
                 </div>

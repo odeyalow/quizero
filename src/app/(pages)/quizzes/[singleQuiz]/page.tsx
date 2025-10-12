@@ -10,6 +10,7 @@ import SectionWithHeader from "@/components/layouts/sectionWithHeader";
 import Button from "../../../../components/ui/button";
 import IconButton from "@/components/ui/iconButton";
 import BaseModal from "@/components/ui/baseModal";
+import Spinner from "@/components/ui/spinner";
 
 import Triangle from "@/assets/triangle";
 import Share from "@/assets/share";
@@ -33,22 +34,22 @@ export default function SingleQuiz() {
     const user = useAuthData();
     const { data: userData } = useGetUser(user.user?.uid);
     const quizId = params.get('id');
-    const { data: quizData } = useGetSingleData<QuizDataType | null>(`quiz-${quizId}`, () => quizzesService.getById(quizId!));
-    const { data: categoryData } = useGetSingleData<CategoryDataType | null>(`category-${quizData?.category}`, () => categoriesService.getById(quizData?.category!));
-    const { mutate, isPending, isError, isSuccess } = useDeleteQuiz(`${quizData?.ownerId}-own-quizzes`, () => quizzesService.deleteQuiz(quizId!));
+    const quizData = useGetSingleData<QuizDataType | null>(`quiz-${quizId}`, () => quizzesService.getById(quizId!));
+    const { data: categoryData } = useGetSingleData<CategoryDataType | null>(`category-${quizData.data?.category}`, () => categoriesService.getById(quizData.data?.category!));
+    const deleteData = useDeleteQuiz(`${quizData.data?.ownerId}-own-quizzes`, () => quizzesService.deleteQuiz(quizId!));
     
     const attemptHref = {
         pathname: `/quizzes/atempt/${quizId}`,
         query: {
             id: quizId,
-            quizSlug: quizData?.slug
+            quizSlug: quizData.data?.slug
         }
     }
 
     const userHref = {
         pathname: '/user',
         query: {
-            id: quizData?.ownerId
+            id: quizData.data?.ownerId
         }
     }
     
@@ -57,18 +58,18 @@ export default function SingleQuiz() {
     }, [])
 
     useEffect(() => {
-        if (isSuccess) {
+        if (deleteData.isSuccess) {
             userService.updateOnQuizDelete(user.user?.uid!, quizId!);
             router.back();
         };
-    }, [isSuccess, router]);
+    }, [deleteData.isSuccess, router]);
 
     const shareQuiz = async () => {
-        const shareUrl = `${window.location.origin}/quizzes/${quizData?.slug}?id=${quizId}`;
+        const shareUrl = `${window.location.origin}/quizzes/${quizData.data?.slug}?id=${quizId}`;
 
         if (navigator.share) {
             await navigator.share({
-            title: quizData?.title,
+            title: quizData.data?.title,
             text: 'Попробуй пройти этот квиз!',
             url: shareUrl,
             });
@@ -78,11 +79,12 @@ export default function SingleQuiz() {
         }
     };
 
+    if ( quizData.isPending ) { return <Spinner /> }
     return (
         <>
             <SectionWithHeader bigTitle="Готовы к вызову?">
             <h2 className="text-[3rem] font-extrabold mb-[3rem]">
-                {quizData && quizData?.title}
+                {quizData && quizData.data?.title}
                 {
                     userData?.passedQuizzes.find((id: string) => id === quizId) && (
                         <span className="text-light-2"> Пройдено</span>
@@ -92,9 +94,9 @@ export default function SingleQuiz() {
             <div className="flex gap-[3rem] max-[1100px]:flex-col">
                 <div className="max-w-[670px] max-[1100px]:max-w-full max-[1100px]:flex max-[1100px]:flex-col max-[1100px]:items-center">
                     {
-                        quizData?.coverImageUrl ? (
+                        quizData.data?.coverImageUrl ? (
                             <Image
-                            src={quizData?.coverImageUrl}
+                            src={quizData.data?.coverImageUrl}
                             width={670}
                             height={380}
                             alt="Quiz Cover"
@@ -116,27 +118,32 @@ export default function SingleQuiz() {
                         <h3 className="text-[2.4rem] font-extrabold mb-[1.5rem]">Описание</h3>
                         <p style={{fontSize: 'clamp(1rem, 5vw, 2rem)'}}
                             className="text-[2rem] font-normal">
-                            {quizData?.description}
+                            {quizData.data?.description}
                         </p>
                     </div>
                 </div>
                 <div className="bg-white border-[5px] border-gray p-[3rem] rounded-[1rem] w-full h-min max-[1100px]:max-w-[600px] max-[1100px]:mx-auto">
                     <div className="flex flex-col gap-[2.5rem] mb-[3rem]">
                         <h4 style={{fontSize: 'clamp(1.5rem, 5vw, 2.4rem)'}} 
-                        className="text-[2.4rem] font-bold">{categoryData?.emoji} {categoryData?.title}</h4>
+                        className="text-[2.4rem] font-bold">{categoryData?.emoji} <Link
+                        href={`/categories/${categoryData?.id}?title=${categoryData?.title}&id=${categoryData?.id}`} className="text-yellow-1 hover:underline">
+                                {categoryData?.title}
+                            </Link>
+                        </h4>
                         <div className="flex items-center gap-[0.5rem]">
                             <h4 style={{fontSize: 'clamp(1.5rem, 5vw, 2.4rem)'}} 
                                 className="text-[2.4rem] font-bold">
-                                👤 от <Link href={user.user?.uid === quizData?.ownerId ? '/profile' : userHref} className="text-blue-1">
-                                            {quizData?.author}
+                                👤 от <Link
+                                    href={user.user?.uid === quizData.data?.ownerId ? '/profile' : userHref} className="text-blue-1 hover:underline">
+                                            {quizData.data?.author}
                                         </Link>
                                 </h4>
                         </div>
                         <h4 style={{fontSize: 'clamp(1.5rem, 5vw, 2.4rem)'}} 
-                        className="text-[2.4rem] font-bold">❓ Вопросы: {quizData?.questionsAmount}</h4>
+                        className="text-[2.4rem] font-bold">❓ Вопросы: {quizData.data?.questionsAmount}</h4>
                         <p className="text-gray text-[1.6rem]">
                             {
-                                quizData && quizData?.tags.map((tag: string) => {
+                                quizData && quizData.data?.tags.map((tag: string) => {
                                     return <span key={tag} className="capitalize">{tag}. </span>;
                                 })
                             }
@@ -155,7 +162,7 @@ export default function SingleQuiz() {
                             <Share />
                         </IconButton>
                         {
-                            (userData?.role === 'admin' || user.user?.uid === quizData?.ownerId) && (
+                            (userData?.role === 'admin' || user.user?.uid === quizData.data?.ownerId) && (
                                 <IconButton
                                 type="red"
                                 onClick={deleteModal.openModal}>
@@ -171,9 +178,10 @@ export default function SingleQuiz() {
                 modalActive={deleteModal.showModal}
                 title="Удалить квиз?"
                 onClose={deleteModal.closeModal}
-                onConfirm={mutate}
+                onConfirm={deleteData.mutate}
                 type="confirm"
                 buttonText="Да, удалить"
+                buttonDisabled={deleteData.isPending}
                 danger
                 description="Вы уверены, что хотите удалить этот квиз? Это действие нельзя отменить."
             />
