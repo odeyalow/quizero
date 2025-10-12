@@ -103,7 +103,7 @@ export default function SingleQuiz() {
                         ) : (
                             <div className="
                                 text-center
-                                w-[670px] h-[380px] max-md:h-[200px] 
+                                w-full max-w-[670px] h-[380px] max-md:h-[200px] 
                                 rounded-[1rem] bg-white p-[1rem]
                                 border-dark-1 border-[5px] border-dashed
                                 flex flex-col justify-center items-center gap-[1rem] mb-[3rem]">

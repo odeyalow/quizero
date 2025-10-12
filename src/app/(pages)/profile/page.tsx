@@ -189,7 +189,7 @@ export default function Profile() {
                         <QuizzesGrid quizzes={quizzesData ?? []}/>
                     ) : (
                         <div className="flex flex-col items-center gap-[3rem]">
-                            <h6 className="text-[2.4rem] font-regular">У вас пока нет созданных квизов.</h6>
+                            <h6 className="text-[2.4rem] font-regular text-center">У вас пока нет созданных квизов.</h6>
                             <Link href='create-quiz'>
                                 <Button type="yellow">Создать</Button>
                             </Link>

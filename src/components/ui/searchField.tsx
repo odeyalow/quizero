@@ -49,6 +49,7 @@ const SearchField = () => {
                             searchResults.map((result: QuizDataType) => {
                                 return(
                                         <button
+                                        key={result.id}
                                         className="w-full hover:bg-gray p-[1.5rem] text-left"
                                         onMouseDown={() => onResultRoute(result.slug, result.id)}>
                                             {result.title}
