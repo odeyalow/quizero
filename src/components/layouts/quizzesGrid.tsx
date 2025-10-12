@@ -3,7 +3,7 @@ import { QuizDataType } from "@/types/QuizDataType";
 
 const QuizzesGrid = ({ quizzes }: { quizzes: QuizDataType[] }) => {
     return (
-        <div className="min-[400px]:grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] max-sm:flex max-sm:flex-col gap-[3rem]">
+        <div className="min-[400px]:grid grid-cols-[repeat(auto-fill,minmax(325px,1fr))] max-sm:flex max-sm:flex-col gap-[3rem] items-stretch">
             {
                 quizzes && quizzes.map((quiz: QuizDataType) => {
                     return (

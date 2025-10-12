@@ -79,7 +79,10 @@ const quizzesService = {
     getBySearchQuery: async (searchQuery: string, quizzes: QuizDataType[]): Promise<QuizDataType[]> => {
         if ( !searchQuery ) return [];
         return quizzes.filter((quiz: QuizDataType) => 
-            quiz.title.toLowerCase().includes(searchQuery.toLowerCase())
+            quiz.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            quiz.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            quiz.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            quiz.tags.forEach(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
         )
     },
     getWithFilters: async (filters: { category?: string }): Promise<QuizDataType[]> => {

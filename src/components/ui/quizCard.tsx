@@ -39,9 +39,9 @@ const QuizCard:React.FC<QuizCardProps> = ({ id, imageUrl, author, slug, title, c
             onClick={openModal}>
                 <div
                 className={`
-                    flex flex-col justify-center items-start
+                    flex flex-col justify-between items-start
                     translate-y-[-5px] cursor-pointer relative z-2
-                    w-full p-[3rem] max-md:p-[2rem]
+                    w-full h-full p-[3rem] max-md:p-[2rem]
                     border-[5px] rounded-[20px] border-gray
                     active:translate-y-0 hover:translate-y-[-10px]
                     bg-white
@@ -67,20 +67,22 @@ const QuizCard:React.FC<QuizCardProps> = ({ id, imageUrl, author, slug, title, c
                             </div>
                         )
                     }
-                    <h2 style={{fontSize: 'clamp(2rem, 5vw, 2.5rem)'}}
+                    <div className="mb-[3rem]">
+                        <h2 style={{fontSize: 'clamp(2rem, 5vw, 2.5rem)'}}
                         className="text-[3rem] font-extrabold text-dark-1 mt-[2rem] mb-[1.5rem]">{title}</h2>
-                    <div className="flex items-center gap-[0.5rem]">
-                        <h3 className="text-[2rem] font-extrabold text-gray">от {author}</h3>
+                        <div className="flex items-center gap-[0.5rem]">
+                            <h3 className="text-[2rem] font-extrabold text-gray">от {author}</h3>
+                        </div>
+                        {
+                            pathname === '/quizzes' && (
+                                <h3 style={{fontSize: 'clamp(2rem, 5vw, 2rem)'}}
+                                    className="font-extrabold text-gray mt-[1.5rem]">
+                                    {data?.emoji} {data?.title}
+                                </h3>
+                            )
+                        }
                     </div>
-                    {
-                        pathname === '/quizzes' && (
-                            <h3 style={{fontSize: 'clamp(2rem, 5vw, 2rem)'}}
-                                className="font-extrabold text-gray mt-[2rem]">
-                                {data?.emoji} {data?.title}
-                            </h3>
-                        )
-                    }
-                    <Link href={linkHref} className="w-full mt-[2.5rem]">
+                    <Link href={linkHref} className="w-full">
                         <Button type="blue" styles="text-[2rem]">Пройти</Button>
                     </Link>
                 </div>
@@ -89,14 +91,15 @@ const QuizCard:React.FC<QuizCardProps> = ({ id, imageUrl, author, slug, title, c
             {
                 showModal && (
                     <div className="bg-black/40 fixed inset-0 z-999 grid place-items-center px-[2.5rem] w-full overflow-y-scroll py-[3rem]">
-                        <div className="bg-white border-[5px] border-gray rounded-[2rem] p-[3rem] max-w-[700px]">
+                        <div className="bg-white border-[5px] border-gray rounded-[2rem] p-[3rem] min-w-[100px] max-w-[700px]">
                             {
                                 imageUrl ? (
                                 <Image
                                     className="w-full h-[350px] max-md:h-[200px] object-cover rounded-[1rem]"
                                     src={imageUrl}
-                                    width={640}
+                                    width={200}
                                     height={350}
+                                    objectFit="cover"
                                     alt='Quiz'
                                 ></Image>
                                 ) : (
@@ -124,8 +127,8 @@ const QuizCard:React.FC<QuizCardProps> = ({ id, imageUrl, author, slug, title, c
                                 <p style={{fontSize: 'clamp(1.5rem, 3vw, 2rem)'}}
                                 >{description}</p>
                             </div>
-                            <div className="flex gap-[1.5rem]">
-                                <div className="w-[250px]">
+                            <div className="flex gap-[1.5rem] max-[500px]:flex-wrap-reverse">
+                                <div className="w-[250px] max-[500px]:w-full">
                                     <Button type="gray" onClick={closeModal}>Закрыть</Button>
                                 </div>
                                 <div className="w-full">

@@ -54,7 +54,7 @@ export default function OtherProfile() {
 
         if ( !userId || !userData ) {
             return (
-                <div className="flex flex-col items-center pt-[10rem] text-center px-[25px]">
+                <div className="flex flex-col items-center pt-[10rem] text-center px-[25px] mb-[10rem]">
                     <h1 style={{fontSize: 'clamp(2rem, 5vw, 3rem)'}}
                         className="font-extrabold">Похоже такого профиля не существует😅</h1>
                     <div className="flex items-center gap-[2rem] max-sm:flex-col-reverse mt-[5rem]">

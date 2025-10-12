@@ -34,7 +34,7 @@ const BaseModal:React.FC<BaseModalProps> = ({
     
     if ( modalActive ) {
         return (
-            <div className="bg-black/40 fixed inset-0 z-999 grid place-items-center px-[2.5rem] w-full overflow-y-scroll">
+            <div className="bg-black/40 fixed inset-0 z-999 grid place-items-center px-[2.5rem] w-[100lvw] h-[100lvh] overflow-y-scroll">
                 <div className={`bg-light-1 p-[3rem] rounded-[1.5rem] border-[5px] border-light-2 max-w-[600px] ${styles}`}>
                     <header className="flex items-center justify-between gap-[1.5rem] mb-[1.5rem]">
                         <h5 className={`text-[2.5rem] font-extrabold ${textColor}`}>{title}</h5>

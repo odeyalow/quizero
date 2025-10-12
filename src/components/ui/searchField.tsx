@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
 import Input from "./input";
 import useGetData from "@/hooks/useGetData";
@@ -12,9 +11,11 @@ const SearchField = () => {
     const { data } = useGetData<QuizDataType>('quizzes', quizzesService.getAll);
     const [searchResults, setSearchResults] = useState<QuizDataType[]>();
     const [searchFocused, setSearchFocused] = useState<boolean>(false);
-    const searchValidation = searchValue && searchValue.length > 0 && searchResults && searchResults.length > 0 && searchFocused;
+    const searchValidation = searchValue.trim() && searchResults && searchResults.length > 0 && searchFocused;
     const noResultValidation = searchResults && searchResults.length === 0 && searchValue && searchValue.length > 0 && searchFocused;
     const pathname = usePathname();
+    const { push } = useRouter();
+    const resultsRef = useRef<HTMLUListElement | null>(null);
 
     useEffect(() => {
        if ( searchValue && data ) {
@@ -33,13 +34,9 @@ const SearchField = () => {
     const handleFocus = (value: boolean) => {
         setSearchFocused(value);
     }
-    const linkHandle = (slug: string, id: string) => {
-        return {
-            pathname: `quizzes/${slug}`,
-            query: {
-                id: id
-            }
-        }
+    const onResultRoute = (slug: string, id: string) => {
+        push(`quizzes/${slug}?id=${id}`);
+        setSearchValue('');
     }
 
     return (
@@ -47,20 +44,22 @@ const SearchField = () => {
             <Input value={searchValue} type="text" name="search" placeholder="Искать квизы..." onChange={onSearch} onFocus={handleFocus}/>
             {
                 searchValidation && (
-                    searchResults.map((result: QuizDataType) => {
-                        return(
-                            <Link
-                            key={result.id}
-                            href={linkHandle(result.slug, result.id)}
-                            onClick={() => setSearchValue('')}>
-                                <ul className="bg-white border-[3.5px] border-gray rounded-[1rem] text-[1.6rem] max-h-[450px] overflow-y-scroll absolute z-99 w-full mt-[1rem]">
-                                    <li className="p-[1.25rem] hover:bg-gray">{result.title}</li>
-                                </ul>
-                            </Link>
-                        )
-                    })
+                    <ul ref={resultsRef} className={`bg-white border-[3.5px] border-gray rounded-[1rem] text-[1.6rem] max-h-[450px] absolute z-99 w-full mt-[1rem] ${searchResults.length > 1 && 'overflow-y-scroll'}`}>
+                        {
+                            searchResults.map((result: QuizDataType) => {
+                                return(
+                                        <button
+                                        className="w-full hover:bg-gray p-[1.5rem] text-left"
+                                        onMouseDown={() => onResultRoute(result.slug, result.id)}>
+                                            {result.title}
+                                        </button>                                    
+                                )
+                            })
+                        }
+                    </ul>
                 )
             }
+            
             {
                 noResultValidation && (
                     <div className="bg-white border-[3.5px] border-gray rounded-[1rem] text-[1.6rem] max-h-[450px] overflow-y-hidden absolute z-99 w-full mt-[1rem] p-[1.25rem]">Квизов по вашему запросу не найдено</div>

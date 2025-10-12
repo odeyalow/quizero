@@ -81,7 +81,7 @@ export default function Profile() {
 
     if ( !user.user ) {
         return (
-             <div className="flex flex-col items-center pt-[10rem] text-center px-[25px]">
+             <div className="flex flex-col items-center pt-[10rem] text-center px-[25px] mb-[10rem]">
                 <h1 style={{fontSize: 'clamp(2rem, 5vw, 3rem)'}}
                     className="font-extrabold mb-[1rem]">Неловко вышло... Похоже вы еще не авторизовались😅</h1>
                 <p  style={{fontSize: 'clamp(1rem, 3vw, 1.8rem)'}}
